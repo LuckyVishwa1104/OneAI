@@ -89,7 +89,7 @@ class SplashScreenView extends StatelessWidget {
                         icon: Icon(Icons.login, color: Colors.white),
                         label: Text('Continue with Google'),
                         style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.redAccent,
+                          backgroundColor: Colors.blueAccent,
                           minimumSize: Size(double.infinity, 50),
                           foregroundColor: Colors.white,
                         ),
