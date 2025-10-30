@@ -36,16 +36,21 @@ dependencies:
   cupertino_icons: ^1.0.8
 
   # architecture packages
-  stacked: ^3.4.4
-  stacked_services: ^1.6.0
+  stacked: 
+  stacked_services: 
+
+  # firebase dependies
+  firebase_core: 
+  firebase_auth: 
+  google_sign_in: 
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   # auto-generator packages
-  stacked_generator: ^1.6.1
-  build_runner: ^2.4.15
+  stacked_generator: 
+  build_runner: 
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # encourage good coding practices. The lint set provided by the package is
