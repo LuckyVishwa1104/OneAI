@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:one_ai/pages/home/home_view.dart';
 import 'package:one_ai/pages/splash_screen/splash_screen_view_model.dart';
 import 'package:stacked/stacked.dart';
 
@@ -85,6 +86,7 @@ class SplashScreenView extends StatelessWidget {
                       ElevatedButton.icon(
                         onPressed: () {
                           // Handle Google login
+                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeView()));
                         },
                         icon: Icon(Icons.login, color: Colors.white),
                         label: Text('Continue with Google'),
