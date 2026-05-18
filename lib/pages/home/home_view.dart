@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:one_ai/components/animated_ai_icon.dart';
+import 'package:one_ai/components/home_tile.dart';
 import 'package:one_ai/components/logo_tile.dart';
+import 'package:one_ai/model/home_tile_model.dart';
 import 'package:one_ai/utils/constants/app_colors.dart';
 import 'package:one_ai/utils/constants/app_radius.dart';
 import 'package:one_ai/utils/constants/app_spacing.dart';
@@ -11,15 +14,43 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    List<HomeTileModel> listTiles = [
+      HomeTileModel(
+        logoIcon: Icons.lightbulb,
+        title: "Creative Ideas",
+        subTitle: "Help me brainstorm innovative solution",
+      ),
+      HomeTileModel(
+        logoIcon: Icons.code,
+        title: "Code Assitant",
+        subTitle: "Write, debug, or explain",
+      ),
+      HomeTileModel(
+        logoIcon: Icons.image,
+        title: "Design & Visual",
+        subTitle: "Create UI dsign and layouts",
+      ),
+      HomeTileModel(
+        logoIcon: Icons.auto_awesome,
+        title: "General Help",
+        subTitle: "Ask me anything you need",
+      ),
+    ];
+
     return ViewModelBuilder.reactive(
       viewModelBuilder: () => HomeViewModel(),
       builder: (context, model, child) {
         return Scaffold(
           backgroundColor: AppColors.backgroundColor,
           appBar: AppBar(
+
+            backgroundColor: AppColors.backgroundColor,
+            elevation: 0,
+            actionsPadding: EdgeInsets.only(right: 5),
+
             title: Row(
               children: [
-                Icon(Icons.auto_awesome, size: 28, color: AppColors.primary),
+                AnimatedAiIcon(),
                 SizedBox(width: 5),
                 Text(
                   "OneAI",
@@ -32,12 +63,10 @@ class HomeView extends StatelessWidget {
               ],
             ),
 
-            backgroundColor: Colors.transparent,
-            elevation: 0,
-
             actions: [
               InkWell(
                 onTap: () => {},
+                borderRadius: AppRadius.radiusSm,
                 child: Container(
                   padding: EdgeInsets.all(3),
                   decoration: BoxDecoration(
@@ -96,13 +125,13 @@ class HomeView extends StatelessWidget {
                 child: Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.all(3.0),
+                      padding: const EdgeInsets.only(top: 3, bottom: 3, left: 7),
                       child: Text(
                         "GPT-4",
                         style: TextStyle(
                           fontSize: 17,
                           fontWeight: FontWeight.w500,
-                          color: Color(0xFF334155),
+                          color: AppColors.textSecondary,
                         ),
                       ),
                     ),
@@ -112,7 +141,7 @@ class HomeView extends StatelessWidget {
                       onTap: () => {},
                       child: Icon(
                         Icons.keyboard_arrow_down_rounded,
-                        color: Color(0xFF64748B),
+                        color: AppColors.textSecondary,
                         size: 24,
                       ),
                     ),
@@ -120,12 +149,12 @@ class HomeView extends StatelessWidget {
                 ),
               ),
             ],
-            actionsPadding: EdgeInsets.only(right: 5),
           ),
 
           drawer: Icon(Icons.grid_3x3),
 
-          body: Center(
+          body: Padding(
+            padding: AppSpacing.largePadding,
             child: Column(
               children: [
                 LogoTile(
@@ -134,18 +163,18 @@ class HomeView extends StatelessWidget {
                   width: 62,
                   iconSize: 40,
                 ),
+            
                 AppSpacing.h4,
-
+            
                 Text(
-                  "Welcom Back!",
+                  "Welcome Back!",
                   style: TextStyle(
-                    fontSize: 40,
+                    fontSize: 35,
                     fontWeight: FontWeight.w400,
                     color: AppColors.textPrimary,
                   ),
                 ),
-                AppSpacing.h2,
-
+            
                 Text(
                   "How can I help you today?",
                   style: TextStyle(
@@ -153,6 +182,25 @@ class HomeView extends StatelessWidget {
                     color: AppColors.textSecondary,
                   ),
                 ),
+            
+                AppSpacing.h20,
+            
+                Expanded(
+                  child: ListView.separated(
+                    physics: ScrollPhysics(),
+                    itemBuilder: (context, index) {
+                      return HomeTile(
+                        logoIcon: listTiles[index].logoIcon,
+                        title: listTiles[index].title,
+                        subTitle: listTiles[index].subTitle,
+                      );
+                    },
+                    separatorBuilder: (context, index) => AppSpacing.h12,
+                    padding: EdgeInsets.zero,
+                    itemCount: listTiles.length,
+                  ),
+                ),
+            
               ],
             ),
           ),
