@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:one_ai/components/logo_tile.dart';
 import 'package:one_ai/utils/constants/app_colors.dart';
 import 'package:one_ai/utils/constants/app_radius.dart';
+import 'package:one_ai/utils/constants/app_shadow.dart';
 import 'package:one_ai/utils/constants/app_spacing.dart';
 
 class HomeTile extends StatelessWidget {
@@ -26,48 +26,67 @@ class HomeTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: AppSpacing.defaultPadding,
+      padding: AppSpacing.xxlPadding,
 
       decoration: BoxDecoration(
-        // color: const Color(0xFFFFFFFF),
         color: AppColors.surface,
-
         borderRadius: AppRadius.radiusXl,
-
         border: Border.all(color: const Color(0xFFE2E8F0), width: 1.2),
-
-        boxShadow: [
-          BoxShadow(
-            color: Colors.black.withOpacity(0.04),
-            blurRadius: 14,
-            offset: const Offset(0, 4),
-          ),
-        ],
+        boxShadow: [AppShadow.homeTileShadow],
       ),
 
       child: Row(
+        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          LogoTile(
-            icon: logoIcon,
-            height: logoHeight,
-            width: logoWidth,
-            iconSize: logoIconSize,
+          Container(
+            height: 52,
+            width: 52,
+            decoration: BoxDecoration(
+              borderRadius: AppRadius.radiusMd,
+
+              gradient: const LinearGradient(
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+                colors: [Color(0xFFE0E7FF), Color(0xFFF3E8FF)],
+              ),
+            ),
+
+            child: Icon(logoIcon, size: 28, color: AppColors.primary),
           ),
 
-          AppSpacing.w12,
+          AppSpacing.w20,
 
-          Column(
-            children: [
-              Text(
-                title,
-                style: TextStyle(color: AppColors.textPrimary, fontSize: 25),
-              ),
-              AppSpacing.h4,
-              Text(
-                subTitle,
-                style: TextStyle(color: AppColors.textSecondary, fontSize: 20),
-              ),
-            ],
+          Expanded(
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                Text(
+                  title,
+                  style: TextStyle(
+                    color: AppColors.textPrimary,
+                    fontSize: 22,
+                    fontWeight: FontWeight.w500,
+                    height: 1.1,
+                  ),
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+
+                AppSpacing.h8,
+
+                Text(
+                  subTitle,
+                  style: TextStyle(
+                    color: AppColors.textSecondary,
+                    fontSize: 16,
+                    fontWeight: FontWeight.w500,
+                    height: 1.45,
+                  ),
+                  maxLines: 2,
+                  overflow: TextOverflow.ellipsis,
+                ),
+              ],
+            ),
           ),
 
           /// furthre code fo holme tile component
