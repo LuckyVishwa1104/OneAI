@@ -1,7 +1,8 @@
 import 'package:flutter/material.dart';
 
 class AnimatedAiIcon extends StatefulWidget {
-  const AnimatedAiIcon({super.key});
+  final double iconSize;
+  const AnimatedAiIcon({super.key, this.iconSize = 30});
 
   @override
   State<AnimatedAiIcon> createState() => _AnimatedAiIconState();
@@ -64,7 +65,11 @@ class _AnimatedAiIconState extends State<AnimatedAiIcon>
               ],
             ).createShader(bounds);
           },
-          child: const Icon(Icons.auto_awesome, size: 30, color: Colors.white),
+          child: Icon(
+            Icons.auto_awesome,
+            size: widget.iconSize,
+            color: Colors.white,
+          ),
         );
       },
     );

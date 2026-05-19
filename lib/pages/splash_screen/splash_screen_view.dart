@@ -1,6 +1,12 @@
 import 'package:flutter/material.dart';
+import 'package:one_ai/components/animated_ai_icon.dart';
+import 'package:one_ai/components/logo_tile.dart' show LogoTile;
 import 'package:one_ai/pages/home/home_view.dart';
 import 'package:one_ai/pages/splash_screen/splash_screen_view_model.dart';
+import 'package:one_ai/utils/constants/app_colors.dart';
+import 'package:one_ai/utils/constants/app_radius.dart';
+import 'package:one_ai/utils/constants/app_shadow.dart';
+import 'package:one_ai/utils/constants/app_spacing.dart';
 import 'package:stacked/stacked.dart';
 
 class SplashScreenView extends StatelessWidget {
@@ -21,40 +27,60 @@ class SplashScreenView extends StatelessWidget {
                 padding: EdgeInsets.symmetric(horizontal: 20),
                 child: Center(
                   child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.center,
                     children: [
-                      Padding(
-                        padding: const EdgeInsets.symmetric(horizontal: 10.0),
-                        child: RichText(
-                          textAlign: TextAlign.center,
-                          text: TextSpan(
-                            children: [
-                              TextSpan(
-                                text: model.displayedText,
-                                style: TextStyle(
-                                  fontSize: 28,
-                                  fontWeight: FontWeight.bold,
-                                  color: Colors.black,
+                      Expanded(
+                        child: Stack(
+                          children: [
+                            // Center text in full area
+                            Center(
+                              child: Padding(
+                                padding: const EdgeInsets.symmetric(
+                                  horizontal: 10.0,
                                 ),
-                              ),
-                              WidgetSpan(
-                                alignment: PlaceholderAlignment.middle,
-                                child: Container(
-                                  width: 20,
-                                  height: 20,
-                                  margin: EdgeInsets.only(
-                                    left: 5,
-                                    bottom: 5,
-                                  ), // Spacing from text
-                                  decoration: BoxDecoration(
-                                    color: Colors.black,
-                                    shape: BoxShape.circle,
+                                child: RichText(
+                                  textAlign: TextAlign.center,
+                                  text: TextSpan(
+                                    children: [
+                                      TextSpan(
+                                        text: model.displayedText,
+                                        style: TextStyle(
+                                          fontSize: 28,
+                                          fontWeight: FontWeight.w500,
+                                          color: AppColors.appBlack,
+                                        ),
+                                      ),
+                                      WidgetSpan(
+                                        alignment: PlaceholderAlignment.middle,
+                                        child: Container(
+                                          width: 20,
+                                          height: 20,
+                                          margin: const EdgeInsets.only(
+                                            left: 5,
+                                            bottom: 5,
+                                          ),
+                                          decoration: BoxDecoration(
+                                            color: AppColors.appBlack,
+                                            shape: BoxShape.circle,
+                                          ),
+                                        ),
+                                      ),
+                                    ],
                                   ),
                                 ),
                               ),
-                            ],
-                          ),
+                            ),
+
+                            // AI Icon positioned in upper half
+                            Align(
+                              alignment: Alignment(0, -0.45),
+                              child: LogoTile(
+                                icon: Icons.auto_awesome,
+                                height: 62,
+                                width: 62,
+                                iconSize: 40,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
@@ -86,7 +112,10 @@ class SplashScreenView extends StatelessWidget {
                       ElevatedButton.icon(
                         onPressed: () {
                           // Handle Google login
-                          Navigator.pushReplacement(context, MaterialPageRoute(builder: (context) => HomeView()));
+                          Navigator.pushReplacement(
+                            context,
+                            MaterialPageRoute(builder: (context) => HomeView()),
+                          );
                         },
                         icon: Icon(Icons.login, color: Colors.white),
                         label: Text('Continue with Google'),

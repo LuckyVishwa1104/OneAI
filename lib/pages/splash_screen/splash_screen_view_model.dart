@@ -8,13 +8,13 @@ class SplashScreenViewModel extends BaseViewModel {
   final navigationService = locator<NavigationService>();
 
   final List<Color> rainbowColors = [
-    Color(0xFFFF0000), // Red
-    Color(0xFFFF7F00), // Orange
-    Color(0xFFFFFF00), // Yellow
-    Color(0xFF00FF00), // Green
-    Color(0xFF0000FF), // Blue
-    Color(0xFF4B0082), // Indigo
-    Color(0xFF8B00FF), // Violet (Purple)
+    Color(0xFFFFC9C9), // Pastel Red
+    Color(0xFFFFD8A8), // Pastel Orange
+    Color(0xFFFFF3BF), // Pastel Yellow
+    Color(0xFFC3FAE8), // Mint Green
+    Color(0xFFA5D8FF), // Sky Blue
+    Color(0xFFD0BFFF), // Lavender Indigo
+    Color(0xFFFFD6E7), // Soft Pink Violet
   ];
 
   final List<String> messages = [
