@@ -19,7 +19,7 @@ class AppColors {
 
   // standard black color
   static const Color appBlack = Colors.black;
-
   // standard white color
   static const Color appWhite = Colors.white;
+  
 }
