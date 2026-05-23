@@ -30,7 +30,7 @@ class HomeTile extends StatelessWidget {
 
       decoration: BoxDecoration(
         color: AppColors.surface,
-        borderRadius: AppRadius.radiusXl,
+        borderRadius: AppRadius.radiusXxl,
         border: Border.all(color: const Color(0xFFE2E8F0), width: 1.2),
         boxShadow: [AppShadow.homeTileShadow],
       ),
