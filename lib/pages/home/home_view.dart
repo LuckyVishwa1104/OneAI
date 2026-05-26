@@ -43,9 +43,8 @@ class HomeView extends StatelessWidget {
         return Scaffold(
           backgroundColor: AppColors.backgroundColor,
           appBar: AppBar(
-
             backgroundColor: AppColors.backgroundColor,
-            elevation: 0,
+            // elevation: 0,
             actionsPadding: EdgeInsets.only(right: 5),
 
             title: Row(
@@ -125,7 +124,11 @@ class HomeView extends StatelessWidget {
                 child: Row(
                   children: [
                     Padding(
-                      padding: const EdgeInsets.only(top: 3, bottom: 3, left: 7),
+                      padding: const EdgeInsets.only(
+                        top: 3,
+                        bottom: 3,
+                        left: 7,
+                      ),
                       child: Text(
                         "GPT-4",
                         style: TextStyle(
@@ -163,9 +166,9 @@ class HomeView extends StatelessWidget {
                   width: 62,
                   iconSize: 40,
                 ),
-            
+
                 AppSpacing.h4,
-            
+
                 Text(
                   "Welcome Back!",
                   style: TextStyle(
@@ -174,7 +177,7 @@ class HomeView extends StatelessWidget {
                     color: AppColors.textPrimary,
                   ),
                 ),
-            
+
                 Text(
                   "How can I help you today?",
                   style: TextStyle(
@@ -182,9 +185,9 @@ class HomeView extends StatelessWidget {
                     color: AppColors.textSecondary,
                   ),
                 ),
-            
+
                 AppSpacing.h20,
-            
+
                 Expanded(
                   child: ListView.separated(
                     physics: ScrollPhysics(),
@@ -200,8 +203,131 @@ class HomeView extends StatelessWidget {
                     itemCount: listTiles.length,
                   ),
                 ),
-            
               ],
+            ),
+          ),
+
+          bottomNavigationBar: Padding(
+            padding: EdgeInsets.only(
+              left: 16,
+              right: 16,
+              // top: 8,
+              bottom: MediaQuery.of(context).viewInsets.bottom + 16,
+            ),
+            child: SafeArea(
+              child: Container(
+                padding: const EdgeInsets.symmetric(
+                  horizontal: 14,
+                  vertical: 10,
+                ),
+                decoration: BoxDecoration(
+                  color: Colors.white,
+                  borderRadius: BorderRadius.circular(28),
+                  border: Border.all(color: Colors.grey.shade200),
+                  boxShadow: [
+                    BoxShadow(
+                      color: Colors.black.withOpacity(0.06),
+                      blurRadius: 18,
+                      offset: const Offset(0, 6),
+                    ),
+                  ],
+                ),
+                child: Row(
+                  crossAxisAlignment: CrossAxisAlignment.end,
+                  children: [
+                    Container(
+                      height: 42,
+                      width: 42,
+                      decoration: BoxDecoration(
+                        color: Colors.grey.shade100,
+                        shape: BoxShape.circle,
+                      ),
+                      child: IconButton(
+                        onPressed: () {},
+                        icon: const Icon(Icons.attach_file_rounded),
+                      ),
+                    ),
+
+                    AppSpacing.w8,
+
+                    Expanded(
+                      child: ConstrainedBox(
+                        constraints: const BoxConstraints(
+                          maxHeight: 240, // تقريبًا 10 lines
+                        ),
+                        child: Scrollbar(
+                          child: TextField(
+                            controller: model.promptController,
+                            minLines: 1,
+                            maxLines: null,
+                            keyboardType: TextInputType.multiline,
+                            textInputAction: TextInputAction.newline,
+
+                            scrollPhysics: const BouncingScrollPhysics(),
+
+                            decoration: InputDecoration(
+                              hintText: "Ask anything...",
+                              hintStyle: TextStyle(color: Colors.grey.shade500),
+                              border: InputBorder.none,
+                              contentPadding: const EdgeInsets.symmetric(
+                                vertical: 12,
+                              ),
+                            ),
+                          ),
+                        ),
+                      ),
+                    ),
+
+                    AppSpacing.w8,
+
+                    AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 250),
+
+                      child:
+                          model.promptController.text.trim().isEmpty
+                              ? Row(
+                                key: const ValueKey("mic"),
+
+                                children: [
+                                  Container(
+                                    height: 42,
+                                    width: 42,
+                                    decoration: BoxDecoration(
+                                      color: Colors.grey.shade100,
+                                      shape: BoxShape.circle,
+                                    ),
+                                    child: IconButton(
+                                      onPressed: () {},
+                                      icon: const Icon(Icons.mic_none_rounded),
+                                    ),
+                                  ),
+
+                                  AppSpacing.w8,
+                                ],
+                              )
+                              : const SizedBox.shrink(),
+                    ),
+
+                    AppSpacing.w8,
+
+                    Container(
+                      height: 46,
+                      width: 46,
+                      decoration: BoxDecoration(
+                        color: Colors.blue,
+                        shape: BoxShape.circle,
+                      ),
+                      child: IconButton(
+                        onPressed: () => model.sendPrompt(context),
+                        icon: const Icon(
+                          Icons.arrow_upward_rounded,
+                          color: Colors.white,
+                        ),
+                      ),
+                    ),
+                  ],
+                ),
+              ),
             ),
           ),
         );
