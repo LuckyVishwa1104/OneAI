@@ -11,7 +11,7 @@ class CounterView extends StatelessWidget {
       viewModelBuilder: () => CounterViewModel(),
       builder: (context, model, child) {
         return Scaffold(
-          appBar: AppBar(title: Text('Counter Screen')),
+          appBar: AppBar(title: Text('Chat Screen')),
           body: Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.spaceEvenly,
@@ -22,7 +22,7 @@ class CounterView extends StatelessWidget {
                   onPressed: () {
                     model.addValue();
                   },
-                  child: Text('Increase counter'),
+                  child: Text('Send Prompt'),
                 ),
                 // SizedBox(height: 25),
                 ElevatedButton(
