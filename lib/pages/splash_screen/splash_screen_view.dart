@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:one_ai/components/animated_ai_icon.dart';
 import 'package:one_ai/components/logo_tile.dart' show LogoTile;
 import 'package:one_ai/pages/home/home_view.dart';
 import 'package:one_ai/pages/splash_screen/splash_screen_view_model.dart';
 import 'package:one_ai/utils/constants/app_colors.dart';
-import 'package:one_ai/utils/constants/app_radius.dart';
-import 'package:one_ai/utils/constants/app_shadow.dart';
-import 'package:one_ai/utils/constants/app_spacing.dart';
+import 'package:one_ai/utils/constants/app_text_styles.dart';
 import 'package:stacked/stacked.dart';
 
 class SplashScreenView extends StatelessWidget {
@@ -43,10 +40,8 @@ class SplashScreenView extends StatelessWidget {
                                     children: [
                                       TextSpan(
                                         text: model.displayedText,
-                                        style: TextStyle(
+                                        style: AppTextStyles.heading.copyWith(
                                           fontSize: 28,
-                                          fontWeight: FontWeight.w500,
-                                          color: AppColors.appBlack,
                                         ),
                                       ),
                                       WidgetSpan(
