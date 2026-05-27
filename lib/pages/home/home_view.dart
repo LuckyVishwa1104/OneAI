@@ -6,6 +6,7 @@ import 'package:one_ai/model/home_tile_model.dart';
 import 'package:one_ai/utils/constants/app_colors.dart';
 import 'package:one_ai/utils/constants/app_radius.dart';
 import 'package:one_ai/utils/constants/app_spacing.dart';
+import 'package:one_ai/utils/constants/app_text_styles.dart';
 import 'package:stacked/stacked.dart';
 import 'home_view_model.dart';
 
@@ -18,7 +19,7 @@ class HomeView extends StatelessWidget {
       HomeTileModel(
         logoIcon: Icons.lightbulb,
         title: "Creative Ideas",
-        subTitle: "Help me brainstorm innovative solution",
+        subTitle: "Help me brainstorm solution",
       ),
       HomeTileModel(
         logoIcon: Icons.code,
@@ -53,10 +54,9 @@ class HomeView extends StatelessWidget {
                 SizedBox(width: 5),
                 Text(
                   "OneAI",
-                  style: TextStyle(
+                  style: AppTextStyles.heading.copyWith(
                     fontSize: 25,
                     fontWeight: FontWeight.w400,
-                    color: AppColors.textPrimary,
                   ),
                 ),
               ],
@@ -171,19 +171,19 @@ class HomeView extends StatelessWidget {
 
                 Text(
                   "Welcome Back!",
-                  style: TextStyle(
+                  style: AppTextStyles.heading.copyWith(
                     fontSize: 35,
                     fontWeight: FontWeight.w400,
-                    color: AppColors.textPrimary,
                   ),
                 ),
 
                 Text(
-                  "How can I help you today?",
-                  style: TextStyle(
-                    fontSize: 20,
-                    color: AppColors.textSecondary,
-                  ),
+                  "How can I help?",
+                  style: AppTextStyles.subHeading.copyWith(fontSize: 20),
+                  // TextStyle(
+                  //   fontSize: 20,
+                  //   color: AppColors.textSecondary,
+                  // ),
                 ),
 
                 AppSpacing.h20,
