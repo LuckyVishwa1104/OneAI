@@ -244,6 +244,7 @@ class HomeView extends StatelessWidget {
                                 key: const ValueKey("attach"),
                                 children: [
                                   LogoTile(
+                                    isLogo: false,
                                     icon: Icons.attach_file_rounded,
                                     isCircular: true,
                                     iconSize: 24,
@@ -296,6 +297,7 @@ class HomeView extends StatelessWidget {
 
                                 children: [
                                   LogoTile(
+                                    isLogo: false,
                                     icon: Icons.mic_none_rounded,
                                     isCircular: true,
                                     iconSize: 24,
@@ -312,7 +314,7 @@ class HomeView extends StatelessWidget {
                       icon: Icons.arrow_upward_rounded,
                       isCircular: true,
                       iconSize: 24,
-                      onTap: () {},
+                      onTap: () => model.sendPrompt(context),
                     ),
                   ],
                 ),
