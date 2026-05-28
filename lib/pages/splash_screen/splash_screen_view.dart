@@ -88,7 +88,7 @@ class SplashScreenView extends StatelessWidget {
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
                   decoration: BoxDecoration(
-                    color: Colors.white,
+                    color: AppColors.backgroundColor,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30),
