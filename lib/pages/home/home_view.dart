@@ -5,6 +5,7 @@ import 'package:one_ai/components/logo_tile.dart';
 import 'package:one_ai/model/home_tile_model.dart';
 import 'package:one_ai/utils/constants/app_colors.dart';
 import 'package:one_ai/utils/constants/app_radius.dart';
+import 'package:one_ai/utils/constants/app_shadow.dart';
 import 'package:one_ai/utils/constants/app_spacing.dart';
 import 'package:one_ai/utils/constants/app_text_styles.dart';
 import 'package:stacked/stacked.dart';
@@ -180,10 +181,6 @@ class HomeView extends StatelessWidget {
                 Text(
                   "How can I help?",
                   style: AppTextStyles.subHeading.copyWith(fontSize: 20),
-                  // TextStyle(
-                  //   fontSize: 20,
-                  //   color: AppColors.textSecondary,
-                  // ),
                 ),
 
                 AppSpacing.h20,
@@ -207,45 +204,54 @@ class HomeView extends StatelessWidget {
             ),
           ),
 
+          // bottom: MediaQuery.of(context).viewInsets.bottom + 6.0,
           bottomNavigationBar: Padding(
             padding: EdgeInsets.only(
-              left: 16,
-              right: 16,
-              // top: 8,
-              bottom: MediaQuery.of(context).viewInsets.bottom + 16,
+              bottom: MediaQuery.of(context).viewInsets.bottom,
             ),
             child: SafeArea(
+              maintainBottomViewPadding: false,
               child: Container(
                 padding: const EdgeInsets.symmetric(
                   horizontal: 14,
                   vertical: 10,
                 ),
                 decoration: BoxDecoration(
-                  color: Colors.white,
-                  borderRadius: BorderRadius.circular(28),
-                  border: Border.all(color: Colors.grey.shade200),
-                  boxShadow: [
-                    BoxShadow(
-                      color: Colors.black.withOpacity(0.06),
-                      blurRadius: 18,
-                      offset: const Offset(0, 6),
+                  color: AppColors.surface,
+                  borderRadius: AppRadius.radiusXxlTop,
+                  border: Border(
+                    left: BorderSide(
+                      color: const Color(0xFFE2E8F0),
+                      width: 1.2,
                     ),
-                  ],
+                    right: BorderSide(
+                      color: const Color(0xFFE2E8F0),
+                      width: 1.2,
+                    ),
+                    top: BorderSide(color: const Color(0xFFE2E8F0), width: 1.2),
+                  ),
+                  boxShadow: [AppShadow.homeTileShadow],
                 ),
                 child: Row(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
-                    Container(
-                      height: 42,
-                      width: 42,
-                      decoration: BoxDecoration(
-                        color: Colors.grey.shade100,
-                        shape: BoxShape.circle,
-                      ),
-                      child: IconButton(
-                        onPressed: () {},
-                        icon: const Icon(Icons.attach_file_rounded),
-                      ),
+                    AnimatedSwitcher(
+                      duration: const Duration(milliseconds: 180),
+
+                      child:
+                          model.promptController.text.trim().isEmpty
+                              ? Row(
+                                key: const ValueKey("attach"),
+                                children: [
+                                  LogoTile(
+                                    icon: Icons.attach_file_rounded,
+                                    isCircular: true,
+                                    iconSize: 24,
+                                    onTap: () {},
+                                  ),
+                                ],
+                              )
+                              : const SizedBox.shrink(),
                     ),
 
                     AppSpacing.w8,
@@ -281,7 +287,7 @@ class HomeView extends StatelessWidget {
                     AppSpacing.w8,
 
                     AnimatedSwitcher(
-                      duration: const Duration(milliseconds: 250),
+                      duration: const Duration(milliseconds: 180),
 
                       child:
                           model.promptController.text.trim().isEmpty
@@ -289,20 +295,12 @@ class HomeView extends StatelessWidget {
                                 key: const ValueKey("mic"),
 
                                 children: [
-                                  Container(
-                                    height: 42,
-                                    width: 42,
-                                    decoration: BoxDecoration(
-                                      color: Colors.grey.shade100,
-                                      shape: BoxShape.circle,
-                                    ),
-                                    child: IconButton(
-                                      onPressed: () {},
-                                      icon: const Icon(Icons.mic_none_rounded),
-                                    ),
+                                  LogoTile(
+                                    icon: Icons.mic_none_rounded,
+                                    isCircular: true,
+                                    iconSize: 24,
+                                    onTap: () {},
                                   ),
-
-                                  AppSpacing.w8,
                                 ],
                               )
                               : const SizedBox.shrink(),
@@ -310,20 +308,11 @@ class HomeView extends StatelessWidget {
 
                     AppSpacing.w8,
 
-                    Container(
-                      height: 46,
-                      width: 46,
-                      decoration: BoxDecoration(
-                        color: Colors.blue,
-                        shape: BoxShape.circle,
-                      ),
-                      child: IconButton(
-                        onPressed: () => model.sendPrompt(context),
-                        icon: const Icon(
-                          Icons.arrow_upward_rounded,
-                          color: Colors.white,
-                        ),
-                      ),
+                    LogoTile(
+                      icon: Icons.arrow_upward_rounded,
+                      isCircular: true,
+                      iconSize: 24,
+                      onTap: () {},
                     ),
                   ],
                 ),
