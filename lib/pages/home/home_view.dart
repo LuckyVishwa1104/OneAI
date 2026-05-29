@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:one_ai/components/animated_ai_icon.dart';
 import 'package:one_ai/components/home_tile.dart';
 import 'package:one_ai/components/logo_tile.dart';
-import 'package:one_ai/model/home_tile_model.dart';
 import 'package:one_ai/utils/constants/app_colors.dart';
 import 'package:one_ai/utils/constants/app_radius.dart';
 import 'package:one_ai/utils/constants/app_shadow.dart';
@@ -16,29 +15,6 @@ class HomeView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    List<HomeTileModel> listTiles = [
-      HomeTileModel(
-        logoIcon: Icons.lightbulb,
-        title: "Creative Ideas",
-        subTitle: "Help me brainstorm solution",
-      ),
-      HomeTileModel(
-        logoIcon: Icons.code,
-        title: "Code Assitant",
-        subTitle: "Write, debug, or explain",
-      ),
-      HomeTileModel(
-        logoIcon: Icons.image,
-        title: "Design & Visual",
-        subTitle: "Create UI dsign and layouts",
-      ),
-      HomeTileModel(
-        logoIcon: Icons.auto_awesome,
-        title: "General Help",
-        subTitle: "Ask me anything you need",
-      ),
-    ];
-
     return ViewModelBuilder.reactive(
       viewModelBuilder: () => HomeViewModel(),
       builder: (context, model, child) {
@@ -190,14 +166,14 @@ class HomeView extends StatelessWidget {
                     physics: ScrollPhysics(),
                     itemBuilder: (context, index) {
                       return HomeTile(
-                        logoIcon: listTiles[index].logoIcon,
-                        title: listTiles[index].title,
-                        subTitle: listTiles[index].subTitle,
+                        logoIcon: model.listTiles[index].logoIcon,
+                        title: model.listTiles[index].title,
+                        subTitle: model.listTiles[index].subTitle,
                       );
                     },
                     separatorBuilder: (context, index) => AppSpacing.h12,
                     padding: EdgeInsets.zero,
-                    itemCount: listTiles.length,
+                    itemCount: model.listTiles.length,
                   ),
                 ),
               ],
@@ -237,7 +213,6 @@ class HomeView extends StatelessWidget {
                   children: [
                     AnimatedSwitcher(
                       duration: const Duration(milliseconds: 180),
-
                       child:
                           model.promptController.text.trim().isEmpty
                               ? Row(
