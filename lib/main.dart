@@ -13,13 +13,16 @@ Future<void> main() async {
   await setupLocator();
   SystemChrome.setSystemUIOverlayStyle(
     const SystemUiOverlayStyle(
-      statusBarColor: AppColors.backgroundColor,
-      statusBarIconBrightness: Brightness.dark,
-
-      systemNavigationBarColor: AppColors.backgroundColor,
-      systemNavigationBarIconBrightness: Brightness.dark,
+      systemNavigationBarColor:
+          AppColors.backgroundColor, // Sets the bottom bar color
+      systemNavigationBarIconBrightness:
+          Brightness.dark, // Makes the icons dark/visible
+      // Optional: You can also style the top status bar here if needed
+      // statusBarColor: Colors.white,
+      // statusBarIconBrightness: Brightness.dark,
     ),
   );
+
   runApp(const MyApp());
 }
 
@@ -30,6 +33,14 @@ class MyApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp(
+      theme: ThemeData(
+        scaffoldBackgroundColor: Colors.white,
+        appBarTheme: const AppBarTheme(
+          backgroundColor: Colors.white,
+          foregroundColor: Colors.black, // Text/icon color for AppBar
+          elevation: 0,
+        ),
+      ),
       debugShowCheckedModeBanner: false,
       navigatorKey: StackedService.navigatorKey,
       onGenerateRoute: StackedRouter().onGenerateRoute,
