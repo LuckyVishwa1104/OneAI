@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:one_ai/components/animated_ai_icon.dart';
-import 'package:one_ai/components/home_tile.dart';
-import 'package:one_ai/components/logo_tile.dart';
+import 'package:one_ai/utils/components/animated_ai_icon.dart';
+import 'package:one_ai/utils/components/home_tile.dart';
+import 'package:one_ai/utils/components/logo_tile.dart';
 import 'package:one_ai/utils/constants/app_colors.dart';
 import 'package:one_ai/utils/constants/app_radius.dart';
 import 'package:one_ai/utils/constants/app_shadow.dart';
@@ -22,7 +22,6 @@ class HomeView extends StatelessWidget {
           backgroundColor: AppColors.backgroundColor,
           appBar: AppBar(
             backgroundColor: AppColors.backgroundColor,
-            // elevation: 0,
             actionsPadding: EdgeInsets.only(right: 5),
 
             title: Row(

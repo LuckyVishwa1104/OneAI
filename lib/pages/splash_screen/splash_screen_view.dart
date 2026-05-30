@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:one_ai/components/logo_tile.dart' show LogoTile;
+import 'package:one_ai/utils/components/logo_tile.dart' show LogoTile;
 import 'package:one_ai/pages/home/home_view.dart';
 import 'package:one_ai/pages/splash_screen/splash_screen_view_model.dart';
 import 'package:one_ai/utils/constants/app_colors.dart';
