@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/utils/components/logo_tile.dart';
+import 'package:one_ai/utils/constants/app_border.dart';
 import 'package:one_ai/utils/constants/app_colors.dart';
 import 'package:one_ai/utils/constants/app_radius.dart';
 import 'package:one_ai/utils/constants/app_shadow.dart';
@@ -35,7 +36,7 @@ class HomeTile extends StatelessWidget {
         decoration: BoxDecoration(
           color: AppColors.surface,
           borderRadius: AppRadius.radiusXxl,
-          border: Border.all(color: const Color(0xFFE2E8F0), width: 1.2),
+          border: AppBorder.defaultBorder,
           boxShadow: [AppShadow.homeTileShadow],
         ),
 
