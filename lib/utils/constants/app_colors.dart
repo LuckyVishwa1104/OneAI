@@ -17,9 +17,15 @@ class AppColors {
   // Surface / Cards
   static const Color surface = Color(0xFFFFFFFF);
 
-  // standard black color
+  // border color
+  static const Color borderColor = Color(0xFFDCE3ED);
+
+  // standard black and white color
   static const Color appBlack = Colors.black;
-  // standard white color
   static const Color appWhite = Colors.white;
+
+  // lighint bolt color 
+  static const Color innerBolt = Color(0xFFFF8F00);
+  static const Color outerBolt = Color(0xFFFFEB3B);
   
 }
