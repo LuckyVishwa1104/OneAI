@@ -18,11 +18,10 @@ Future<void> main() async {
       systemNavigationBarIconBrightness:
           Brightness.dark, // Makes the icons dark/visible
       // Optional: You can also style the top status bar here if needed
-      // statusBarColor: Colors.white,
-      // statusBarIconBrightness: Brightness.dark,
+      statusBarColor: AppColors.backgroundColor, 
+      statusBarIconBrightness: Brightness.dark,
     ),
   );
-
   runApp(const MyApp());
 }
 
@@ -34,10 +33,10 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MaterialApp(
       theme: ThemeData(
-        scaffoldBackgroundColor: Colors.white,
+        scaffoldBackgroundColor: AppColors.backgroundColor,
         appBarTheme: const AppBarTheme(
-          backgroundColor: Colors.white,
-          foregroundColor: Colors.black, // Text/icon color for AppBar
+          backgroundColor: AppColors.backgroundColor,
+          foregroundColor: Colors.black, 
           elevation: 0,
         ),
       ),
