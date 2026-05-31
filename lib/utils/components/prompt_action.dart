@@ -14,23 +14,25 @@ class PromptAction extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return AnimatedSwitcher(
-      duration: const Duration(milliseconds: 180),
-      child:
-          text.trim().isEmpty
-              ? Row(
-                key: const ValueKey("action_icon"),
-                children: [
-                  LogoTile(
-                    isLogo: false,
-                    icon: icon,
-                    isCircular: true,
-                    iconSize: 24,
-                    onTap: onTap,
-                  ),
-                ],
-              )
-              : const SizedBox.shrink(),
+    final isVisible = text.trim().isEmpty;
+
+    return AnimatedSize(
+      duration: const Duration(milliseconds: 250),
+      curve: Curves.easeInOut,
+      child: SizedBox(
+        width: isVisible ? 40 : 0,
+        child: AnimatedOpacity(
+          duration: const Duration(milliseconds: 200),
+          opacity: isVisible ? 1 : 0,
+          child: LogoTile(
+            isLogo: false,
+            icon: icon,
+            isCircular: true,
+            iconSize: 24,
+            onTap: onTap,
+          ),
+        ),
+      ),
     );
   }
 }

@@ -14,7 +14,6 @@ class AppBarComponent extends StatelessWidget implements PreferredSizeWidget{
   @override
   Widget build(BuildContext context) {
     return AppBar(
-      backgroundColor: AppColors.backgroundColor,
       actionsPadding: EdgeInsets.only(right: 5),
 
       title: Row(
@@ -46,10 +45,8 @@ class AppBarComponent extends StatelessWidget implements PreferredSizeWidget{
         AppBarAction(
           child: Row(
             children: [
-              Padding(
-                padding: const EdgeInsets.only(top: 3, bottom: 3, left: 7),
-                child: Text("GPT-4", style: AppTextStyles.subHeading),
-              ),
+              AppSpacing.w2,
+              Text("GPT-4", style: AppTextStyles.subHeading),
               Icon(
                 Icons.keyboard_arrow_down_rounded,
                 color: AppColors.textSecondary,
