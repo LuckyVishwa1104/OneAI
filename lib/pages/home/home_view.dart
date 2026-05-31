@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/utils/components/app_bar_component.dart';
+import 'package:one_ai/utils/components/app_drawer.dart';
 import 'package:one_ai/utils/components/home_tile.dart';
 import 'package:one_ai/utils/components/logo_tile.dart';
 import 'package:one_ai/utils/components/prompt_input.dart';
@@ -22,7 +23,7 @@ class HomeView extends StatelessWidget {
 
           appBar: AppBarComponent(),
 
-          drawer: Icon(Icons.grid_3x3),
+          drawer: AppDrawer(),
 
           body: Padding(
             padding: AppSpacing.largePadding,
