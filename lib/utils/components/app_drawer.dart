@@ -1,8 +1,8 @@
 import 'package:flutter/material.dart';
-import 'package:one_ai/utils/components/animated_ai_icon.dart';
+import 'package:one_ai/utils/components/drawer_action.dart';
 import 'package:one_ai/utils/components/logo_tile.dart';
 import 'package:one_ai/utils/constants/app_colors.dart';
-import 'package:one_ai/utils/constants/app_radius.dart';
+import 'package:one_ai/utils/constants/app_constant.dart';
 import 'package:one_ai/utils/constants/app_spacing.dart';
 import 'package:one_ai/utils/constants/app_text_styles.dart';
 
@@ -15,6 +15,17 @@ class AppDrawer extends StatefulWidget {
 
 class _AppDrawerState extends State<AppDrawer> {
   bool showMoreActions = false;
+
+  final List<QuickAction> quickActions = [
+    QuickAction(icon: Icons.code, title: 'Code'),
+    QuickAction(icon: Icons.image_outlined, title: 'Image'),
+  ];
+
+  final List<QuickAction> moreQuickActions = [
+    QuickAction(title: "Voice Chat", icon: Icons.mic_none_rounded),
+    QuickAction(title: "Summarize", icon: Icons.summarize_outlined),
+    QuickAction(title: "Analyze PDF", icon: Icons.picture_as_pdf_outlined),
+  ];
 
   final List<String> projects = [
     "Flutter App",
@@ -30,6 +41,8 @@ class _AppDrawerState extends State<AppDrawer> {
     "Banking App",
     "Flutter Interview Prep",
     "Resume Improvements",
+    "AWS S3 Storage",
+    "Angular Components",
   ];
 
   @override
@@ -52,26 +65,24 @@ class _AppDrawerState extends State<AppDrawer> {
                     style: AppTextStyles.heading.copyWith(
                       fontSize: 25,
                       fontWeight: FontWeight.w400,
-                      color: AppColors.primary
+                      color: AppColors.primary,
                     ),
                   ),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors: [Color(0xFFE0E7FF), Color(0xFFF3E8FF)],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
-                      // shape: BoxShape.rectangle,
-
-                      borderRadius: BorderRadius.circular(50),
-                    ),
+                  DrawerAction(
                     child: Row(
                       children: [
-                        Icon(Icons.edit_document, color: AppColors.primary, size: 20,),
+                        Icon(
+                          Icons.mode_edit_outlined,
+                          color: AppColors.primary,
+                          size: 20,
+                        ),
                         AppSpacing.w4,
-                        Text("New", style: AppTextStyles.subHeading.copyWith(color: AppColors.primary)),
+                        Text(
+                          "New",
+                          style: AppTextStyles.subHeading.copyWith(
+                            color: AppColors.primary,
+                          ),
+                        ),
                       ],
                     ),
                   ),
@@ -89,13 +100,20 @@ class _AppDrawerState extends State<AppDrawer> {
                     // ==========================================
                     // SECTION 2
                     // ==========================================
-                    _sectionTitle("Quick Actions"),
+                    _sectionTitle(title: "Quick Actions", viewAll: false),
 
-                    _actionTile(icon: Icons.code, title: "Code"),
-
-                    _actionTile(icon: Icons.image_outlined, title: "Image"),
+                    ...quickActions.map(
+                      (actions) => _actionTile(
+                        title: actions.title,
+                        isProject: false,
+                        icon: actions.icon,
+                        isChat: false,
+                      ),
+                    ),
 
                     _actionTile(
+                      isProject: false,
+                      isChat: false,
                       icon:
                           showMoreActions
                               ? Icons.expand_less
@@ -116,42 +134,35 @@ class _AppDrawerState extends State<AppDrawer> {
                               : CrossFadeState.showFirst,
                       firstChild: const SizedBox.shrink(),
                       secondChild: Column(
-                        children: [
-                          _actionTile(title : "Voice Chat", icon: Icons.settings_voice),
-                          _actionTile(title : "Summarize", icon: Icons.summarize),
-                          _actionTile(title : "Analyze PDF", icon: Icons.picture_as_pdf),
-                        ],
+                        children:
+                            moreQuickActions
+                                .map(
+                                  (action) => _actionTile(
+                                    title: action.title,
+                                    icon: action.icon,
+                                    isProject: false,
+                                    isChat: false,
+                                  ),
+                                )
+                                .toList(),
                       ),
                     ),
 
-                    const SizedBox(height: 16),
-
                     // ==========================================
-                    // SECTION 3
+                    // SECTION 3 - PROJECTS
                     // ==========================================
-                    _sectionTitle("Projects"),
+                    _sectionTitle(title: "Projects", viewAll: true),
 
-                    ...projects.map((project) => _projectTile(project)),
-
-                    Padding(
-                      padding: const EdgeInsets.symmetric(horizontal: 12),
-                      child: Align(
-                        alignment: Alignment.centerLeft,
-                        child: TextButton(
-                          onPressed: () {},
-                          child: const Text("View All"),
-                        ),
-                      ),
+                    ...projects.map(
+                      (project) => _actionTile(title: project, isProject: true, isChat: false),
                     ),
-
-                    const SizedBox(height: 12),
 
                     // ==========================================
                     // SECTION 4
                     // ==========================================
-                    _sectionTitle("Recent Chats"),
+                    _sectionTitle(title: "Recent Chats",viewAll: true),
 
-                    ...recentChats.map((chat) => _chatTile(chat)),
+                    ...recentChats.map((chat) => _actionTile(isChat: true, title: chat, isProject: false)),
 
                     const SizedBox(height: 20),
                   ],
@@ -170,11 +181,15 @@ class _AppDrawerState extends State<AppDrawer> {
                 padding: const EdgeInsets.all(14),
                 child: Row(
                   children: [
-                    LogoTile(icon: Icons.person, isLogo: false, isCircular: true,),
+                    LogoTile(
+                      icon: Icons.person,
+                      isLogo: false,
+                      isCircular: true,
+                    ),
 
                     const SizedBox(width: 12),
 
-                     Expanded(
+                    Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
@@ -186,7 +201,9 @@ class _AppDrawerState extends State<AppDrawer> {
                           ),
                           Text(
                             "Spike Plan",
-                            style: AppTextStyles.subHeading.copyWith(fontSize: 12),
+                            style: AppTextStyles.subHeading.copyWith(
+                              fontSize: 12,
+                            ),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                           ),
@@ -203,78 +220,59 @@ class _AppDrawerState extends State<AppDrawer> {
     );
   }
 
-  Widget _sectionTitle(String title) {
+  Widget _sectionTitle({required String title, required bool viewAll,}) {
     return Padding(
       padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
       child: Align(
         alignment: Alignment.centerLeft,
-        child: Text(
-          title.toUpperCase(),
-          style: const TextStyle(
-            color: Colors.grey,
-            fontSize: 12,
-            letterSpacing: 1.1,
-            fontWeight: FontWeight.w600,
-          ),
+        child: Row(
+          mainAxisAlignment: MainAxisAlignment.spaceBetween,
+          children: [
+            Text(
+              title.toUpperCase(),
+              style: AppTextStyles.subHeading.copyWith(
+                fontSize: 12,
+                letterSpacing: 1.1,
+              ),
+            ),
+            if (viewAll)
+      const Icon(
+        Icons.navigate_next,
+        color: AppColors.primary,
+      ),
+          ],
         ),
       ),
     );
   }
 
   Widget _actionTile({
-    required IconData icon,
+    IconData? icon,
     required String title,
     VoidCallback? onTap,
+    required bool isProject,
+    required bool isChat,
   }) {
     return ListTile(
       dense: true,
-      leading: Icon(icon, color: AppColors.primary),
-      title: Text(title, style: AppTextStyles.subHeading),
-      onTap: onTap,
+      leading: 
+      isChat
+        ? null
+        : Icon(
+            isProject ? Icons.folder_outlined : icon,
+            color: AppColors.primary,
+          ),
+      title: Text(title, style: AppTextStyles.subHeading,
+      maxLines: 1,
+      overflow: TextOverflow.ellipsis,),
+      onTap: (){},
     );
   }
+}
 
-  Widget _subActionTile(String title) {
-    return ListTile(
-      dense: true,
-      contentPadding: const EdgeInsets.only(left: 56, right: 16),
-      title: Text(
-        title,
-        style: AppTextStyles.subHeading,
-      ),
-      onTap: () {},
-    );
-  }
+class QuickAction {
+  final IconData icon;
+  final String title;
 
-  Widget _projectTile(String title) {
-    return ListTile(
-      dense: true,
-      leading: const Icon(Icons.folder_outlined, color: Colors.amber),
-      title: Text(
-        title,
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-        style: const TextStyle(color: Colors.white),
-      ),
-      onTap: () {},
-    );
-  }
-
-  Widget _chatTile(String title) {
-    return ListTile(
-      dense: true,
-      leading: const Icon(
-        Icons.chat_bubble_outline,
-        size: 18,
-        color: Colors.white70,
-      ),
-      title: Text(
-        title,
-        maxLines: 1,
-        overflow: TextOverflow.ellipsis,
-        style: const TextStyle(color: Colors.white),
-      ),
-      onTap: () {},
-    );
-  }
+  const QuickAction({required this.icon, required this.title});
 }
