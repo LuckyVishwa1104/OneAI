@@ -14,8 +14,6 @@ class DrawerAction extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-
-        // shape: BoxShape.rectangle,
         borderRadius: BorderRadius.circular(50),
       ),
       child: child,
