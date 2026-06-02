@@ -1,5 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/utils/components/drawer_action.dart';
+import 'package:one_ai/utils/components/drawer_action_tile.dart';
+import 'package:one_ai/utils/components/drawer_section_tile.dart';
 import 'package:one_ai/utils/components/logo_tile.dart';
 import 'package:one_ai/utils/constants/app_colors.dart';
 import 'package:one_ai/utils/constants/app_constant.dart';
@@ -52,9 +54,7 @@ class _AppDrawerState extends State<AppDrawer> {
       child: SafeArea(
         child: Column(
           children: [
-            // ==================================================
-            // SECTION 1
-            // ==================================================
+            // Drawer Header
             Padding(
               padding: const EdgeInsets.all(16),
               child: Row(
@@ -65,7 +65,6 @@ class _AppDrawerState extends State<AppDrawer> {
                     style: AppTextStyles.heading.copyWith(
                       fontSize: 25,
                       fontWeight: FontWeight.w400,
-                      color: AppColors.primary,
                     ),
                   ),
                   DrawerAction(
@@ -90,28 +89,24 @@ class _AppDrawerState extends State<AppDrawer> {
               ),
             ),
 
-            // ==================================================
-            // SCROLLABLE CONTENT
-            // ==================================================
             Expanded(
               child: SingleChildScrollView(
                 child: Column(
                   children: [
-                    // ==========================================
-                    // SECTION 2
-                    // ==========================================
-                    _sectionTitle(title: "Quick Actions", viewAll: false),
+                    // Quick Actions
+                    DrawerSectionTile(title: "Quick Actions", viewAll: false),
 
                     ...quickActions.map(
-                      (actions) => _actionTile(
+                      (actions) => DrawerActionTile(
                         title: actions.title,
                         isProject: false,
                         icon: actions.icon,
                         isChat: false,
+                        onTap: (){},
                       ),
                     ),
 
-                    _actionTile(
+                    DrawerActionTile(
                       isProject: false,
                       isChat: false,
                       icon:
@@ -137,32 +132,49 @@ class _AppDrawerState extends State<AppDrawer> {
                         children:
                             moreQuickActions
                                 .map(
-                                  (action) => _actionTile(
+                                  (action) => DrawerActionTile(
                                     title: action.title,
                                     icon: action.icon,
                                     isProject: false,
                                     isChat: false,
+                                    onTap: (){},
                                   ),
                                 )
                                 .toList(),
                       ),
                     ),
 
-                    // ==========================================
-                    // SECTION 3 - PROJECTS
-                    // ==========================================
-                    _sectionTitle(title: "Projects", viewAll: true),
+                    // Projects
+                    DrawerSectionTile(title: "Projects", viewAll: true),
 
-                    ...projects.map(
-                      (project) => _actionTile(title: project, isProject: true, isChat: false),
+                    DrawerActionTile(
+                      title: "New Project",
+                      isProject: false,
+                      icon: Icons.add,
+                      isChat: false,
+                      onTap: (){},
                     ),
 
-                    // ==========================================
-                    // SECTION 4
-                    // ==========================================
-                    _sectionTitle(title: "Recent Chats",viewAll: true),
+                    ...projects.map(
+                      (project) => DrawerActionTile(
+                        title: project,
+                        isProject: true,
+                        isChat: false,
+                        onTap: (){},
+                      ),
+                    ),
 
-                    ...recentChats.map((chat) => _actionTile(isChat: true, title: chat, isProject: false)),
+                    // Recent Chats
+                    DrawerSectionTile(title: "Recent Chats", viewAll: true),
+
+                    ...recentChats.map(
+                      (chat) => DrawerActionTile(
+                        isChat: true,
+                        title: chat,
+                        isProject: false,
+                        onTap: (){},
+                      ),
+                    ),
 
                     const SizedBox(height: 20),
                   ],
@@ -170,9 +182,7 @@ class _AppDrawerState extends State<AppDrawer> {
               ),
             ),
 
-            // ==================================================
-            // SECTION 5
-            // ==================================================
+            // User Profile
             InkWell(
               onTap: () {
                 // Navigate Profile
@@ -195,7 +205,9 @@ class _AppDrawerState extends State<AppDrawer> {
                         children: [
                           Text(
                             "Lucky Vishwakarma",
-                            style: AppTextStyles.subHeading,
+                            style: AppTextStyles.subHeading.copyWith(
+                              color: AppColors.textPrimary,
+                            ),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                           ),
@@ -210,6 +222,7 @@ class _AppDrawerState extends State<AppDrawer> {
                         ],
                       ),
                     ),
+                    Icon(Icons.navigate_next, color: AppColors.primary, size: 30,),
                   ],
                 ),
               ),
@@ -217,55 +230,6 @@ class _AppDrawerState extends State<AppDrawer> {
           ],
         ),
       ),
-    );
-  }
-
-  Widget _sectionTitle({required String title, required bool viewAll,}) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 12, 16, 8),
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              title.toUpperCase(),
-              style: AppTextStyles.subHeading.copyWith(
-                fontSize: 12,
-                letterSpacing: 1.1,
-              ),
-            ),
-            if (viewAll)
-      const Icon(
-        Icons.navigate_next,
-        color: AppColors.primary,
-      ),
-          ],
-        ),
-      ),
-    );
-  }
-
-  Widget _actionTile({
-    IconData? icon,
-    required String title,
-    VoidCallback? onTap,
-    required bool isProject,
-    required bool isChat,
-  }) {
-    return ListTile(
-      dense: true,
-      leading: 
-      isChat
-        ? null
-        : Icon(
-            isProject ? Icons.folder_outlined : icon,
-            color: AppColors.primary,
-          ),
-      title: Text(title, style: AppTextStyles.subHeading,
-      maxLines: 1,
-      overflow: TextOverflow.ellipsis,),
-      onTap: (){},
     );
   }
 }
