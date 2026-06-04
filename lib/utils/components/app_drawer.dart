@@ -1,51 +1,30 @@
 import 'package:flutter/material.dart';
+import 'package:one_ai/model/drawer_action_model.dart';
 import 'package:one_ai/utils/components/drawer_action.dart';
 import 'package:one_ai/utils/components/drawer_action_tile.dart';
 import 'package:one_ai/utils/components/drawer_section_tile.dart';
 import 'package:one_ai/utils/components/logo_tile.dart';
 import 'package:one_ai/utils/constants/app_colors.dart';
-import 'package:one_ai/utils/constants/app_constant.dart';
 import 'package:one_ai/utils/constants/app_spacing.dart';
 import 'package:one_ai/utils/constants/app_text_styles.dart';
 
-class AppDrawer extends StatefulWidget {
-  const AppDrawer({super.key});
+class AppDrawer extends StatelessWidget {
+  final bool showMoreActions;
+  final List<DrawerActionModel> quickActions;
+  final List<DrawerActionModel> moreQuickActions;
+  final List<String> projects;
+  final List<String> recentChats;
+  final VoidCallback? moreTap;
 
-  @override
-  State<AppDrawer> createState() => _AppDrawerState();
-}
-
-class _AppDrawerState extends State<AppDrawer> {
-  bool showMoreActions = false;
-
-  final List<QuickAction> quickActions = [
-    QuickAction(icon: Icons.code, title: 'Code'),
-    QuickAction(icon: Icons.image_outlined, title: 'Image'),
-  ];
-
-  final List<QuickAction> moreQuickActions = [
-    QuickAction(title: "Voice Chat", icon: Icons.mic_none_rounded),
-    QuickAction(title: "Summarize", icon: Icons.summarize_outlined),
-    QuickAction(title: "Analyze PDF", icon: Icons.picture_as_pdf_outlined),
-  ];
-
-  final List<String> projects = [
-    "Flutter App",
-    "AWS Serverless",
-    "Amazon Interview",
-  ];
-
-  final List<String> recentChats = [
-    "Flutter Drawer Design",
-    "State Management",
-    "AWS Authentication",
-    "Angular CRUD",
-    "Banking App",
-    "Flutter Interview Prep",
-    "Resume Improvements",
-    "AWS S3 Storage",
-    "Angular Components",
-  ];
+  const AppDrawer({
+    super.key,
+    required this.moreQuickActions,
+    required this.projects,
+    required this.quickActions,
+    required this.recentChats,
+    required this.showMoreActions,
+    required this.moreTap,
+  });
 
   @override
   Widget build(BuildContext context) {
@@ -102,7 +81,7 @@ class _AppDrawerState extends State<AppDrawer> {
                         isProject: false,
                         icon: actions.icon,
                         isChat: false,
-                        onTap: (){},
+                        onTap: () {},
                       ),
                     ),
 
@@ -114,11 +93,7 @@ class _AppDrawerState extends State<AppDrawer> {
                               ? Icons.expand_less
                               : Icons.expand_more,
                       title: "More",
-                      onTap: () {
-                        setState(() {
-                          showMoreActions = !showMoreActions;
-                        });
-                      },
+                      onTap: moreTap,
                     ),
 
                     AnimatedCrossFade(
@@ -137,7 +112,7 @@ class _AppDrawerState extends State<AppDrawer> {
                                     icon: action.icon,
                                     isProject: false,
                                     isChat: false,
-                                    onTap: (){},
+                                    onTap: () {},
                                   ),
                                 )
                                 .toList(),
@@ -152,7 +127,7 @@ class _AppDrawerState extends State<AppDrawer> {
                       isProject: false,
                       icon: Icons.add,
                       isChat: false,
-                      onTap: (){},
+                      onTap: () {},
                     ),
 
                     ...projects.map(
@@ -160,7 +135,7 @@ class _AppDrawerState extends State<AppDrawer> {
                         title: project,
                         isProject: true,
                         isChat: false,
-                        onTap: (){},
+                        onTap: () {},
                       ),
                     ),
 
@@ -172,7 +147,7 @@ class _AppDrawerState extends State<AppDrawer> {
                         isChat: true,
                         title: chat,
                         isProject: false,
-                        onTap: (){},
+                        onTap: () {},
                       ),
                     ),
 
@@ -222,7 +197,11 @@ class _AppDrawerState extends State<AppDrawer> {
                         ],
                       ),
                     ),
-                    Icon(Icons.navigate_next, color: AppColors.primary, size: 30,),
+                    Icon(
+                      Icons.navigate_next,
+                      color: AppColors.primary,
+                      size: 30,
+                    ),
                   ],
                 ),
               ),
@@ -234,9 +213,4 @@ class _AppDrawerState extends State<AppDrawer> {
   }
 }
 
-class QuickAction {
-  final IconData icon;
-  final String title;
 
-  const QuickAction({required this.icon, required this.title});
-}
