@@ -11,6 +11,8 @@ class AppRadius {
   static const BorderRadius radiusXl = BorderRadius.all(Radius.circular(AppConstant.xl));
   static const BorderRadius radiusXxl = BorderRadius.all(Radius.circular(AppConstant.xxl));
 
+  static const BorderRadius radiusCirular = BorderRadius.all(Radius.circular(50));
+
   static const BorderRadius radiusXxlTop = BorderRadius.only(topLeft: Radius.circular(AppConstant.xxl), topRight: Radius.circular(AppConstant.xxl));
   
 }
