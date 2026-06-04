@@ -84,23 +84,12 @@ class HomeViewModel extends BaseViewModel {
   void sendPrompt(BuildContext context) {
     final prompt = promptController.text.trim();
     if (prompt.isEmpty) return;
-
-    navigationService.navigateTo(Routes.counterView);
-
+    navigationService.navigateToChatView(initialPrompt: prompt);
     promptController.clear();
   }
 
   void showMore() {
     showMoreActions = !showMoreActions;
     notifyListeners();
-  }
-
-  void navigateToCounter() {
-    navigationService.navigateTo(Routes.counterView);
-  }
-
-  void addValues() {
-    counterService.counterIncrease();
-    rebuildUi();
   }
 }
