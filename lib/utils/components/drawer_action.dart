@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:one_ai/utils/constants/app_radius.dart';
 
 class DrawerAction extends StatelessWidget {
   final Widget child;
@@ -14,7 +15,7 @@ class DrawerAction extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
         ),
-        borderRadius: BorderRadius.circular(50),
+        borderRadius: AppRadius.radiusCirular,
       ),
       child: child,
     );

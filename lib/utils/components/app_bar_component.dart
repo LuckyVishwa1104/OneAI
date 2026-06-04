@@ -5,8 +5,9 @@ import 'package:one_ai/utils/constants/app_colors.dart';
 import 'package:one_ai/utils/constants/app_spacing.dart';
 import 'package:one_ai/utils/constants/app_text_styles.dart';
 
-class AppBarComponent extends StatelessWidget implements PreferredSizeWidget{
-  const AppBarComponent({super.key});
+class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
+  final bool isTitle;
+  const AppBarComponent({super.key, this.isTitle = true});
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -16,19 +17,22 @@ class AppBarComponent extends StatelessWidget implements PreferredSizeWidget{
     return AppBar(
       actionsPadding: EdgeInsets.only(right: 5),
 
-      title: Row(
-        children: [
-          AnimatedAiIcon(),
-          SizedBox(width: 5),
-          Text(
-            "OneAI",
-            style: AppTextStyles.heading.copyWith(
-              fontSize: 25,
-              fontWeight: FontWeight.w400,
-            ),
-          ),
-        ],
-      ),
+      title:
+          isTitle
+              ? Row(
+                children: [
+                  AnimatedAiIcon(),
+                  SizedBox(width: 5),
+                  Text(
+                    "OneAI",
+                    style: AppTextStyles.heading.copyWith(
+                      fontSize: 25,
+                      fontWeight: FontWeight.w400,
+                    ),
+                  ),
+                ],
+              )
+              : null,
 
       actions: [
         AppBarAction(

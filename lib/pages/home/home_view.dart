@@ -23,7 +23,14 @@ class HomeView extends StatelessWidget {
 
           appBar: AppBarComponent(),
 
-          drawer: AppDrawer(),
+          drawer: AppDrawer(
+            quickActions: model.quickActions,
+            moreQuickActions: model.moreQuickActions,
+            projects: model.projects,
+            recentChats: model.recentChats,
+            moreTap: model.showMore,
+            showMoreActions: model.showMoreActions,
+          ),
 
           body: Padding(
             padding: AppSpacing.largePadding,

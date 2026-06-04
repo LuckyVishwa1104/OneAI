@@ -17,6 +17,7 @@ class HomeViewModel extends BaseViewModel {
       notifyListeners();
     });
   }
+
   @override
   void dispose() {
     promptController.dispose();
@@ -25,38 +26,41 @@ class HomeViewModel extends BaseViewModel {
 
   List<HomeTileModel> listTiles = [
     HomeTileModel(
-        logoIcon: Icons.auto_awesome,
-        title: "General Help",
-        subTitle: "Ask me anything you need",
-      ),
-      HomeTileModel(
-        logoIcon: Icons.lightbulb,
-        title: "Creative Ideas",
-        subTitle: "Help me brainstorm solution",
-      ),
-      HomeTileModel(
-        logoIcon: Icons.code,
-        title: "Code Assitant",
-        subTitle: "Write, debug, or explain",
-      ),
-      HomeTileModel(
-        logoIcon: Icons.image,
-        title: "Design & Visual",
-        subTitle: "Create UI dsign and layouts",
-      ),
-    ];
+      logoIcon: Icons.auto_awesome,
+      title: "General Help",
+      subTitle: "Ask me anything you need",
+    ),
+    HomeTileModel(
+      logoIcon: Icons.lightbulb,
+      title: "Creative Ideas",
+      subTitle: "Help me brainstorm solution",
+    ),
+    HomeTileModel(
+      logoIcon: Icons.code,
+      title: "Code Assitant",
+      subTitle: "Write, debug, or explain",
+    ),
+    HomeTileModel(
+      logoIcon: Icons.image,
+      title: "Design & Visual",
+      subTitle: "Create UI dsign and layouts",
+    ),
+  ];
 
-    bool showMoreActions = false;
+  bool showMoreActions = false;
 
-  final List<DrawerActionModel> drawerActionModels = [
+  final List<DrawerActionModel> quickActions = [
     DrawerActionModel(icon: Icons.code, title: 'Code'),
     DrawerActionModel(icon: Icons.image_outlined, title: 'Image'),
   ];
 
-  final List<DrawerActionModel> moreDrawerActionModels = [
+  final List<DrawerActionModel> moreQuickActions = [
     DrawerActionModel(title: "Voice Chat", icon: Icons.mic_none_rounded),
     DrawerActionModel(title: "Summarize", icon: Icons.summarize_outlined),
-    DrawerActionModel(title: "Analyze PDF", icon: Icons.picture_as_pdf_outlined),
+    DrawerActionModel(
+      title: "Analyze PDF",
+      icon: Icons.picture_as_pdf_outlined,
+    ),
   ];
 
   final List<String> projects = [
@@ -80,25 +84,12 @@ class HomeViewModel extends BaseViewModel {
   void sendPrompt(BuildContext context) {
     final prompt = promptController.text.trim();
     if (prompt.isEmpty) return;
-
-    // navigationService.navigateTo(
-    //   Routes.chatView,
-    //   arguments: ChatViewArguments(
-    //     prompt: prompt,
-    //   ),
-    // );
-
-    navigationService.navigateTo(Routes.counterView);
-
+    navigationService.navigateToChatView(initialPrompt: prompt);
     promptController.clear();
   }
 
-  void navigateToCounter() {
-    navigationService.navigateTo(Routes.counterView);
-  }
-
-  void addValues() {
-    counterService.counterIncrease();
-    rebuildUi();
+  void showMore() {
+    showMoreActions = !showMoreActions;
+    notifyListeners();
   }
 }
