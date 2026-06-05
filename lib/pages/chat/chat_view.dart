@@ -49,7 +49,14 @@ class ChatView extends StatelessWidget {
 
                     final message = model.messages[index];
 
-                    return ChatBubble(message: message);
+                    return ChatBubble(
+                      message: message,
+  isLastUserMessage:
+      index == model.lastUserMessageIndex,
+  onEdit: () {
+    model.editMessage(message);
+  },
+                    );
                   },
                 ),
               ),
