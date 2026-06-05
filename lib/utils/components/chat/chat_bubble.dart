@@ -5,13 +5,24 @@ import 'package:one_ai/utils/components/chat/user_message_bubble.dart';
 
 class ChatBubble extends StatelessWidget {
   final ChatMessageModel message;
-  const ChatBubble({super.key, required this.message});
+  final bool isLastUserMessage;
+  final VoidCallback? onEdit;
+  const ChatBubble({
+    super.key,
+    required this.message,
+    this.isLastUserMessage = false,
+    this.onEdit,
+  });
 
   @override
   Widget build(BuildContext context) {
     switch (message.type) {
       case MessageType.user:
-        return UserMessageBubble(message: message);
+        return UserMessageBubble(
+          message: message,
+          isLastUserMessage: isLastUserMessage,
+          onEdit: onEdit,
+        );
 
       case MessageType.assistant:
         return ModelMessageBubble(message: message);
