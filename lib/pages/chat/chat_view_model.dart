@@ -117,6 +117,29 @@ class ChatViewModel extends BaseViewModel {
     return "AI Response for: $prompt";
   }
 
+  int get lastUserMessageIndex {
+    for (int i = messages.length - 1; i >= 0; i--) {
+      if (messages[i].type == MessageType.user) {
+        return i;
+      }
+    }
+
+    return -1;
+  }
+
+  void editMessage(ChatMessageModel message) {
+  promptController.text = message.message;
+
+  promptController.selection =
+      TextSelection.fromPosition(
+    TextPosition(
+      offset: message.message.length,
+    ),
+  );
+
+  notifyListeners();
+}
+
   void _scrollToBottom() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
       if (!scrollController.hasClients) return;
