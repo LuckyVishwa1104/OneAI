@@ -12,4 +12,6 @@ class AppConstant {
   static const double huge = 40.0;
   static const double massive = 48.0;
 
+  static const double base = 16.0;
+
 }
