@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/pages/chat/chat_view_model.dart';
-import 'package:one_ai/utils/components/app_bar_component.dart';
-import 'package:one_ai/utils/components/app_drawer.dart';
+import 'package:one_ai/utils/components/app_bar/app_bar_component.dart';
+import 'package:one_ai/utils/components/drawer/app_drawer.dart';
 import 'package:one_ai/utils/components/chat/chat_bubble.dart';
-import 'package:one_ai/utils/components/prompt_input.dart';
+import 'package:one_ai/utils/components/prompt/prompt_input.dart';
 import 'package:one_ai/utils/constants/app_spacing.dart';
 import 'package:stacked/stacked.dart';
 

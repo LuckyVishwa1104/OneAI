@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/utils/components/logo_tile.dart';
-import 'package:one_ai/utils/components/prompt_action.dart';
+import 'package:one_ai/utils/components/prompt/prompt_action.dart';
 import 'package:one_ai/utils/constants/app_border.dart';
 import 'package:one_ai/utils/constants/app_colors.dart';
 import 'package:one_ai/utils/constants/app_radius.dart';
