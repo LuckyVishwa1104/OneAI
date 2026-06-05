@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:one_ai/app/app.dart';
+import 'package:one_ai/utils/components/app_icon.dart';
 import 'package:one_ai/utils/constants/app_colors.dart';
 import 'package:one_ai/utils/constants/app_text_styles.dart';
 
@@ -27,10 +29,9 @@ class DrawerActionTile extends StatelessWidget {
       leading:
           isChat
               ? null
-              : Icon(
-                isProject ? Icons.folder_outlined : icon,
-                color: AppColors.primary,
-              ),
+              : 
+              AppIcon(icon: isProject ? Icons.folder_outlined : icon!, ),
+              
       title: Text(
         title,
         style: AppTextStyles.subHeading,
