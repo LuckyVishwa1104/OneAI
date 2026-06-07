@@ -40,7 +40,8 @@ class HomeView extends StatelessWidget {
                   icon: Icons.auto_awesome,
                   height: 62,
                   width: 62,
-                  iconSize: 40,
+                  iconSize: 44,
+                  isLogo: false,
                 ),
 
                 AppSpacing.h4,
@@ -79,11 +80,14 @@ class HomeView extends StatelessWidget {
             ),
           ),
 
-          bottomNavigationBar: PromptInput(
-            promptText: model.promptController,
-            onSendPrompt: () => model.sendPrompt(context),
-            onAttachmentTap: () {},
-            onMicTap: () {},
+          bottomNavigationBar: Padding(
+            padding: AppSpacing.defaultPadding,
+            child: PromptInput(
+              promptText: model.promptController,
+              onSendPrompt: () => model.sendPrompt(context),
+              onAttachmentTap: () {},
+              onMicTap: () {},
+            ),
           ),
         );
       },
