@@ -6,6 +6,7 @@ import 'package:one_ai/utils/constants/app_colors.dart';
 import 'package:one_ai/utils/constants/app_constant.dart';
 import 'package:one_ai/utils/constants/app_radius.dart';
 import 'package:one_ai/utils/constants/app_spacing.dart';
+import 'package:one_ai/utils/constants/app_text_styles.dart';
 
 class UserMessageBubble extends StatefulWidget {
   final ChatMessageModel message;
@@ -29,7 +30,7 @@ class _UserMessageBubbleState extends State<UserMessageBubble> {
   bool _shouldShowExpandButton() {
     final span = TextSpan(
       text: widget.message.message,
-      style: const TextStyle(fontSize: 14),
+      style: AppTextStyles.subHeading.copyWith(fontSize: 15),
     );
 
     final painter = TextPainter(
@@ -47,60 +48,61 @@ class _UserMessageBubbleState extends State<UserMessageBubble> {
   Widget build(BuildContext context) {
     return Align(
       alignment: Alignment.centerRight,
-      child: Container(
-        constraints: const BoxConstraints(maxWidth: 315),
-        margin: const EdgeInsets.symmetric(vertical: AppConstant.sm),
-        padding: AppSpacing.defaultPadding,
-        decoration: BoxDecoration(
-          color: AppColors.surface,
-          borderRadius: AppRadius.radiusXxl,
-          border: AppBorder.defaultBorder,
-        ),
-        child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Text(
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.start,
+        children: [
+          Container(
+            constraints: const BoxConstraints(maxWidth: 315),
+            margin: const EdgeInsets.symmetric(vertical: AppConstant.sm),
+            padding: AppSpacing.defaultPadding,
+            decoration: BoxDecoration(
+              color: AppColors.surface,
+              borderRadius: AppRadius.radiusXxl,
+              border: AppBorder.defaultBorder,
+            ),
+            child: Text(
               widget.message.message,
+              style: AppTextStyles.subHeading.copyWith(fontSize: 15),
               maxLines: isExpanded ? null : maxLines,
               overflow: TextOverflow.fade,
             ),
+          ),
 
-            Row(
-              mainAxisAlignment: MainAxisAlignment.end,
-              children: [
-                if (_shouldShowExpandButton())
-                  InkWell(
-                    onTap: () {
-                      setState(() {
-                        isExpanded = !isExpanded;
-                      });
-                    },
-                    child: AppIcon(
-                      icon: isExpanded ? Icons.expand_less : Icons.expand_more,
-                    ),
-                  ),
-
-                AppSpacing.w4,
-
+          Row(
+            mainAxisAlignment: MainAxisAlignment.end,
+            children: [
+              if (_shouldShowExpandButton())
                 InkWell(
-                  onTap: () {},
-                  child: AppIcon(icon: Icons.copy, size: AppConstant.base),
+                  onTap: () {
+                    setState(() {
+                      isExpanded = !isExpanded;
+                    });
+                  },
+                  child: AppIcon(
+                    icon: isExpanded ? Icons.expand_less : Icons.expand_more,
+                  ),
                 ),
 
-                AppSpacing.w8,
+              AppSpacing.w4,
 
-                if (widget.isLastUserMessage)
-                  InkWell(
-                    onTap: widget.onEdit,
-                    child: AppIcon(
-                      icon: Icons.edit_outlined,
-                      size: AppConstant.base,
-                    ),
+              InkWell(
+                onTap: () {},
+                child: AppIcon(icon: Icons.copy, size: AppConstant.base),
+              ),
+
+              AppSpacing.w8,
+
+              if (widget.isLastUserMessage)
+                InkWell(
+                  onTap: widget.onEdit,
+                  child: AppIcon(
+                    icon: Icons.edit_outlined,
+                    size: AppConstant.base,
                   ),
-              ],
-            ),
-          ],
-        ),
+                ),
+            ],
+          ),
+        ],
       ),
     );
   }
