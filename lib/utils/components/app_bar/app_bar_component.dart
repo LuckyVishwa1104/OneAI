@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/utils/components/animated_ai_icon.dart';
-import 'package:one_ai/utils/components/app_bar_action.dart';
+import 'package:one_ai/utils/components/app_bar/app_bar_action.dart';
 import 'package:one_ai/utils/constants/app_colors.dart';
 import 'package:one_ai/utils/constants/app_spacing.dart';
 import 'package:one_ai/utils/constants/app_text_styles.dart';

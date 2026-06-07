@@ -1,9 +1,9 @@
 import 'package:flutter/material.dart';
-import 'package:one_ai/utils/components/app_bar_component.dart';
-import 'package:one_ai/utils/components/app_drawer.dart';
+import 'package:one_ai/utils/components/app_bar/app_bar_component.dart';
+import 'package:one_ai/utils/components/drawer/app_drawer.dart';
 import 'package:one_ai/utils/components/home_tile.dart';
 import 'package:one_ai/utils/components/logo_tile.dart';
-import 'package:one_ai/utils/components/prompt_input.dart';
+import 'package:one_ai/utils/components/prompt/prompt_input.dart';
 import 'package:one_ai/utils/constants/app_colors.dart';
 import 'package:one_ai/utils/constants/app_spacing.dart';
 import 'package:one_ai/utils/constants/app_text_styles.dart';
@@ -40,7 +40,8 @@ class HomeView extends StatelessWidget {
                   icon: Icons.auto_awesome,
                   height: 62,
                   width: 62,
-                  iconSize: 40,
+                  iconSize: 44,
+                  isLogo: false,
                 ),
 
                 AppSpacing.h4,
@@ -79,11 +80,14 @@ class HomeView extends StatelessWidget {
             ),
           ),
 
-          bottomNavigationBar: PromptInput(
-            promptText: model.promptController,
-            onSendPrompt: () => model.sendPrompt(context),
-            onAttachmentTap: () {},
-            onMicTap: () {},
+          bottomNavigationBar: Padding(
+            padding: AppSpacing.defaultPadding,
+            child: PromptInput(
+              promptText: model.promptController,
+              onSendPrompt: () => model.sendPrompt(context),
+              onAttachmentTap: () {},
+              onMicTap: () {},
+            ),
           ),
         );
       },

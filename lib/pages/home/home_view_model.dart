@@ -26,12 +26,12 @@ class HomeViewModel extends BaseViewModel {
 
   List<HomeTileModel> listTiles = [
     HomeTileModel(
-      logoIcon: Icons.auto_awesome,
+      logoIcon: Icons.question_answer_outlined,
       title: "General Help",
       subTitle: "Ask me anything you need",
     ),
     HomeTileModel(
-      logoIcon: Icons.lightbulb,
+      logoIcon: Icons.lightbulb_outline,
       title: "Creative Ideas",
       subTitle: "Help me brainstorm solution",
     ),
@@ -41,7 +41,7 @@ class HomeViewModel extends BaseViewModel {
       subTitle: "Write, debug, or explain",
     ),
     HomeTileModel(
-      logoIcon: Icons.image,
+      logoIcon: Icons.image_outlined,
       title: "Design & Visual",
       subTitle: "Create UI dsign and layouts",
     ),
