@@ -51,11 +51,10 @@ class ChatView extends StatelessWidget {
 
                     return ChatBubble(
                       message: message,
-  isLastUserMessage:
-      index == model.lastUserMessageIndex,
-  onEdit: () {
-    model.editMessage(message);
-  },
+                      isLastUserMessage: index == model.lastUserMessageIndex,
+                      onEdit: () {
+                        model.editMessage(message);
+                      },
                     );
                   },
                 ),
@@ -68,7 +67,6 @@ class ChatView extends StatelessWidget {
                   onSendPrompt: model.sendPrompt,
                   onAttachmentTap: () {},
                   onMicTap: () {},
-                  isHome: false,
                 ),
               ),
             ],

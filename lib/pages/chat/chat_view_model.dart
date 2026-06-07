@@ -50,6 +50,12 @@ class ChatViewModel extends BaseViewModel {
     "Angular Components",
   ];
 
+  ChatViewModel() {
+    promptController.addListener(() {
+      notifyListeners();
+    });
+  }
+
   void showMore() {
     showMoreActions = !showMoreActions;
     notifyListeners();
@@ -128,17 +134,14 @@ class ChatViewModel extends BaseViewModel {
   }
 
   void editMessage(ChatMessageModel message) {
-  promptController.text = message.message;
+    promptController.text = message.message;
 
-  promptController.selection =
-      TextSelection.fromPosition(
-    TextPosition(
-      offset: message.message.length,
-    ),
-  );
+    promptController.selection = TextSelection.fromPosition(
+      TextPosition(offset: message.message.length),
+    );
 
-  notifyListeners();
-}
+    notifyListeners();
+  }
 
   void _scrollToBottom() {
     WidgetsBinding.instance.addPostFrameCallback((_) {
