@@ -6,20 +6,19 @@ import 'package:one_ai/utils/constants/app_colors.dart';
 import 'package:one_ai/utils/constants/app_radius.dart';
 import 'package:one_ai/utils/constants/app_shadow.dart';
 import 'package:one_ai/utils/constants/app_spacing.dart';
+import 'package:one_ai/utils/constants/app_text_styles.dart';
 
 class PromptInput extends StatelessWidget {
   final TextEditingController promptText;
   final VoidCallback onSendPrompt;
   final VoidCallback onAttachmentTap;
   final VoidCallback onMicTap;
-  final bool isHome;
   const PromptInput({
     super.key,
     required this.promptText,
     required this.onSendPrompt,
     required this.onAttachmentTap,
     required this.onMicTap,
-    this.isHome = true,
   });
 
   @override
@@ -34,13 +33,8 @@ class PromptInput extends StatelessWidget {
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
           decoration: BoxDecoration(
             color: AppColors.surface,
-            borderRadius: isHome ? AppRadius.radiusXxlTop : AppRadius.radiusCirular,
-            border: isHome ?
-            Border(
-              left: AppBorder.defaultBorderSide,
-              right: AppBorder.defaultBorderSide,
-              top: AppBorder.defaultBorderSide,
-            ) : AppBorder.defaultBorder , 
+            borderRadius: AppRadius.radiusCirular,
+            border: AppBorder.defaultBorder,
             boxShadow: [AppShadow.homeTileShadow],
           ),
           child: Row(
@@ -71,7 +65,7 @@ class PromptInput extends StatelessWidget {
 
                       decoration: InputDecoration(
                         hintText: "Ask anything...",
-                        hintStyle: TextStyle(color: AppColors.textSecondary),
+                        hintStyle: AppTextStyles.subHeading,
                         border: InputBorder.none,
                         contentPadding: const EdgeInsets.symmetric(
                           vertical: 12,
