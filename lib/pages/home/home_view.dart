@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:one_ai/utils/components/animated_ai_icon.dart';
 import 'package:one_ai/utils/components/app_bar/app_bar_component.dart';
 import 'package:one_ai/utils/components/drawer/app_drawer.dart';
 import 'package:one_ai/utils/components/home_tile.dart';
@@ -36,20 +37,14 @@ class HomeView extends StatelessWidget {
             padding: AppSpacing.largePadding,
             child: Column(
               children: [
-                LogoTile(
-                  icon: Icons.auto_awesome,
-                  height: 62,
-                  width: 62,
-                  iconSize: 44,
-                  isLogo: false,
-                ),
+                AnimatedAiIcon(iconSize: 50,),
 
-                AppSpacing.h4,
+                AppSpacing.h8,
 
                 Text(
                   "Welcome Back!",
                   style: AppTextStyles.heading.copyWith(
-                    fontSize: 35,
+                    fontSize: 32,
                     fontWeight: FontWeight.w400,
                   ),
                 ),
