@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/utils/components/animated_ai_icon.dart';
 import 'package:one_ai/utils/components/app_bar/app_bar_action.dart';
+import 'package:one_ai/utils/components/app_icon.dart';
 import 'package:one_ai/utils/constants/app_colors.dart';
 import 'package:one_ai/utils/constants/app_spacing.dart';
 import 'package:one_ai/utils/constants/app_text_styles.dart';
@@ -21,8 +22,8 @@ class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
           isTitle
               ? Row(
                 children: [
-                  AnimatedAiIcon(),
-                  SizedBox(width: 5),
+                  AppIcon(icon: Icons.auto_awesome_outlined, size: 26),
+                  AppSpacing.w4,
                   Text(
                     "OneAI",
                     style: AppTextStyles.heading.copyWith(
