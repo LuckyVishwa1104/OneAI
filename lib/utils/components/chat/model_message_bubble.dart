@@ -22,37 +22,38 @@ class ModelMessageBubble extends StatelessWidget {
               message.message,
               style: AppTextStyles.subHeading.copyWith(fontSize:15),
             ),
-            AppSpacing.h4,
+            AppSpacing.h8,
             Row(
               mainAxisAlignment: MainAxisAlignment.start,
               children: [
                 InkWell(
                   onTap: () {},
-                  child: AppIcon(icon: Icons.thumb_up_alt_outlined, size: AppConstant.base),
+                  child: AppIcon(icon: Icons.sentiment_satisfied_alt_rounded, size: AppConstant.base),
                 ),
 
                 AppSpacing.w8,
 
                 InkWell(
                   onTap: () {},
-                  child: AppIcon(icon: Icons.thumb_down_alt_outlined, size: AppConstant.base),
+                  child: AppIcon(icon: Icons.arrow_downward_rounded, size: AppConstant.base),
                 ),
 
                 AppSpacing.w8,
 
                 InkWell(
                   onTap: () {},
-                  child: AppIcon(icon: Icons.copy, size: AppConstant.base),
+                  child: AppIcon(icon: Icons.content_copy_outlined, size: AppConstant.base),
                 ),
 
                 AppSpacing.w8,
 
                 InkWell(
-                  onTap: () {},git
-                  child: AppIcon(icon: Icons.refresh_rounded, size: AppConstant.base),
-                ),
+                  onTap: (){},
+                  child: AppIcon(icon: Icons.loop_rounded, size: AppConstant.base),
+                )
               ]
             ),
+            AppSpacing.h12,
           ],
         ),
       ),
