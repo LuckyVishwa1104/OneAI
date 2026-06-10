@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:one_ai/utils/constants/app_colors.dart';
 
 class AppTextStyles {
   AppTextStyles._();

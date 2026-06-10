@@ -4,7 +4,6 @@ import 'package:one_ai/utils/components/app_bar/app_bar_component.dart';
 import 'package:one_ai/utils/components/drawer/app_drawer.dart';
 import 'package:one_ai/utils/components/home_tile.dart';
 import 'package:one_ai/utils/components/prompt/prompt_input.dart';
-import 'package:one_ai/utils/constants/app_colors.dart';
 import 'package:one_ai/utils/constants/app_spacing.dart';
 import 'package:one_ai/utils/constants/app_text_styles.dart';
 import 'package:stacked/stacked.dart';

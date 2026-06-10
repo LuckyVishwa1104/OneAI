@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/utils/components/app_icon.dart';
-import 'package:one_ai/utils/constants/app_colors.dart';
 import 'package:one_ai/utils/constants/app_text_styles.dart';
 
 class DrawerSectionTile extends StatelessWidget {
