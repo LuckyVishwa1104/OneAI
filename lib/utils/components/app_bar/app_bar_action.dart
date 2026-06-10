@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/utils/constants/app_border.dart';
-import 'package:one_ai/utils/constants/app_colors.dart';
 import 'package:one_ai/utils/constants/app_radius.dart';
 import 'package:one_ai/utils/constants/app_shadow.dart';
 import 'package:one_ai/utils/constants/app_spacing.dart';
@@ -18,9 +17,9 @@ class AppBarAction extends StatelessWidget {
       child: Container(
         padding: AppSpacing.xxsPadding,
         decoration: BoxDecoration(
-          color: AppColors.surface,
+          color: Theme.of(context).colorScheme.surface,
           borderRadius: AppRadius.radiusSm,
-          border: AppBorder.defaultBorder,
+          border: AppBorder.defaultBorder(context),
           boxShadow: [ AppShadow.actionContainer],
         ),
         child: child,

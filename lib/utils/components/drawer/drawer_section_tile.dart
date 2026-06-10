@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:one_ai/utils/constants/app_colors.dart';
+import 'package:one_ai/utils/components/app_icon.dart';
 import 'package:one_ai/utils/constants/app_text_styles.dart';
 
 class DrawerSectionTile extends StatelessWidget {
@@ -24,14 +24,13 @@ class DrawerSectionTile extends StatelessWidget {
           children: [
             Text(
               title.toUpperCase(),
-              style: AppTextStyles.subHeading.copyWith(
+              style: AppTextStyles.subHeading(context).copyWith(
                 fontSize: 12,
-                color: AppColors.textPrimary,
+                color: Theme.of(context).colorScheme.onSurface,
                 letterSpacing: 1.1,
               ),
             ),
-            if (viewAll)
-              const Icon(Icons.navigate_next, color: AppColors.primary),
+            AppIcon(icon: Icons.navigate_next,),
           ],
         ),
       ),
