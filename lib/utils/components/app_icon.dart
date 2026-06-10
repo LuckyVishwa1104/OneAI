@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:one_ai/utils/constants/app_colors.dart';
 
 class AppIcon extends StatelessWidget {
   final IconData icon;
@@ -9,12 +8,12 @@ class AppIcon extends StatelessWidget {
   const AppIcon({
     super.key,
     this.size = 24.0,
-    this.color = AppColors.primary,
+    this.color,
     required this.icon,
   });
 
   @override
   Widget build(BuildContext context) {
-    return Icon(icon, size: size, color: color);
+    return Icon(icon, size: size, color: color ?? Theme.of(context).colorScheme.primary, );
   }
 }

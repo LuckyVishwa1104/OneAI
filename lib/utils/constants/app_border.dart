@@ -1,16 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:one_ai/utils/constants/app_colors.dart';
 
 class AppBorder {
   AppBorder._();
 
-  static final Border defaultBorder = Border.all(
-    color: AppColors.borderColor,
+  static Border defaultBorder(BuildContext context) => Border.all(
+    color: Theme.of(context).dividerColor,
     width: 1.2,
   );
 
-  static final BorderSide defaultBorderSide = BorderSide(
-    color: AppColors.borderColor,
+  static BorderSide defaultBorderSide(BuildContext context) => BorderSide(
+    color: Theme.of(context).dividerColor,
     width: 1.2,
   );
 }

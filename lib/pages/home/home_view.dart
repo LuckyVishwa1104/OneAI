@@ -3,7 +3,6 @@ import 'package:one_ai/utils/components/animated_ai_icon.dart';
 import 'package:one_ai/utils/components/app_bar/app_bar_component.dart';
 import 'package:one_ai/utils/components/drawer/app_drawer.dart';
 import 'package:one_ai/utils/components/home_tile.dart';
-import 'package:one_ai/utils/components/logo_tile.dart';
 import 'package:one_ai/utils/components/prompt/prompt_input.dart';
 import 'package:one_ai/utils/constants/app_colors.dart';
 import 'package:one_ai/utils/constants/app_spacing.dart';
@@ -20,8 +19,6 @@ class HomeView extends StatelessWidget {
       viewModelBuilder: () => HomeViewModel(),
       builder: (context, model, child) {
         return Scaffold(
-          backgroundColor: AppColors.backgroundColor,
-
           appBar: AppBarComponent(),
 
           drawer: AppDrawer(
@@ -43,7 +40,7 @@ class HomeView extends StatelessWidget {
 
                 Text(
                   "Welcome Back!",
-                  style: AppTextStyles.heading.copyWith(
+                  style: AppTextStyles.heading(context).copyWith(
                     fontSize: 32,
                     fontWeight: FontWeight.w400,
                   ),
@@ -51,7 +48,7 @@ class HomeView extends StatelessWidget {
 
                 Text(
                   "How can I help?",
-                  style: AppTextStyles.subHeading.copyWith(fontSize: 20),
+                  style: AppTextStyles.subHeading(context).copyWith(fontSize: 20),
                 ),
 
                 AppSpacing.h20,

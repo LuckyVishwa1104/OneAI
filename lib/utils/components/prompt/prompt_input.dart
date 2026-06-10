@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:one_ai/utils/components/logo_tile.dart';
 import 'package:one_ai/utils/components/prompt/prompt_action.dart';
 import 'package:one_ai/utils/constants/app_border.dart';
-import 'package:one_ai/utils/constants/app_colors.dart';
 import 'package:one_ai/utils/constants/app_radius.dart';
 import 'package:one_ai/utils/constants/app_shadow.dart';
 import 'package:one_ai/utils/constants/app_spacing.dart';
@@ -32,9 +31,9 @@ class PromptInput extends StatelessWidget {
         child: Container(
           padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 10),
           decoration: BoxDecoration(
-            color: AppColors.surface,
+            color: Theme.of(context).colorScheme.surface,
             borderRadius: AppRadius.radiusCirular,
-            border: AppBorder.defaultBorder,
+            border: AppBorder.defaultBorder(context),
             boxShadow: [AppShadow.homeTileShadow],
           ),
           child: Row(
@@ -65,7 +64,7 @@ class PromptInput extends StatelessWidget {
 
                       decoration: InputDecoration(
                         hintText: "Ask anything...",
-                        hintStyle: AppTextStyles.subHeading,
+                        hintStyle: AppTextStyles.subHeading(context),
                         border: InputBorder.none,
                         contentPadding: const EdgeInsets.symmetric(
                           vertical: 12,

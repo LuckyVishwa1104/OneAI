@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:one_ai/utils/components/app_icon.dart';
 import 'package:one_ai/utils/constants/app_colors.dart';
 import 'package:one_ai/utils/constants/app_radius.dart' show AppRadius;
 
@@ -9,7 +10,7 @@ class LogoTile extends StatelessWidget {
   final double width;
   final IconData icon;
   final double iconSize;
-  final Color iconColor;
+  final Color? iconColor;
   final VoidCallback? onTap;
   const LogoTile({
     super.key,
@@ -18,7 +19,7 @@ class LogoTile extends StatelessWidget {
     this.height = 42,
     this.width = 42,
     this.iconSize = 28,
-    this.iconColor = AppColors.primary,
+    this.iconColor,
     required this.icon,
     this.onTap,
   });
@@ -35,21 +36,32 @@ class LogoTile extends StatelessWidget {
             colors:
                 isLogo
                     ? [AppColors.primary, AppColors.secondary]
-                    : [Color(0xFFE0E7FF), Color(0xFFF3E8FF)],
+                    : Theme.of(context).brightness == Brightness.dark
+                    ? [
+                      AppColors.gradientSubtleDarkStart,
+                      AppColors.gradientSubtleDarkEnd,
+                    ]
+                    : [
+                      AppColors.gradientSubtleLightStart,
+                      AppColors.gradientSubtleLightEnd,
+                    ],
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
           ),
           shape: isCircular ? BoxShape.circle : BoxShape.rectangle,
-      
+
           borderRadius:
               isCircular
                   ? null
                   : (isLogo ? AppRadius.radiusLg : AppRadius.radiusMd),
         ),
-      
-        child: Icon(
-          icon,
-          color: isLogo ? AppColors.appWhite : iconColor,
+
+        child: AppIcon(
+          icon: icon,
+          color:
+              isLogo
+                  ? AppColors.appWhite
+                  : iconColor ?? Theme.of(context).colorScheme.primary,
           size: iconSize,
         ),
       ),

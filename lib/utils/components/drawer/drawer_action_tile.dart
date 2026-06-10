@@ -32,7 +32,7 @@ class DrawerActionTile extends StatelessWidget {
               
       title: Text(
         title,
-        style: AppTextStyles.subHeading,
+        style: AppTextStyles.subHeading(context),
         maxLines: 1,
         overflow: TextOverflow.ellipsis,
       ),

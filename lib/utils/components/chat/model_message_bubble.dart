@@ -20,7 +20,7 @@ class ModelMessageBubble extends StatelessWidget {
           children: [
             Text(
               message.message,
-              style: AppTextStyles.subHeading.copyWith(fontSize:15),
+              style: AppTextStyles.subHeading(context).copyWith(fontSize:15),
             ),
             AppSpacing.h8,
             Row(

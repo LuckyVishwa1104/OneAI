@@ -34,9 +34,9 @@ class HomeTile extends StatelessWidget {
         padding: AppSpacing.xlPadding,
 
         decoration: BoxDecoration(
-          color: AppColors.surface,
+          color: Theme.of(context).colorScheme.surface,
           borderRadius: AppRadius.radiusXxl,
-          border: AppBorder.defaultBorder,
+          border: AppBorder.defaultBorder(context),
           boxShadow: [AppShadow.homeTileShadow],
         ),
 
@@ -54,7 +54,7 @@ class HomeTile extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: AppTextStyles.heading,
+                    style: AppTextStyles.heading(context),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -63,7 +63,7 @@ class HomeTile extends StatelessWidget {
 
                   Text(
                     subTitle,
-                    style: AppTextStyles.subHeading,
+                    style: AppTextStyles.subHeading(context),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),

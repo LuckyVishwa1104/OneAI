@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/model/drawer_action_model.dart';
+import 'package:one_ai/utils/components/app_icon.dart';
 import 'package:one_ai/utils/components/drawer/drawer_action_tile.dart';
 import 'package:one_ai/utils/components/drawer/drawer_section_tile.dart';
 import 'package:one_ai/utils/components/logo_tile.dart';
@@ -29,7 +30,7 @@ class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Drawer(
-      backgroundColor: AppColors.backgroundColor,
+      backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       child: SafeArea(
         child: Column(
           children: [
@@ -41,16 +42,24 @@ class AppDrawer extends StatelessWidget {
                 children: [
                   Text(
                     "OneAI",
-                    style: AppTextStyles.heading.copyWith(
-                      fontSize: 25,
-                      fontWeight: FontWeight.w400,
-                    ),
+                    style: AppTextStyles.heading(
+                      context,
+                    ).copyWith(fontSize: 25, fontWeight: FontWeight.w400),
                   ),
                   Container(
                     padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
                     decoration: BoxDecoration(
                       gradient: LinearGradient(
-                        colors: [Color(0xFFE0E7FF), Color(0xFFF3E8FF)],
+                        colors:
+                            Theme.of(context).brightness == Brightness.dark
+                                ? [
+                                  AppColors.gradientSubtleDarkStart,
+                                  AppColors.gradientSubtleDarkEnd,
+                                ]
+                                : [
+                                  AppColors.gradientSubtleLightStart,
+                                  AppColors.gradientSubtleLightEnd,
+                                ],
                         begin: Alignment.topLeft,
                         end: Alignment.bottomRight,
                       ),
@@ -60,14 +69,14 @@ class AppDrawer extends StatelessWidget {
                       children: [
                         Icon(
                           Icons.mode_edit_outlined,
-                          color: AppColors.primary,
+                          color: Theme.of(context).colorScheme.primary,
                           size: 20,
                         ),
                         AppSpacing.w4,
                         Text(
                           "New",
-                          style: AppTextStyles.subHeading.copyWith(
-                            color: AppColors.primary,
+                          style: AppTextStyles.subHeading(context).copyWith(
+                            color: Theme.of(context).colorScheme.primary,
                           ),
                         ),
                       ],
@@ -189,28 +198,27 @@ class AppDrawer extends StatelessWidget {
                         children: [
                           Text(
                             "Lucky Vishwakarma",
-                            style: AppTextStyles.subHeading.copyWith(
-                              color: AppColors.textPrimary,
+                            style: AppTextStyles.subHeading(context).copyWith(
+                              color:
+                                  Theme.of(
+                                    context,
+                                  ).colorScheme.onSurfaceVariant,
                             ),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                           ),
                           Text(
                             "Spike Plan",
-                            style: AppTextStyles.subHeading.copyWith(
-                              fontSize: 12,
-                            ),
+                            style: AppTextStyles.subHeading(
+                              context,
+                            ).copyWith(fontSize: 12),
                             overflow: TextOverflow.ellipsis,
                             maxLines: 1,
                           ),
                         ],
                       ),
                     ),
-                    Icon(
-                      Icons.navigate_next,
-                      color: AppColors.primary,
-                      size: 30,
-                    ),
+                    AppIcon(icon: Icons.navigate_next, size: 30),
                   ],
                 ),
               ),
