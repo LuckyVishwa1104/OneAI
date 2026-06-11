@@ -92,4 +92,10 @@ class HomeViewModel extends BaseViewModel {
     showMoreActions = !showMoreActions;
     notifyListeners();
   }
+
+  void userProfile(){
+    navigationService.navigateToUserProfileView();
+  }
+
+
 }

@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/app/app.locator.dart';
+import 'package:one_ai/app/app.router.dart';
 import 'package:one_ai/model/chat_message_model.dart';
 import 'package:one_ai/model/drawer_action_model.dart';
 import 'package:stacked/stacked.dart';
@@ -59,6 +60,10 @@ class ChatViewModel extends BaseViewModel {
   void showMore() {
     showMoreActions = !showMoreActions;
     notifyListeners();
+  }
+
+  void userProfile(){
+    navigationService.navigateToUserProfileView();
   }
 
   bool _isLoading = false;
