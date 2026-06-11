@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:one_ai/model/chat_message_model.dart';
 import 'package:one_ai/utils/components/app_icon.dart';
 import 'package:one_ai/utils/constants/app_border.dart';
-import 'package:one_ai/utils/constants/app_colors.dart';
 import 'package:one_ai/utils/constants/app_constant.dart';
 import 'package:one_ai/utils/constants/app_radius.dart';
 import 'package:one_ai/utils/constants/app_spacing.dart';
@@ -30,7 +29,7 @@ class _UserMessageBubbleState extends State<UserMessageBubble> {
   bool _shouldShowExpandButton() {
     final span = TextSpan(
       text: widget.message.message,
-      style: AppTextStyles.subHeading.copyWith(fontSize: 15),
+      style: AppTextStyles.subHeading(context).copyWith(fontSize: 15),
     );
 
     final painter = TextPainter(
@@ -56,16 +55,16 @@ class _UserMessageBubbleState extends State<UserMessageBubble> {
             margin: const EdgeInsets.symmetric(vertical: AppConstant.sm),
             padding: AppSpacing.defaultPadding,
             decoration: BoxDecoration(
-              color: AppColors.surface,
+              color: Theme.of(context).colorScheme.surface,
               borderRadius: AppRadius.radiusXxl,
-              border: AppBorder.defaultBorder,
+              border: AppBorder.defaultBorder(context),
             ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
                 Text(
                   widget.message.message,
-                  style: AppTextStyles.subHeading.copyWith(fontSize: 15),
+                  style: AppTextStyles.subHeading(context).copyWith(fontSize: 15),
                   maxLines: isExpanded ? null : maxLines,
                   overflow: TextOverflow.fade,
                 ),
@@ -89,9 +88,9 @@ class _UserMessageBubbleState extends State<UserMessageBubble> {
                             children: [
                               Text(
                                 isExpanded ? 'Show less' : 'Show more',
-                                style: AppTextStyles.subHeading.copyWith(
+                                style: AppTextStyles.subHeading(context).copyWith(
                                   fontSize: 14,
-                                  color: AppColors.primary,
+                                  color: Theme.of(context).colorScheme.primary,
                                 ),
                               ),
                               const SizedBox(width: 2),

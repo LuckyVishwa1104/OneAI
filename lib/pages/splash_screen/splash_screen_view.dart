@@ -40,8 +40,9 @@ class SplashScreenView extends StatelessWidget {
                                     children: [
                                       TextSpan(
                                         text: model.displayedText,
-                                        style: AppTextStyles.heading.copyWith(
+                                        style: AppTextStyles.heading(context).copyWith(
                                           fontSize: 28,
+                                          color: AppColors.textPrimary
                                         ),
                                       ),
                                       WidgetSpan(
@@ -88,7 +89,7 @@ class SplashScreenView extends StatelessWidget {
                 child: Container(
                   padding: EdgeInsets.symmetric(horizontal: 20, vertical: 30),
                   decoration: BoxDecoration(
-                    color: AppColors.backgroundColor,
+                    color: Theme.of(context).scaffoldBackgroundColor,
                     borderRadius: BorderRadius.only(
                       topLeft: Radius.circular(30),
                       topRight: Radius.circular(30),

@@ -56,5 +56,4 @@ class AppTheme {
       bodySmall:  TextStyle(color: AppColors.textSecondaryDark),
     ),
   );
-
 }

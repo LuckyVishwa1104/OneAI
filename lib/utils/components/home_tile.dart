@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/utils/components/logo_tile.dart';
 import 'package:one_ai/utils/constants/app_border.dart';
-import 'package:one_ai/utils/constants/app_colors.dart';
 import 'package:one_ai/utils/constants/app_radius.dart';
 import 'package:one_ai/utils/constants/app_shadow.dart';
 import 'package:one_ai/utils/constants/app_spacing.dart';
@@ -34,9 +33,9 @@ class HomeTile extends StatelessWidget {
         padding: AppSpacing.xlPadding,
 
         decoration: BoxDecoration(
-          color: AppColors.surface,
+          color: Theme.of(context).colorScheme.surface,
           borderRadius: AppRadius.radiusXxl,
-          border: AppBorder.defaultBorder,
+          border: AppBorder.defaultBorder(context),
           boxShadow: [AppShadow.homeTileShadow],
         ),
 
@@ -54,7 +53,7 @@ class HomeTile extends StatelessWidget {
                 children: [
                   Text(
                     title,
-                    style: AppTextStyles.heading,
+                    style: AppTextStyles.heading(context),
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                   ),
@@ -63,7 +62,7 @@ class HomeTile extends StatelessWidget {
 
                   Text(
                     subTitle,
-                    style: AppTextStyles.subHeading,
+                    style: AppTextStyles.subHeading(context),
                     maxLines: 2,
                     overflow: TextOverflow.ellipsis,
                   ),
