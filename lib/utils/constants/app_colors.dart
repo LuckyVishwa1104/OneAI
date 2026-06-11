@@ -19,11 +19,11 @@ class AppColors {
   static const Color borderColorLight = Color(0xFFDCE3ED);
 
   // ── Dark ─────────────────────────────────────────────
-  static const Color backgroundColorDark = Color(0xFF313030);
+  static const Color backgroundColorDark = Color(0xFF171717);
   static const Color surfaceDark = Color(0xFF1E1E1E);
   static const Color textPrimaryDark = Color(0xFFF5F5F5);
   static const Color textSecondaryDark = Color(0xFFAAAAAA);
-  static const Color borderColorDark = Color.fromARGB(255, 82, 81, 81);
+  static const Color borderColorDark = Color(0xFF525151);
 
   // ── Legacy aliases (so existing code doesn't break) ──
   static const Color backgroundColor = backgroundColorLight;

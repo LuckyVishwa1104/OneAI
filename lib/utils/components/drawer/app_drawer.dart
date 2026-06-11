@@ -16,6 +16,7 @@ class AppDrawer extends StatelessWidget {
   final List<String> projects;
   final List<String> recentChats;
   final VoidCallback? moreTap;
+  final VoidCallback profileTap;
 
   const AppDrawer({
     super.key,
@@ -25,6 +26,7 @@ class AppDrawer extends StatelessWidget {
     required this.recentChats,
     required this.showMoreActions,
     required this.moreTap,
+    required this.profileTap,
   });
 
   @override
@@ -177,9 +179,7 @@ class AppDrawer extends StatelessWidget {
 
             // User Profile
             InkWell(
-              onTap: () {
-                // Navigate Profile
-              },
+              onTap: profileTap,
               child: Padding(
                 padding: const EdgeInsets.all(14),
                 child: Row(

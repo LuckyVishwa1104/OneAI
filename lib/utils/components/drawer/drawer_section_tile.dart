@@ -30,6 +30,7 @@ class DrawerSectionTile extends StatelessWidget {
                 letterSpacing: 1.1,
               ),
             ),
+            if (viewAll)
             AppIcon(icon: Icons.navigate_next,),
           ],
         ),
