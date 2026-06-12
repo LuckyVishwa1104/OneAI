@@ -29,7 +29,10 @@ class ChatView extends StatelessWidget {
             recentChats: model.recentChats,
             moreTap: model.showMore,
             showMoreActions: model.showMoreActions,
-            profileTap: model.userProfile,
+            profileTap: () {
+              Navigator.pop(context);
+              model.userProfile;
+            },
           ),
 
           body: Column(

@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:one_ai/model/profile_option_model.dart';
 import 'package:one_ai/utils/components/app_icon.dart';
 import 'package:one_ai/utils/constants/app_border.dart';
-import 'package:one_ai/utils/constants/app_colors.dart';
 import 'package:one_ai/utils/constants/app_radius.dart';
 import 'package:one_ai/utils/constants/app_shadow.dart';
 import 'package:one_ai/utils/constants/app_spacing.dart';
