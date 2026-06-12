@@ -93,9 +93,7 @@ class HomeViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void userProfile(){
+  void userProfile() async {
     navigationService.navigateToUserProfileView();
   }
-
-
 }

@@ -27,28 +27,32 @@ class HomeView extends StatelessWidget {
             recentChats: model.recentChats,
             moreTap: model.showMore,
             showMoreActions: model.showMoreActions,
-            profileTap: model.userProfile,
+            profileTap: () {
+              Navigator.pop(context);
+              model.userProfile();
+            },
           ),
 
           body: Padding(
             padding: AppSpacing.largePadding,
             child: Column(
               children: [
-                AnimatedAiIcon(iconSize: 50,),
+                AnimatedAiIcon(iconSize: 50),
 
                 AppSpacing.h8,
 
                 Text(
                   "Welcome Back!",
-                  style: AppTextStyles.heading(context).copyWith(
-                    fontSize: 32,
-                    fontWeight: FontWeight.w400,
-                  ),
+                  style: AppTextStyles.heading(
+                    context,
+                  ).copyWith(fontSize: 32, fontWeight: FontWeight.w400),
                 ),
 
                 Text(
                   "How can I help?",
-                  style: AppTextStyles.subHeading(context).copyWith(fontSize: 20),
+                  style: AppTextStyles.subHeading(
+                    context,
+                  ).copyWith(fontSize: 20),
                 ),
 
                 AppSpacing.h20,
