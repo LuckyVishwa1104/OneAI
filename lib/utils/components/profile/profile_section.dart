@@ -18,7 +18,7 @@ class ProfileSection extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         Text(title, style: AppTextStyles.subHeading(context)),
-        AppSpacing.h12,
+        AppSpacing.h8,
         Container(
           decoration: BoxDecoration(
             color: Theme.of(context).colorScheme.surface,
@@ -52,7 +52,7 @@ class ProfileSection extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 18,
-                    vertical: 18,
+                    vertical: 14,
                   ),
                   child: Row(
                     children: [
