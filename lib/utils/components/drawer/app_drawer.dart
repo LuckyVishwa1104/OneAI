@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/model/drawer_action_model.dart';
+import 'package:one_ai/utils/components/action_tile.dart';
 import 'package:one_ai/utils/components/app_icon.dart';
 import 'package:one_ai/utils/components/drawer/drawer_action_tile.dart';
 import 'package:one_ai/utils/components/drawer/drawer_section_tile.dart';
@@ -48,25 +49,7 @@ class AppDrawer extends StatelessWidget {
                       context,
                     ).copyWith(fontSize: 25, fontWeight: FontWeight.w400),
                   ),
-                  Container(
-                    padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                    decoration: BoxDecoration(
-                      gradient: LinearGradient(
-                        colors:
-                            Theme.of(context).brightness == Brightness.dark
-                                ? [
-                                  AppColors.gradientSubtleDarkStart,
-                                  AppColors.gradientSubtleDarkEnd,
-                                ]
-                                : [
-                                  AppColors.gradientSubtleLightStart,
-                                  AppColors.gradientSubtleLightEnd,
-                                ],
-                        begin: Alignment.topLeft,
-                        end: Alignment.bottomRight,
-                      ),
-                      borderRadius: AppRadius.radiusCirular,
-                    ),
+                  ActionTile(
                     child: Row(
                       children: [
                         Icon(
@@ -84,6 +67,42 @@ class AppDrawer extends StatelessWidget {
                       ],
                     ),
                   ),
+                  // Container(
+                  //   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+                  //   decoration: BoxDecoration(
+                  //     gradient: LinearGradient(
+                  //       colors:
+                  //           Theme.of(context).brightness == Brightness.dark
+                  //               ? [
+                  //                 AppColors.gradientSubtleDarkStart,
+                  //                 AppColors.gradientSubtleDarkEnd,
+                  //               ]
+                  //               : [
+                  //                 AppColors.gradientSubtleLightStart,
+                  //                 AppColors.gradientSubtleLightEnd,
+                  //               ],
+                  //       begin: Alignment.topLeft,
+                  //       end: Alignment.bottomRight,
+                  //     ),
+                  //     borderRadius: AppRadius.radiusCirular,
+                  //   ),
+                  //   child: Row(
+                  //     children: [
+                  //       Icon(
+                  //         Icons.mode_edit_outlined,
+                  //         color: Theme.of(context).colorScheme.primary,
+                  //         size: 20,
+                  //       ),
+                  //       AppSpacing.w4,
+                  //       Text(
+                  //         "New",
+                  //         style: AppTextStyles.subHeading(context).copyWith(
+                  //           color: Theme.of(context).colorScheme.primary,
+                  //         ),
+                  //       ),
+                  //     ],
+                  //   ),
+                  // ),
                 ],
               ),
             ),
@@ -208,7 +227,7 @@ class AppDrawer extends StatelessWidget {
                             maxLines: 1,
                           ),
                           Text(
-                            "Spike Plan",
+                            "OneAI Pro",
                             style: AppTextStyles.subHeading(
                               context,
                             ).copyWith(fontSize: 12),
