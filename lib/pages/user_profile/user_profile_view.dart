@@ -21,30 +21,38 @@ class UserProfileView extends StatelessWidget {
               child: Column(
                 children: [
                   ProfileCard(
-                  userName: "Lucky Vishwakarma",
-                  email: "lucky@gmail.com",
-                  planName: "OneAI Pro",
-                  usedQueries: 68,
-                  totalQueries: 100,
-                ),
-                AppSpacing.h16,
-                ProfileSection(title: "Account", options: model.accountOption),
-            
-                AppSpacing.h16,
-                ProfileSection(title: "Preferences", options: model.preferenceOptions),
-            
-                AppSpacing.h16,
-                ProfileSection(title: "Chat Settings", options: model.chatSettingOptions),
-            
-                AppSpacing.h16,
-                ProfileSection(title: "About", options: model.aboutOptions),
+                    userName: "Lucky Vishwakarma",
+                    email: "lucky@gmail.com",
+                    planName: "OneAI Pro",
+                    usedQueries: 68,
+                    totalQueries: 100,
+                  ),
+                  AppSpacing.h16,
+                  ProfileSection(
+                    title: "Account",
+                    options: model.accountOption,
+                  ),
 
-                AppSpacing.h16,
+                  AppSpacing.h16,
+                  ProfileSection(
+                    title: "Preferences",
+                    options: model.preferenceOptions,
+                  ),
 
+                  AppSpacing.h16,
+                  ProfileSection(
+                    title: "Chat Settings",
+                    options: model.chatSettingOptions,
+                  ),
+
+                  AppSpacing.h16,
+                  ProfileSection(title: "About", options: model.aboutOptions),
+
+                  AppSpacing.h16,
                 ],
               ),
             ),
-          )
+          ),
         );
       },
     );
