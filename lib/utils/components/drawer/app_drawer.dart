@@ -65,42 +65,6 @@ class AppDrawer extends StatelessWidget {
                       ],
                     ),
                   ),
-                  // Container(
-                  //   padding: EdgeInsets.symmetric(horizontal: 16, vertical: 10),
-                  //   decoration: BoxDecoration(
-                  //     gradient: LinearGradient(
-                  //       colors:
-                  //           Theme.of(context).brightness == Brightness.dark
-                  //               ? [
-                  //                 AppColors.gradientSubtleDarkStart,
-                  //                 AppColors.gradientSubtleDarkEnd,
-                  //               ]
-                  //               : [
-                  //                 AppColors.gradientSubtleLightStart,
-                  //                 AppColors.gradientSubtleLightEnd,
-                  //               ],
-                  //       begin: Alignment.topLeft,
-                  //       end: Alignment.bottomRight,
-                  //     ),
-                  //     borderRadius: AppRadius.radiusCirular,
-                  //   ),
-                  //   child: Row(
-                  //     children: [
-                  //       Icon(
-                  //         Icons.mode_edit_outlined,
-                  //         color: Theme.of(context).colorScheme.primary,
-                  //         size: 20,
-                  //       ),
-                  //       AppSpacing.w4,
-                  //       Text(
-                  //         "New",
-                  //         style: AppTextStyles.subHeading(context).copyWith(
-                  //           color: Theme.of(context).colorScheme.primary,
-                  //         ),
-                  //       ),
-                  //     ],
-                  //   ),
-                  // ),
                 ],
               ),
             ),
