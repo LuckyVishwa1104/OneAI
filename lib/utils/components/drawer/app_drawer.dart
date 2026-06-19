@@ -5,8 +5,6 @@ import 'package:one_ai/utils/components/app_icon.dart';
 import 'package:one_ai/utils/components/drawer/drawer_action_tile.dart';
 import 'package:one_ai/utils/components/drawer/drawer_section_tile.dart';
 import 'package:one_ai/utils/components/logo_tile.dart';
-import 'package:one_ai/utils/constants/app_colors.dart';
-import 'package:one_ai/utils/constants/app_radius.dart';
 import 'package:one_ai/utils/constants/app_spacing.dart';
 import 'package:one_ai/utils/constants/app_text_styles.dart';
 
