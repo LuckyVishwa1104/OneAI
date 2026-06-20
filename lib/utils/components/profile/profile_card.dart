@@ -1,9 +1,13 @@
 import 'package:flutter/material.dart';
+import 'package:one_ai/utils/components/action_tile.dart';
 import 'package:one_ai/utils/components/app_icon.dart';
+import 'package:one_ai/utils/components/logo_tile.dart';
 import 'package:one_ai/utils/constants/app_border.dart';
 import 'package:one_ai/utils/constants/app_colors.dart';
 import 'package:one_ai/utils/constants/app_radius.dart';
 import 'package:one_ai/utils/constants/app_shadow.dart';
+import 'package:one_ai/utils/constants/app_spacing.dart';
+import 'package:one_ai/utils/constants/app_text_styles.dart';
 
 class ProfileCard extends StatelessWidget {
   final String userName;
@@ -26,9 +30,7 @@ class ProfileCard extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final progress = totalQueries == 0
-    ? 0.0
-    : usedQueries / totalQueries;
+    final progress = totalQueries == 0 ? 0.0 : usedQueries / totalQueries;
     return InkWell(
       borderRadius: AppRadius.radiusXxl,
       onTap: onTap,
@@ -48,17 +50,11 @@ class ProfileCard extends StatelessWidget {
                 Stack(
                   clipBehavior: Clip.none,
                   children: [
-                    Container(
-                      height: 90,
-                      width: 90,
-                      alignment: Alignment.center,
-                      decoration: BoxDecoration(
-                        borderRadius: BorderRadius.circular(28),
-                        gradient: const LinearGradient(
-                          colors: [AppColors.primary, AppColors.secondary],
-                        ),
-                      ),
-                      child: AppIcon(icon: Icons.person, size: 60, color: AppColors.appWhite,),
+                    LogoTile(
+                      icon: Icons.person,
+                      height: 85,
+                      width: 85,
+                      iconSize: 60,
                     ),
 
                     /// Online indicator
@@ -82,61 +78,46 @@ class ProfileCard extends StatelessWidget {
                   ],
                 ),
 
-                const SizedBox(width: 16),
+                AppSpacing.w16,
 
                 /// User Info
-                Expanded(
+                SizedBox(
+                  height: 85,
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
+                    mainAxisAlignment: MainAxisAlignment.spaceBetween,
                     children: [
                       Text(
                         userName,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.headlineSmall
-                            ?.copyWith(fontWeight: FontWeight.w700),
+                        style: AppTextStyles.heading(context),
                       ),
-
-                      const SizedBox(height: 4),
 
                       Text(
                         email,
                         maxLines: 1,
                         overflow: TextOverflow.ellipsis,
-                        style: Theme.of(context).textTheme.bodyMedium?.copyWith(
-                          color: Theme.of(context).textTheme.bodySmall?.color,
-                        ),
+                        style: AppTextStyles.subHeading(
+                          context,
+                        ).copyWith(fontWeight: FontWeight.w400),
                       ),
+                      Spacer(),
 
-                      const SizedBox(height: 12),
-
-                      Container(
-                        padding: const EdgeInsets.symmetric(
-                          horizontal: 14,
-                          vertical: 8,
-                        ),
-                        decoration: BoxDecoration(
-                          borderRadius: BorderRadius.circular(50),
-                          color: AppColors.primary.withOpacity(.1),
-                          border: Border.all(
-                            color: AppColors.primary.withOpacity(.15),
-                          ),
-                        ),
+                      ActionTile(
+                        verticalPadding: 4,
                         child: Row(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            const Icon(
-                              Icons.auto_awesome,
-                              size: 16,
-                              color: AppColors.primary,
-                            ),
-                            const SizedBox(width: 6),
+                            AppIcon(icon: Icons.auto_awesome, size: 16),
+                            AppSpacing.w4,
                             Text(
                               planName,
-                              style: const TextStyle(
-                                color: AppColors.primary,
-                                fontWeight: FontWeight.w600,
-                              ),
+                              style: AppTextStyles.subHeading(
+                                context,
+                              ).copyWith(fontSize: 14),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
                             ),
                           ],
                         ),
@@ -146,8 +127,7 @@ class ProfileCard extends StatelessWidget {
                 ),
               ],
             ),
-
-            const SizedBox(height: 24),
+            AppSpacing.h12,
 
             /// Usage Header
             Row(
@@ -155,18 +135,17 @@ class ProfileCard extends StatelessWidget {
               children: [
                 Text(
                   "Monthly usage",
-                  style: Theme.of(context).textTheme.bodyMedium,
+                  style: AppTextStyles.subHeading(
+                    context,
+                  ).copyWith(fontWeight: FontWeight.w400),
                 ),
                 Text(
                   "$usedQueries / $totalQueries queries",
-                  style: Theme.of(
-                    context,
-                  ).textTheme.titleSmall?.copyWith(fontWeight: FontWeight.w600),
+                  style: AppTextStyles.heading(context).copyWith(fontSize: 16),
                 ),
               ],
             ),
-
-            const SizedBox(height: 10),
+            AppSpacing.h4,
 
             /// Progress Bar
             ClipRRect(
@@ -174,7 +153,7 @@ class ProfileCard extends StatelessWidget {
               child: LinearProgressIndicator(
                 value: progress,
                 minHeight: 10,
-                backgroundColor: AppColors.primary.withOpacity(.08),
+                backgroundColor: AppColors.primary.withValues(alpha: .14),
                 valueColor: const AlwaysStoppedAnimation(AppColors.primary),
               ),
             ),
