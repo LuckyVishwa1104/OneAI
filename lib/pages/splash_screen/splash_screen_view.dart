@@ -40,9 +40,11 @@ class SplashScreenView extends StatelessWidget {
                                     children: [
                                       TextSpan(
                                         text: model.displayedText,
-                                        style: AppTextStyles.heading(context).copyWith(
+                                        style: AppTextStyles.heading(
+                                          context,
+                                        ).copyWith(
                                           fontSize: 28,
-                                          color: AppColors.textPrimary
+                                          color: AppColors.textPrimary,
                                         ),
                                       ),
                                       WidgetSpan(
@@ -108,7 +110,7 @@ class SplashScreenView extends StatelessWidget {
                       ElevatedButton.icon(
                         onPressed: () {
                           // Handle Google login
-                          Navigator.pushReplacement(
+                          Navigator.push(
                             context,
                             MaterialPageRoute(builder: (context) => HomeView()),
                           );
@@ -134,6 +136,29 @@ class SplashScreenView extends StatelessWidget {
                           foregroundColor: Colors.white,
                         ),
                       ),
+                      const SizedBox(height: 15),
+                      // --- NEW EMAIL BUTTON ---
+                      OutlinedButton.icon(
+                        onPressed: () {
+                          // Handle Email login navigation or action
+                        },
+                        icon: Icon(
+                          Icons.email_outlined,
+                          color: Theme.of(context).colorScheme.onSurface,
+                        ),
+                        label: const Text('Continue with Email'),
+                        style: OutlinedButton.styleFrom(
+                          minimumSize: const Size(double.infinity, 50),
+                          foregroundColor:
+                              Theme.of(context).colorScheme.onSurface,
+                          side: BorderSide(
+                            color: Theme.of(
+                              context,
+                            ).colorScheme.onSurface.withOpacity(0.3),
+                          ),
+                        ),
+                      ),
+                      SizedBox(height: 40),
                     ],
                   ),
                 ),
