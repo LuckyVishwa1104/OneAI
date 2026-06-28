@@ -79,6 +79,7 @@ class HomeView extends StatelessWidget {
           bottomNavigationBar: Padding(
             padding: AppSpacing.defaultPadding,
             child: PromptInput(
+              isHome: true,
               promptText: model.promptController,
               onSendPrompt: () => model.sendPrompt(context),
               onAttachmentTap: () {},
