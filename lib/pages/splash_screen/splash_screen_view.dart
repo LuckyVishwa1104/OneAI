@@ -154,7 +154,7 @@ class SplashScreenView extends StatelessWidget {
                           side: BorderSide(
                             color: Theme.of(
                               context,
-                            ).colorScheme.onSurface.withOpacity(0.3),
+                            ).colorScheme.onSurface.withValues(alpha: 0.3),
                           ),
                         ),
                       ),
