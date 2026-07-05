@@ -3,6 +3,7 @@ import 'package:one_ai/pages/counter/counter_view.dart';
 import 'package:one_ai/pages/home/home_view.dart';
 import 'package:one_ai/pages/user_profile/user_profile_view.dart';
 import 'package:one_ai/services/counter_service.dart';
+import 'package:one_ai/services/model_selection_service.dart';
 import 'package:one_ai/services/theme_service.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -20,6 +21,7 @@ import '../pages/splash_screen/splash_screen_view.dart';
     Singleton(classType: NavigationService),
     LazySingleton(classType: CounterService),
     LazySingleton(classType: ThemeService), 
+    LazySingleton(classType: ModelSelectionService),
   ],
 )
 class App {}
