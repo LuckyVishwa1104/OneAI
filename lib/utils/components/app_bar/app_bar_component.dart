@@ -1,39 +1,54 @@
 import 'package:flutter/material.dart';
+import 'package:one_ai/app/app.locator.dart';
+import 'package:one_ai/services/model_selection_service.dart';
 import 'package:one_ai/utils/components/app_bar/app_bar_action.dart';
 import 'package:one_ai/utils/components/app_icon.dart';
+import 'package:one_ai/utils/components/model_dropdown_overlay.dart';
 import 'package:one_ai/utils/constants/app_colors.dart';
 import 'package:one_ai/utils/constants/app_spacing.dart';
 import 'package:one_ai/utils/constants/app_text_styles.dart';
 
-class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
+class AppBarComponent extends StatefulWidget implements PreferredSizeWidget {
   final bool isTitle;
   const AppBarComponent({super.key, this.isTitle = true});
 
   @override
+  State<AppBarComponent> createState() => _AppBarComponentState();
+
+  @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+}
+
+class _AppBarComponentState extends State<AppBarComponent> {
+  final LayerLink _layerLink = LayerLink();
+
+  @override
+  void dispose() {
+    ModelDropdownOverlay.hide();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
+    final modelService = locator<ModelSelectionService>();
+    
     return AppBar(
       actionsPadding: EdgeInsets.only(right: 5),
-
       title:
-          isTitle
+          widget.isTitle
               ? Row(
                 children: [
                   AppIcon(icon: Icons.auto_awesome_outlined, size: 26),
                   AppSpacing.w4,
                   Text(
                     "OneAI",
-                    style: AppTextStyles.heading(context).copyWith(
-                      fontSize: 25,
-                      fontWeight: FontWeight.w400,
-                    ),
+                    style: AppTextStyles.heading(
+                      context,
+                    ).copyWith(fontSize: 25, fontWeight: FontWeight.w400),
                   ),
                 ],
               )
               : null,
-
       actions: [
         AppBarAction(
           onTap: () => {},
@@ -46,17 +61,29 @@ class AppBarComponent extends StatelessWidget implements PreferredSizeWidget {
           ),
         ),
         AppSpacing.w4,
-        AppBarAction(
-          child: Row(
-            children: [
-              AppSpacing.w2,
-              Text("GPT-4", style: AppTextStyles.subHeading(context)),
-              Icon(
-                Icons.keyboard_arrow_down_rounded,
-                color: Theme.of(context).colorScheme.onSurfaceVariant,
-                size: 24,
-              ),
-            ],
+        CompositedTransformTarget(
+          link: _layerLink,
+          child: AnimatedBuilder(
+            animation: modelService,
+            builder: (context, _) {
+              return AppBarAction(
+                onTap: () => ModelDropdownOverlay.toggle(context, _layerLink),
+                child: Row(
+                  children: [
+                    AppSpacing.w2,
+                    Text(
+                      modelService.selectedModel.name,
+                      style: AppTextStyles.subHeading(context),
+                    ),
+                    Icon(
+                      Icons.keyboard_arrow_down_rounded,
+                      color: Theme.of(context).colorScheme.onSurfaceVariant,
+                      size: 24,
+                    ),
+                  ],
+                ),
+              );
+            },
           ),
         ),
       ],
