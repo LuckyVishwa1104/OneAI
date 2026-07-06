@@ -1,6 +1,7 @@
 import 'package:one_ai/pages/chat/chat_view.dart';
 import 'package:one_ai/pages/counter/counter_view.dart';
 import 'package:one_ai/pages/home/home_view.dart';
+import 'package:one_ai/pages/model_selection/model_select_view.dart';
 import 'package:one_ai/pages/user_profile/user_profile_view.dart';
 import 'package:one_ai/services/counter_service.dart';
 import 'package:one_ai/services/model_selection_service.dart';
@@ -16,6 +17,7 @@ import '../pages/splash_screen/splash_screen_view.dart';
     MaterialRoute(page: SplashScreenView, initial: true),
     MaterialRoute(page: ChatView,),
     MaterialRoute(page: UserProfileView),
+    MaterialRoute(page: ModelSelectView),
   ],
   dependencies: [
     Singleton(classType: NavigationService),
