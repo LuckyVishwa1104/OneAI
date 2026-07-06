@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/app/app.locator.dart';
+import 'package:one_ai/app/app.router.dart';
 import 'package:one_ai/services/model_selection_service.dart';
 import 'package:one_ai/utils/components/app_icon.dart';
 import 'package:one_ai/utils/constants/app_border.dart';
@@ -76,7 +77,7 @@ class ModelDropdownOverlay {
                                 contentPadding: const EdgeInsets.symmetric(
                                   horizontal: 14,
                                 ),
-                                leading: AppIcon(icon: model.icon),
+                                leading: AppIcon(icon: model.icon), 
                                 title: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -95,7 +96,7 @@ class ModelDropdownOverlay {
                                       style: AppTextStyles.subHeading(
                                         context,
                                       ).copyWith(
-                                        fontSize: 15,
+                                        fontSize: 14,
                                         fontWeight: FontWeight.w400,
                                       ),
                                     ),
@@ -156,7 +157,7 @@ class ModelDropdownOverlay {
                               ),
                               onTap: () {
                                 hide();
-                                // navigationService.navigateToAllModelsView();
+                                navigationService.navigateToModelSelectView();
                               },
                             ),
                           ],
