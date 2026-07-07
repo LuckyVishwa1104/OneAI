@@ -3,8 +3,8 @@ import 'package:one_ai/app/app.locator.dart';
 import 'package:one_ai/app/app.router.dart';
 import 'package:one_ai/services/model_selection_service.dart';
 import 'package:one_ai/utils/components/app_icon.dart';
+import 'package:one_ai/utils/components/logo_tile.dart';
 import 'package:one_ai/utils/constants/app_border.dart';
-import 'package:one_ai/utils/constants/app_colors.dart';
 import 'package:one_ai/utils/constants/app_radius.dart';
 import 'package:one_ai/utils/constants/app_shadow.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -77,7 +77,7 @@ class ModelDropdownOverlay {
                                 contentPadding: const EdgeInsets.symmetric(
                                   horizontal: 14,
                                 ),
-                                leading: AppIcon(icon: model.icon), 
+                                leading: AppIcon(icon: model.icon),
                                 title: Column(
                                   crossAxisAlignment: CrossAxisAlignment.start,
                                   children: [
@@ -104,31 +104,12 @@ class ModelDropdownOverlay {
                                 ),
                                 trailing:
                                     isSelected
-                                        ? Container(
-                                          padding: EdgeInsets.all(3),
-                                          decoration: BoxDecoration(
-                                            gradient: LinearGradient(
-                                              colors:
-                                                  Theme.of(context,).brightness == Brightness.dark ? 
-                                                  [
-                                                    AppColors.gradientSubtleDarkStart,
-                                                    AppColors.gradientSubtleDarkEnd,
-                                                  ] : 
-                                                  [
-                                                    AppColors.gradientSubtleLightStart,
-                                                    AppColors.gradientSubtleLightEnd,
-                                                  ],
-                                              begin: Alignment.topLeft,
-                                              end: Alignment.bottomRight,
-                                            ),
-                                            shape: BoxShape.circle,
-
-                                            // borderRadius: AppRadius.radiusMd,
-                                          ),
-                                          child: AppIcon(
-                                            icon: Icons.check,
-                                            size: 16,
-                                          ),
+                                        ? LogoTile(
+                                          icon: Icons.check,
+                                          isCircular: true,
+                                          iconSize: 18,
+                                          height: 25,
+                                          width: 25,
                                         )
                                         : null,
                                 onTap: () {
