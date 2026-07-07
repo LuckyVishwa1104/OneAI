@@ -14,6 +14,10 @@ class HomeTile extends StatelessWidget {
   final String title;
   final String subTitle;
   final VoidCallback? onTap;
+  final EdgeInsetsGeometry? padding;
+  final bool isCircular;
+  final bool isSpacing;
+
   const HomeTile({
     super.key,
     required this.logoIcon,
@@ -23,6 +27,9 @@ class HomeTile extends StatelessWidget {
     required this.title,
     required this.subTitle,
     this.onTap,
+    this.padding,
+    this.isCircular = false,
+    this.isSpacing = true,
   });
 
   @override
@@ -30,7 +37,7 @@ class HomeTile extends StatelessWidget {
     return InkWell(
       onTap: onTap,
       child: Container(
-        padding: AppSpacing.xlPadding,
+        padding: padding ?? AppSpacing.xlPadding,
 
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surface,
@@ -43,7 +50,7 @@ class HomeTile extends StatelessWidget {
           crossAxisAlignment: CrossAxisAlignment.start,
           children: [
             
-            LogoTile(icon: logoIcon, isLogo: false, height: 52, width: 52),
+            LogoTile(icon: logoIcon, isLogo: false, height: 52, width: 52, isCircular: isCircular,),
 
             AppSpacing.w20,
 
@@ -58,7 +65,7 @@ class HomeTile extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
 
-                  AppSpacing.h8,
+                  if (isSpacing) AppSpacing.h8,
 
                   Text(
                     subTitle,
