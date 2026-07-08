@@ -23,7 +23,7 @@ class UserProfileViewModel extends BaseViewModel {
     ProfileOptionModel(
       optionIcon: LogoTile(
         isLogo: false,
-        icon: Icons.security_outlined,
+        icon: Icons.lock_outlined,
         isCircular: true,
         iconSize: 24,
       ),
@@ -35,7 +35,7 @@ class UserProfileViewModel extends BaseViewModel {
     ProfileOptionModel(
       optionIcon: LogoTile(
         isLogo: false,
-        icon: Icons.key_outlined,
+        icon: Icons.privacy_tip_outlined,
         isCircular: true,
         iconSize: 24,
       ),
@@ -46,7 +46,7 @@ class UserProfileViewModel extends BaseViewModel {
     ProfileOptionModel(
       optionIcon: LogoTile(
         isLogo: false,
-        icon: Icons.credit_card_outlined,
+        icon: Icons.link,
         isCircular: true,
         iconSize: 24,
       ),
