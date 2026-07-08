@@ -90,9 +90,15 @@ class _AppBarComponentState extends State<AppBarComponent> {
                         child: Row(
                           children: [
                             AppSpacing.w2,
-                            Text(
-                              modelService.selectedModel.name,
-                              style: AppTextStyles.subHeading(context),
+                            SizedBox(
+                              width: 80,
+                              child: Text(
+                                modelService.selectedModel.name,
+                                maxLines: 1,
+                                        overflow: TextOverflow.ellipsis,
+                                        softWrap: false,
+                                style: AppTextStyles.subHeading(context),
+                              ),
                             ),
                             Icon(
                               Icons.keyboard_arrow_down_rounded,
