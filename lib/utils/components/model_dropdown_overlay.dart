@@ -67,7 +67,7 @@ class ModelDropdownOverlay {
                         return Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            ...ModelSelectionService.models.take(6).map((
+                            ...modelService.topModels.map((
                               model,
                             ) {
                               final isSelected =
@@ -107,9 +107,9 @@ class ModelDropdownOverlay {
                                         ? LogoTile(
                                           icon: Icons.check,
                                           isCircular: true,
-                                          iconSize: 18,
-                                          height: 25,
-                                          width: 25,
+                                          iconSize: 16,
+                                          height: 22,
+                                          width: 22,
                                         )
                                         : null,
                                 onTap: () {
@@ -140,6 +140,7 @@ class ModelDropdownOverlay {
                                 hide();
                                 navigationService.navigateToModelSelectView();
                               },
+                              trailing: AppIcon(icon: Icons.navigate_next, size: 26,),
                             ),
                           ],
                         );
