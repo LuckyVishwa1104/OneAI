@@ -26,7 +26,7 @@ class HomeViewModel extends BaseViewModel {
 
   List<HomeTileModel> listTiles = [
     HomeTileModel(
-      logoIcon: Icons.message_outlined,
+      logoIcon: Icons.chat_bubble_outline,
       title: "General Help",
       subTitle: "Ask me anything you need",
     ),
