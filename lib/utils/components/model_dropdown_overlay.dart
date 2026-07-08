@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/app/app.locator.dart';
+import 'package:one_ai/app/app.router.dart';
 import 'package:one_ai/services/model_selection_service.dart';
 import 'package:one_ai/utils/components/app_icon.dart';
+import 'package:one_ai/utils/components/logo_tile.dart';
 import 'package:one_ai/utils/constants/app_border.dart';
-import 'package:one_ai/utils/constants/app_colors.dart';
 import 'package:one_ai/utils/constants/app_radius.dart';
 import 'package:one_ai/utils/constants/app_shadow.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -66,7 +67,7 @@ class ModelDropdownOverlay {
                         return Column(
                           mainAxisSize: MainAxisSize.min,
                           children: [
-                            ...ModelSelectionService.models.take(6).map((
+                            ...modelService.topModels.map((
                               model,
                             ) {
                               final isSelected =
@@ -95,7 +96,7 @@ class ModelDropdownOverlay {
                                       style: AppTextStyles.subHeading(
                                         context,
                                       ).copyWith(
-                                        fontSize: 15,
+                                        fontSize: 14,
                                         fontWeight: FontWeight.w400,
                                       ),
                                     ),
@@ -103,31 +104,12 @@ class ModelDropdownOverlay {
                                 ),
                                 trailing:
                                     isSelected
-                                        ? Container(
-                                          padding: EdgeInsets.all(3),
-                                          decoration: BoxDecoration(
-                                            gradient: LinearGradient(
-                                              colors:
-                                                  Theme.of(context,).brightness == Brightness.dark ? 
-                                                  [
-                                                    AppColors.gradientSubtleDarkStart,
-                                                    AppColors.gradientSubtleDarkEnd,
-                                                  ] : 
-                                                  [
-                                                    AppColors.gradientSubtleLightStart,
-                                                    AppColors.gradientSubtleLightEnd,
-                                                  ],
-                                              begin: Alignment.topLeft,
-                                              end: Alignment.bottomRight,
-                                            ),
-                                            shape: BoxShape.circle,
-
-                                            // borderRadius: AppRadius.radiusMd,
-                                          ),
-                                          child: AppIcon(
-                                            icon: Icons.check,
-                                            size: 16,
-                                          ),
+                                        ? LogoTile(
+                                          icon: Icons.check,
+                                          isCircular: true,
+                                          iconSize: 16,
+                                          height: 22,
+                                          width: 22,
                                         )
                                         : null,
                                 onTap: () {
@@ -156,8 +138,9 @@ class ModelDropdownOverlay {
                               ),
                               onTap: () {
                                 hide();
-                                // navigationService.navigateToAllModelsView();
+                                navigationService.navigateToModelSelectView();
                               },
+                              trailing: AppIcon(icon: Icons.navigate_next, size: 26,),
                             ),
                           ],
                         );

@@ -10,7 +10,7 @@ class ActionTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      padding: EdgeInsets.symmetric(horizontal: 16, vertical: verticalPadding),
+      padding: EdgeInsets.symmetric(horizontal: 14, vertical: verticalPadding),
       decoration: BoxDecoration(
         gradient: LinearGradient(
           colors:

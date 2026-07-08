@@ -9,8 +9,10 @@ import 'package:one_ai/utils/constants/app_spacing.dart';
 import 'package:one_ai/utils/constants/app_text_styles.dart';
 
 class AppBarComponent extends StatefulWidget implements PreferredSizeWidget {
-  final bool isTitle;
-  const AppBarComponent({super.key, this.isTitle = true});
+  final String? title;
+  final bool isAction;
+  final bool showDefaultTitle;
+  const AppBarComponent({super.key, this.title, this.showDefaultTitle = true, this.isAction = true});
 
   @override
   State<AppBarComponent> createState() => _AppBarComponentState();
@@ -31,62 +33,83 @@ class _AppBarComponentState extends State<AppBarComponent> {
   @override
   Widget build(BuildContext context) {
     final modelService = locator<ModelSelectionService>();
-    
+
     return AppBar(
       actionsPadding: EdgeInsets.only(right: 5),
-      title:
-          widget.isTitle
-              ? Row(
-                children: [
-                  AppIcon(icon: Icons.auto_awesome_outlined, size: 26),
-                  AppSpacing.w4,
-                  Text(
-                    "OneAI",
-                    style: AppTextStyles.heading(
-                      context,
-                    ).copyWith(fontSize: 25, fontWeight: FontWeight.w400),
-                  ),
-                ],
-              )
-              : null,
-      actions: [
-        AppBarAction(
-          onTap: () => {},
-          child: Stack(
-            alignment: Alignment.center,
+      title: widget.title != null
+    ? Text(
+        widget.title!,
+        style: AppTextStyles.heading(context).copyWith(
+          fontSize: 25,
+          fontWeight: FontWeight.w400,
+        ),
+      )
+    : widget.showDefaultTitle
+        ? Row(
             children: [
-              Icon(Icons.bolt, color: AppColors.innerBolt),
-              Icon(Icons.bolt, color: AppColors.outerBolt, size: 19),
-            ],
-          ),
-        ),
-        AppSpacing.w4,
-        CompositedTransformTarget(
-          link: _layerLink,
-          child: AnimatedBuilder(
-            animation: modelService,
-            builder: (context, _) {
-              return AppBarAction(
-                onTap: () => ModelDropdownOverlay.toggle(context, _layerLink),
-                child: Row(
-                  children: [
-                    AppSpacing.w2,
-                    Text(
-                      modelService.selectedModel.name,
-                      style: AppTextStyles.subHeading(context),
-                    ),
-                    Icon(
-                      Icons.keyboard_arrow_down_rounded,
-                      color: Theme.of(context).colorScheme.onSurfaceVariant,
-                      size: 24,
-                    ),
-                  ],
+              const AppIcon(
+                icon: Icons.auto_awesome_outlined,
+                size: 26,
+              ),
+              AppSpacing.w4,
+              Text(
+                "OneAI",
+                style: AppTextStyles.heading(context).copyWith(
+                  fontSize: 25,
+                  fontWeight: FontWeight.w400,
                 ),
-              );
-            },
-          ),
-        ),
-      ],
+              ),
+            ],
+          )
+        : null,
+      actions:
+          widget.isAction
+              ? [
+                AppBarAction(
+                  onTap: () => {},
+                  child: Stack(
+                    alignment: Alignment.center,
+                    children: [
+                      Icon(Icons.bolt, color: AppColors.innerBolt),
+                      Icon(Icons.bolt, color: AppColors.outerBolt, size: 19),
+                    ],
+                  ),
+                ),
+                AppSpacing.w4,
+                CompositedTransformTarget(
+                  link: _layerLink,
+                  child: AnimatedBuilder(
+                    animation: modelService,
+                    builder: (context, _) {
+                      return AppBarAction(
+                        onTap:
+                            () => ModelDropdownOverlay.toggle(
+                              context,
+                              _layerLink,
+                            ),
+                        child: Row(
+                          children: [
+                            AppSpacing.w2,
+                            Text(
+                              modelService.selectedModel.name,
+                              style: AppTextStyles.subHeading(context),
+                            ),
+                            Icon(
+                              Icons.keyboard_arrow_down_rounded,
+                              color:
+                                  Theme.of(
+                                    context,
+                                  ).colorScheme.onSurfaceVariant,
+                              size: 24,
+                            ),
+                          ],
+                        ),
+                      );
+                    },
+                  ),
+                ),
+              ]
+              : null,
     );
   }
 }

@@ -20,7 +20,7 @@ class ChatView extends StatelessWidget {
       },
       builder: (context, model, child) {
         return Scaffold(
-          appBar: AppBarComponent(isTitle: false),
+          appBar: AppBarComponent(showDefaultTitle: false,),
 
           drawer: AppDrawer(
             quickActions: model.quickActions,

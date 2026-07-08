@@ -29,6 +29,7 @@ class AppSpacing {
   static const Widget w48 = SizedBox(width: AppConstant.massive);
 
   // app padding
+  static const EdgeInsets basePadding = EdgeInsets.all(AppConstant.base);
   static const EdgeInsets defaultPadding = EdgeInsets.all(AppConstant.md);
   static const EdgeInsets largePadding = EdgeInsets.all(AppConstant.lg);
   static const EdgeInsets xlPadding = EdgeInsets.all(AppConstant.xl);
