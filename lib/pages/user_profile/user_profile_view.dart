@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/pages/user_profile/user_profile_view_model.dart';
+import 'package:one_ai/utils/components/app_bar/app_bar_component.dart';
 import 'package:one_ai/utils/components/profile/profile_card.dart';
 import 'package:one_ai/utils/components/profile/profile_section.dart';
 import 'package:one_ai/utils/constants/app_spacing.dart';
@@ -14,7 +15,7 @@ class UserProfileView extends StatelessWidget {
       viewModelBuilder: () => UserProfileViewModel(),
       builder: (context, model, child) {
         return Scaffold(
-          appBar: AppBar(),
+          appBar: AppBarComponent(isAction: false, title: "Settings"),
           body: SafeArea(
             child: SingleChildScrollView(
               padding: AppSpacing.defaultPadding,

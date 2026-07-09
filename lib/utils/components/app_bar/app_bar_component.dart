@@ -5,6 +5,7 @@ import 'package:one_ai/utils/components/app_bar/app_bar_action.dart';
 import 'package:one_ai/utils/components/app_icon.dart';
 import 'package:one_ai/utils/components/model_dropdown_overlay.dart';
 import 'package:one_ai/utils/constants/app_colors.dart';
+import 'package:one_ai/utils/constants/app_constant.dart';
 import 'package:one_ai/utils/constants/app_spacing.dart';
 import 'package:one_ai/utils/constants/app_text_styles.dart';
 
@@ -12,13 +13,18 @@ class AppBarComponent extends StatefulWidget implements PreferredSizeWidget {
   final String? title;
   final bool isAction;
   final bool showDefaultTitle;
-  const AppBarComponent({super.key, this.title, this.showDefaultTitle = true, this.isAction = true});
+  const AppBarComponent({
+    super.key,
+    this.title,
+    this.showDefaultTitle = true,
+    this.isAction = true,
+  });
 
   @override
   State<AppBarComponent> createState() => _AppBarComponentState();
 
   @override
-  Size get preferredSize => const Size.fromHeight(kToolbarHeight);
+  Size get preferredSize => const Size.fromHeight(AppConstant.massive);
 }
 
 class _AppBarComponentState extends State<AppBarComponent> {
@@ -35,33 +41,31 @@ class _AppBarComponentState extends State<AppBarComponent> {
     final modelService = locator<ModelSelectionService>();
 
     return AppBar(
+      scrolledUnderElevation: 0,
       actionsPadding: EdgeInsets.only(right: 5),
-      title: widget.title != null
-    ? Text(
-        widget.title!,
-        style: AppTextStyles.heading(context).copyWith(
-          fontSize: 25,
-          fontWeight: FontWeight.w400,
-        ),
-      )
-    : widget.showDefaultTitle
-        ? Row(
-            children: [
-              const AppIcon(
-                icon: Icons.auto_awesome_outlined,
-                size: 26,
-              ),
-              AppSpacing.w4,
-              Text(
-                "OneAI",
-                style: AppTextStyles.heading(context).copyWith(
-                  fontSize: 25,
-                  fontWeight: FontWeight.w400,
-                ),
-              ),
-            ],
-          )
-        : null,
+      titleSpacing: AppConstant.xxs,
+      title:
+          widget.title != null
+              ? Text(
+                widget.title!,
+                style: AppTextStyles.heading(
+                  context,
+                ).copyWith(fontSize: 25, fontWeight: FontWeight.w400),
+              )
+              : widget.showDefaultTitle
+              ? Row(
+                children: [
+                  const AppIcon(icon: Icons.auto_awesome_outlined, size: 26),
+                  AppSpacing.w4,
+                  Text(
+                    "OneAI",
+                    style: AppTextStyles.heading(
+                      context,
+                    ).copyWith(fontSize: 25, fontWeight: FontWeight.w400),
+                  ),
+                ],
+              )
+              : null,
       actions:
           widget.isAction
               ? [
@@ -90,9 +94,18 @@ class _AppBarComponentState extends State<AppBarComponent> {
                         child: Row(
                           children: [
                             AppSpacing.w2,
-                            Text(
-                              modelService.selectedModel.name,
-                              style: AppTextStyles.subHeading(context),
+                            ConstrainedBox(
+                              constraints: const BoxConstraints(
+                                maxWidth:
+                                    90, // Approx. width for ~10 characters
+                              ),
+                              child: Text(
+                                modelService.selectedModel.name,
+                                maxLines: 1,
+                                overflow: TextOverflow.ellipsis,
+                                softWrap: false,
+                                style: AppTextStyles.subHeading(context),
+                              ),
                             ),
                             Icon(
                               Icons.keyboard_arrow_down_rounded,
