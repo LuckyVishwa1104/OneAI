@@ -14,7 +14,9 @@ class UserProfileView extends StatelessWidget {
       viewModelBuilder: () => UserProfileViewModel(),
       builder: (context, model, child) {
         return Scaffold(
-          appBar: AppBar(),
+          appBar: AppBar(
+            scrolledUnderElevation: 0,
+          ),
           body: SafeArea(
             child: SingleChildScrollView(
               padding: AppSpacing.defaultPadding,

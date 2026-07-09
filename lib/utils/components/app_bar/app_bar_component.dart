@@ -41,6 +41,7 @@ class _AppBarComponentState extends State<AppBarComponent> {
     final modelService = locator<ModelSelectionService>();
 
     return AppBar(
+      scrolledUnderElevation: 0,
       actionsPadding: EdgeInsets.only(right: 5),
       titleSpacing: AppConstant.xxs,
       title:
