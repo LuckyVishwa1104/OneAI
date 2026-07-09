@@ -90,6 +90,16 @@ class ModelSelectionService extends ChangeNotifier {
     AiModel(
       id: 'claude-3-opus',
       name: 'Claude 3 Opus',
+      description: 'Quick Response',
+      provider: 'Anthropic',
+      tier: ModelTier.fast,
+      badge: ModelBadge.pro,
+      icon: Icons.speed_outlined,
+    ),
+
+    AiModel(
+      id: 'claude-5-5-fable',
+      name: 'Claude 5.5 Fable',
       description: 'Most powerful',
       provider: 'Anthropic',
       tier: ModelTier.powerful,
