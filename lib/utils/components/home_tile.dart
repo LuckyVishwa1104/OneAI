@@ -35,6 +35,7 @@ class HomeTile extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
+      borderRadius: AppRadius.radiusXxl,
       onTap: onTap,
       child: Container(
         padding: padding ?? AppSpacing.xlPadding,
