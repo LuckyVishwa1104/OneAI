@@ -96,4 +96,8 @@ class HomeViewModel extends BaseViewModel {
   void userProfile() async {
     navigationService.navigateToUserProfileView();
   }
+
+  void newChat() async {
+    navigationService.navigateToChatView();
+  }
 }

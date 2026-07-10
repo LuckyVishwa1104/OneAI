@@ -16,6 +16,7 @@ class AppDrawer extends StatelessWidget {
   final List<String> recentChats;
   final VoidCallback? moreTap;
   final VoidCallback profileTap;
+  final VoidCallback newChat;
 
   const AppDrawer({
     super.key,
@@ -26,6 +27,7 @@ class AppDrawer extends StatelessWidget {
     required this.showMoreActions,
     required this.moreTap,
     required this.profileTap,
+    required this.newChat,
   });
 
   @override
@@ -47,22 +49,25 @@ class AppDrawer extends StatelessWidget {
                       context,
                     ).copyWith(fontSize: 25, fontWeight: FontWeight.w400),
                   ),
-                  ActionTile(
-                    child: Row(
-                      children: [
-                        Icon(
-                          Icons.mode_edit_outlined,
-                          color: Theme.of(context).colorScheme.primary,
-                          size: 20,
-                        ),
-                        AppSpacing.w4,
-                        Text(
-                          "New",
-                          style: AppTextStyles.subHeading(context).copyWith(
+                  InkWell(
+                    onTap: newChat,
+                    child: ActionTile(
+                      child: Row(
+                        children: [
+                          Icon(
+                            Icons.mode_edit_outlined,
                             color: Theme.of(context).colorScheme.primary,
+                            size: 20,
                           ),
-                        ),
-                      ],
+                          AppSpacing.w4,
+                          Text(
+                            "New",
+                            style: AppTextStyles.subHeading(context).copyWith(
+                              color: Theme.of(context).colorScheme.primary,
+                            ),
+                          ),
+                        ],
+                      ),
                     ),
                   ),
                 ],
@@ -82,7 +87,7 @@ class AppDrawer extends StatelessWidget {
                         isProject: false,
                         icon: actions.icon,
                         isChat: false,
-                        onTap: () {},
+                        onTap: newChat,
                       ),
                     ),
 
@@ -113,7 +118,7 @@ class AppDrawer extends StatelessWidget {
                                     icon: action.icon,
                                     isProject: false,
                                     isChat: false,
-                                    onTap: () {},
+                                    onTap: newChat,
                                   ),
                                 )
                                 .toList(),

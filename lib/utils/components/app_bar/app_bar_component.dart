@@ -13,11 +13,13 @@ class AppBarComponent extends StatefulWidget implements PreferredSizeWidget {
   final String? title;
   final bool isAction;
   final bool showDefaultTitle;
+  final VoidCallback? tempChat;
   const AppBarComponent({
     super.key,
     this.title,
     this.showDefaultTitle = true,
     this.isAction = true,
+    this.tempChat
   });
 
   @override
@@ -70,7 +72,7 @@ class _AppBarComponentState extends State<AppBarComponent> {
           widget.isAction
               ? [
                 AppBarAction(
-                  onTap: () => {},
+                  onTap: widget.tempChat,
                   child: Stack(
                     alignment: Alignment.center,
                     children: [
@@ -97,7 +99,7 @@ class _AppBarComponentState extends State<AppBarComponent> {
                             ConstrainedBox(
                               constraints: const BoxConstraints(
                                 maxWidth:
-                                    90, // Approx. width for ~10 characters
+                                    95, // Approx. width for ~10 characters
                               ),
                               child: Text(
                                 modelService.selectedModel.name,
