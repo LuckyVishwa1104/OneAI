@@ -1,3 +1,5 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:one_ai/app/app.locator.dart';
 import 'package:one_ai/app/app.router.dart';
@@ -51,7 +53,26 @@ class ChatViewModel extends BaseViewModel {
     "Angular Components",
   ];
 
+  final List<String> starterMessages = [
+    "What can I help you with today?",
+    "Ask me anything.",
+    "Let's build something amazing.",
+    "Ready when you are.",
+    "How can I assist you today?",
+    "Need help solving a problem?",
+  ];
+
+  final Map<IconData, String> quickChat = {
+    Icons.lightbulb_outline_rounded: "Generate ideas for projects.",
+    Icons.code_rounded: "Write, debug, and explain code.",
+    Icons.edit_note_rounded: "Draft emails, blogs, and content.",
+  };
+
+  late final String starterMessage;
+  final String userName = "Lucky";
+
   ChatViewModel() {
+    starterMessage = starterMessages[Random().nextInt(starterMessages.length)];
     promptController.addListener(() {
       notifyListeners();
     });
@@ -62,14 +83,18 @@ class ChatViewModel extends BaseViewModel {
     notifyListeners();
   }
 
-  void userProfile(){
+  void userProfile() {
     navigationService.navigateToUserProfileView();
   }
 
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
-  Future<void> initialize(String prompt) async {
+  Future<void> initialize(String? prompt) async {
+    if (prompt == null || prompt.trim().isEmpty) {
+      return;
+    }
+
     promptController.text = prompt;
     await sendPrompt();
   }
@@ -165,5 +190,9 @@ class ChatViewModel extends BaseViewModel {
     promptController.dispose();
     scrollController.dispose();
     super.dispose();
+  }
+
+  void newChat() async {
+    navigationService.replaceWithChatView();
   }
 }
