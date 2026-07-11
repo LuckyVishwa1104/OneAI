@@ -31,12 +31,21 @@ class AppSpacing {
   // app padding
   static const EdgeInsets basePadding = EdgeInsets.all(AppConstant.base);
   static const EdgeInsets defaultPadding = EdgeInsets.all(AppConstant.md);
+  static const EdgeInsets defaultHorizontalPadding = EdgeInsets.symmetric(
+    horizontal: AppConstant.md,
+  );
   static const EdgeInsets largePadding = EdgeInsets.all(AppConstant.lg);
   static const EdgeInsets xlPadding = EdgeInsets.all(AppConstant.xl);
   static const EdgeInsets xxlPadding = EdgeInsets.all(AppConstant.xxl);
   static const EdgeInsets xxsPadding = EdgeInsets.all(AppConstant.xxs);
-  static const EdgeInsets inputPadding = EdgeInsets.symmetric(horizontal: AppConstant.lg, vertical: AppConstant.md);
-  static const EdgeInsets sectionPadding = EdgeInsets.symmetric(vertical: AppConstant.xxl);
-  static const EdgeInsets containerPaddingSymHoriXs = EdgeInsets.symmetric(horizontal: AppConstant.xs);
-
+  static const EdgeInsets inputPadding = EdgeInsets.symmetric(
+    horizontal: AppConstant.lg,
+    vertical: AppConstant.md,
+  );
+  static const EdgeInsets sectionPadding = EdgeInsets.symmetric(
+    vertical: AppConstant.xxl,
+  );
+  static const EdgeInsets containerPaddingSymHoriXs = EdgeInsets.symmetric(
+    horizontal: AppConstant.xs,
+  );
 }

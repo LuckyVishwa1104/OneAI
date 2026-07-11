@@ -18,7 +18,11 @@ class HomeView extends StatelessWidget {
       viewModelBuilder: () => HomeViewModel(),
       builder: (context, model, child) {
         return Scaffold(
-          appBar: AppBarComponent(),
+          appBar: AppBarComponent(
+            tempChat: () {
+              model.newChat();
+            },
+          ),
 
           drawer: AppDrawer(
             quickActions: model.quickActions,
@@ -30,6 +34,10 @@ class HomeView extends StatelessWidget {
             profileTap: () {
               Navigator.pop(context);
               model.userProfile();
+            },
+            newChat: () {
+              Navigator.pop(context);
+              model.newChat();
             },
           ),
 
@@ -45,7 +53,7 @@ class HomeView extends StatelessWidget {
                   "Welcome Back!",
                   style: AppTextStyles.heading(
                     context,
-                  ).copyWith(fontSize: 32, fontWeight: FontWeight.w400),
+                  ).copyWith(fontSize: 28, fontWeight: FontWeight.w400),
                 ),
 
                 Text(
@@ -62,6 +70,7 @@ class HomeView extends StatelessWidget {
                     physics: ScrollPhysics(),
                     itemBuilder: (context, index) {
                       return HomeTile(
+                        onTap: model.newChat,
                         logoIcon: model.listTiles[index].logoIcon,
                         title: model.listTiles[index].title,
                         subTitle: model.listTiles[index].subTitle,
