@@ -38,7 +38,7 @@ class HomeTile extends StatelessWidget {
       borderRadius: AppRadius.radiusXxl,
       onTap: onTap,
       child: Container(
-        padding: padding ?? AppSpacing.xlPadding,
+        padding: padding ?? AppSpacing.largePadding,
 
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surface,
@@ -66,7 +66,7 @@ class HomeTile extends StatelessWidget {
                     overflow: TextOverflow.ellipsis,
                   ),
 
-                  if (isSpacing) AppSpacing.h8,
+                  if (isSpacing) AppSpacing.h4,
 
                   Text(
                     subTitle,
