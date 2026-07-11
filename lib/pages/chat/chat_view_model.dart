@@ -30,8 +30,8 @@ class ChatViewModel extends BaseViewModel {
     DrawerActionModel(title: "Voice Chat", icon: Icons.mic_none_rounded),
     DrawerActionModel(title: "Summarize", icon: Icons.summarize_outlined),
     DrawerActionModel(
-      title: "Analyze PDF",
-      icon: Icons.picture_as_pdf_outlined,
+      title: "Analyze",
+      icon: Icons.pie_chart_outline,
     ),
   ];
 
