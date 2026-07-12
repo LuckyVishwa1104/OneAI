@@ -8,6 +8,9 @@ class ModelSelectionService extends ChangeNotifier {
       id: 'gpt-4o',
       name: 'GPT-4o',
       description: 'Most capable',
+      extendedDescription:
+          'Best for complex reasoning, coding, writing, and multimodal tasks. Supports text, vision, and audio.',
+      capabilities: ['Vision', 'Coding', 'Reasoning',],
       provider: 'OpenAI',
       tier: ModelTier.balanced,
       badge: ModelBadge.isNew,
@@ -18,6 +21,9 @@ class ModelSelectionService extends ChangeNotifier {
       id: 'gpt-4o-mini',
       name: 'GPT-4o mini',
       description: 'Fast & affordable',
+      extendedDescription:
+          'Optimized for everyday conversations, coding assistance, and quick responses with lower latency.',
+      capabilities: ['Fast', 'Coding', 'Chat',],
       provider: 'OpenAI',
       tier: ModelTier.fast,
       icon: Icons.fast_forward_outlined,
@@ -27,6 +33,9 @@ class ModelSelectionService extends ChangeNotifier {
       id: 'gpt-4-turbo',
       name: 'GPT-4 Turbo',
       description: 'Advanced reasoning',
+      extendedDescription:
+          'Ideal for professional workflows requiring advanced reasoning, long conversations, and code generation.',
+      capabilities: ['Reasoning', 'Coding', 'Long Context',],
       provider: 'OpenAI',
       tier: ModelTier.balanced,
       badge: ModelBadge.pro,
@@ -38,6 +47,9 @@ class ModelSelectionService extends ChangeNotifier {
       id: 'o1-preview',
       name: 'o1 Preview',
       description: 'Deep thinking',
+      extendedDescription:
+          'Designed for complex scientific, mathematical, and multi-step reasoning problems requiring deeper analysis.',
+      capabilities: ['Thinking', 'Reasoning', 'Research'],
       provider: 'OpenAI',
       tier: ModelTier.powerful,
       badge: ModelBadge.preview,
@@ -50,6 +62,9 @@ class ModelSelectionService extends ChangeNotifier {
       id: 'gemini-2-flash',
       name: 'Gemini 2.0 Flash',
       description: 'Speed-optimised',
+      extendedDescription:
+          'Built for fast responses, everyday productivity, and multimodal conversations with low latency.',
+      capabilities: ['Fast', 'Vision', 'Multimodal',],
       provider: 'Google Gemini',
       tier: ModelTier.fast,
       badge: ModelBadge.isNew,
@@ -60,6 +75,9 @@ class ModelSelectionService extends ChangeNotifier {
       id: 'gemini-1-5-pro',
       name: 'Gemini 1.5 Pro',
       description: 'Long context champion',
+      extendedDescription:
+          'Excellent for analyzing lengthy documents, codebases, PDFs, and complex multimodal inputs.',
+      capabilities: ['Context', 'Documents', 'Reasoning'],
       provider: 'Google Gemini',
       tier: ModelTier.balanced,
       icon: Icons.book_outlined,
@@ -69,6 +87,9 @@ class ModelSelectionService extends ChangeNotifier {
       id: 'gemini-ultra',
       name: 'Gemini Ultra',
       description: 'Most powerful',
+      extendedDescription:
+          'Google’s flagship model for advanced reasoning, multimodal understanding, and enterprise-grade tasks.',
+      capabilities: ['Reasoning', 'Enterprise', 'Multimodal'],
       provider: 'Google Gemini',
       tier: ModelTier.powerful,
       badge: ModelBadge.pro,
@@ -81,6 +102,9 @@ class ModelSelectionService extends ChangeNotifier {
       id: 'claude-3-5-sonnet',
       name: 'Claude 3.5 Sonnet',
       description: 'Balanced everyday model',
+      extendedDescription:
+          'Great for writing, coding, analysis, and long conversations with natural, reliable responses.',
+      capabilities: ['Writing', 'Coding', 'Analysis',],
       provider: 'Anthropic',
       tier: ModelTier.balanced,
       badge: ModelBadge.isNew,
@@ -90,7 +114,10 @@ class ModelSelectionService extends ChangeNotifier {
     AiModel(
       id: 'claude-3-opus',
       name: 'Claude 3 Opus',
-      description: 'Quick Response',
+      description: 'Quick response',
+      extendedDescription:
+          'Delivers fast, intelligent responses for creative writing, coding, and everyday productivity.',
+      capabilities: ['Writing', 'Coding', 'Creative'],
       provider: 'Anthropic',
       tier: ModelTier.fast,
       badge: ModelBadge.pro,
@@ -101,6 +128,9 @@ class ModelSelectionService extends ChangeNotifier {
       id: 'claude-5-5-fable',
       name: 'Claude 5.5 Fable',
       description: 'Most powerful',
+      extendedDescription:
+          'Anthropic’s most capable model for advanced reasoning, complex coding, research, and enterprise workloads.',
+      capabilities: ['Reasoning', 'Research', 'Coding',],
       provider: 'Anthropic',
       tier: ModelTier.powerful,
       badge: ModelBadge.pro,
