@@ -10,7 +10,7 @@ import 'package:one_ai/utils/constants/app_shadow.dart';
 import 'package:one_ai/utils/constants/app_spacing.dart';
 import 'package:one_ai/utils/constants/app_text_styles.dart';
 
-class ModelRow extends StatelessWidget {
+class ModelRow extends StatefulWidget {
   final AiModel model;
   final bool isSelected;
   final VoidCallback? onTap;
@@ -23,6 +23,13 @@ class ModelRow extends StatelessWidget {
     this.isSelectedHeader = false,
     this.onTap,
   });
+
+  @override
+  State<ModelRow> createState() => _ModelRowState();
+}
+
+class _ModelRowState extends State<ModelRow> {
+  bool _isExpanded = false;
 
   String badgeLabel(ModelBadge badge) {
     switch (badge) {
@@ -52,138 +59,207 @@ class ModelRow extends StatelessWidget {
     switch (tier) {
       case ModelTier.fast:
         return Icons.bolt_rounded;
-
       case ModelTier.balanced:
         return Icons.balance_rounded;
-
       case ModelTier.powerful:
         return Icons.workspace_premium_rounded;
     }
   }
 
+  void _handleTap() {
+    if (widget.model.isLocked) return;
+    // Toggle the expanded state locally...
+    setState(() => _isExpanded = !_isExpanded);
+    // ...and still let the parent know it was tapped (for selection logic).
+    widget.onTap?.call();
+  }
+
   @override
   Widget build(BuildContext context) {
     final colorScheme = Theme.of(context).colorScheme;
+    final model = widget.model;
+    final isSelected = widget.isSelected;
+    final isSelectedHeader = widget.isSelectedHeader;
+
     return InkWell(
-      borderRadius: BorderRadius.circular(16),
-      onTap: model.isLocked ? null : onTap,
-      child: Container(
+      borderRadius: AppRadius.radiusXxl,
+      onTap: model.isLocked ? null : _handleTap,
+      child: AnimatedContainer(
+        duration: const Duration(milliseconds: 220),
+        curve: Curves.easeInOut,
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surface,
           borderRadius: AppRadius.radiusXxl,
-          border: isSelectedHeader ? AppBorder.defaultBorder(context) :
-              isSelected
+          border:
+              isSelectedHeader
+                  ? AppBorder.defaultBorder(context)
+                  : isSelected
                   ? Border.all(color: colorScheme.primary, width: 1.2)
                   : AppBorder.defaultBorder(context),
           boxShadow: [AppShadow.homeTileShadow],
         ),
-        child: Row(
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            isSelectedHeader ? LogoTile(icon: Icons.rocket_launch_outlined, isCircular: true, iconSize: 22,) :
-            Container(
-              width: 22,
-              height: 22,
-              decoration: BoxDecoration(
-                shape: BoxShape.circle,
-                gradient: LinearGradient(
-                  colors:
-                      isSelected
-                          ? [AppColors.primary, AppColors.secondary]
-                          : Theme.of(context).brightness == Brightness.dark
-                          ? [
-                            AppColors.gradientSubtleDarkStart,
-                            AppColors.gradientSubtleDarkEnd,
-                          ]
-                          : [
-                            AppColors.gradientSubtleLightStart,
-                            AppColors.gradientSubtleLightEnd,
-                          ],
-                  begin: Alignment.topLeft,
-                  end: Alignment.bottomRight,
-                ),
-              ),
-              child:
-                  isSelected
-                      ? Icon(Icons.check, size: 14, color: AppColors.appWhite)
-                      : null,
-            ),
-
-            AppSpacing.w12,
-
-            Expanded(
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  Row(
-                    children: [
-                      Flexible(
-                        child: Text(
-                          model.name,
-                          style: AppTextStyles.heading(
-                            context,
-                          ).copyWith(fontSize: 18.0),
-                          overflow: TextOverflow.ellipsis,
-                          maxLines: 1,
+            Row(
+              children: [
+                isSelectedHeader
+                    ? LogoTile(
+                      icon: Icons.rocket_launch_outlined,
+                      isCircular: true,
+                      iconSize: 22,
+                    )
+                    : Container(
+                      width: 22,
+                      height: 22,
+                      decoration: BoxDecoration(
+                        shape: BoxShape.circle,
+                        gradient: LinearGradient(
+                          colors:
+                              isSelected
+                                  ? [AppColors.primary, AppColors.secondary]
+                                  : Theme.of(context).brightness ==
+                                      Brightness.dark
+                                  ? [
+                                    AppColors.gradientSubtleDarkStart,
+                                    AppColors.gradientSubtleDarkEnd,
+                                  ]
+                                  : [
+                                    AppColors.gradientSubtleLightStart,
+                                    AppColors.gradientSubtleLightEnd,
+                                  ],
+                          begin: Alignment.topLeft,
+                          end: Alignment.bottomRight,
                         ),
                       ),
-                      
-                      // Badge for model status 
-                      // if (model.badge != ModelBadge.none) ...[
-                      //   AppSpacing.w8,
-                      //   ActionTile(
-                      //     verticalPadding: 4,
-                      //     child: Text(
-                      //       badgeLabel(model.badge),
-                      //       style: AppTextStyles.subHeading(
-                      //         context,
-                      //       ).copyWith(fontSize: 14),
-                      //     ),
-                      //   ),
-                      // ],
+                      child:
+                          isSelected
+                              ? Icon(
+                                Icons.check,
+                                size: 14,
+                                color: AppColors.appWhite,
+                              )
+                              : null,
+                    ),
+                AppSpacing.w12,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Row(
+                        children: [
+                          Flexible(
+                            child: Text(
+                              model.name,
+                              style: AppTextStyles.heading(
+                                context,
+                              ).copyWith(fontSize: 18.0),
+                              overflow: TextOverflow.ellipsis,
+                              maxLines: 1,
+                            ),
+                          ),
 
-                      AppSpacing.w4,
-
-                      if (model.isLocked) ...[
-                        AppSpacing.w4,
-                        AppIcon(
-                          icon: Icons.lock_outline,
-                          size: 18,
-                          color: AppColors.primary,
-                        ),
-                      ],
+                          AppSpacing.w4,
+                          if (model.isLocked) ...[
+                            AppSpacing.w4,
+                            AppIcon(
+                              icon: Icons.lock_outline,
+                              size: 18,
+                              color: AppColors.primary,
+                            ),
+                          ],
+                        ],
+                      ),
+                      AppSpacing.h2,
+                      Text(
+                        model.description,
+                        style: AppTextStyles.subHeading(
+                          context,
+                        ).copyWith(fontSize: 14),
+                      ),
                     ],
                   ),
-                  AppSpacing.h2,
-                  Text(
-                    model.description,
-                    style: AppTextStyles.subHeading(
-                      context,
-                    ).copyWith(fontSize: 14),
+                ),
+                AppSpacing.w8,
+                ActionTile(
+                  verticalPadding: 4,
+                  child: Row(
+                    mainAxisSize: MainAxisSize.min,
+                    children: [
+                      AppIcon(
+                        icon: tierIcon(model.tier),
+                        size: 16,
+                        color: AppColors.primary,
+                      ),
+                      AppSpacing.w4,
+                      Text(
+                        tierLabel(model.tier),
+                        style: AppTextStyles.subHeading(
+                          context,
+                        ).copyWith(fontSize: 14, color: AppColors.primary),
+                        overflow: TextOverflow.ellipsis,
+                        maxLines: 1,
+                      ),
+                    ],
                   ),
-                ],
-              ),
+                ),
+              ],
             ),
 
-            AppSpacing.w8,
-
-            ActionTile(
-              verticalPadding: 4,
-              child: Row(
-                mainAxisSize: MainAxisSize.min,
-                children: [
-                  AppIcon(icon: tierIcon(model.tier), size: 16),
-                  AppSpacing.w4,
-                  Text(
-                    tierLabel(model.tier),
-                    style: AppTextStyles.subHeading(
-                      context,
-                    ).copyWith(fontSize: 14),
-                    overflow: TextOverflow.ellipsis,
-                    maxLines: 1,
-                  ),
-                ],
-              ),
+            // Expandable section: extended description + capability chips.
+            // NOTE: this assumes AiModel exposes `extendedDescription`
+            // (String?) and `capabilities` (List<String>). Add those
+            // fields to AiModel if they don't exist yet.
+            AnimatedSize(
+              duration: const Duration(milliseconds: 220),
+              curve: Curves.easeInOut,
+              alignment: Alignment.topCenter,
+              child:
+                  _isExpanded
+                      ? Padding(
+                        padding: const EdgeInsets.only(top: 14),
+                        child: Column(
+                          crossAxisAlignment: CrossAxisAlignment.start,
+                          children: [
+                            Divider(
+                              height: 1,
+                              color: Theme.of(context).dividerColor,
+                            ),
+                            AppSpacing.h12,
+                            Text(
+                              model.extendedDescription,
+                              style: AppTextStyles.subHeading(
+                                context,
+                              ).copyWith(fontSize: 14),
+                              maxLines: 2,
+                              overflow: TextOverflow.ellipsis,
+                            ),
+                            if (model.capabilities.isNotEmpty) ...[
+                              AppSpacing.h12,
+                              Wrap(
+                                spacing: 8,
+                                runSpacing: 8,
+                                children:
+                                    model.capabilities
+                                        .map(
+                                          (capability) => ActionTile(
+                                            verticalPadding: 4,
+                                            child: Text(
+                                              capability,
+                                              style: AppTextStyles.subHeading(
+                                                context,
+                                              ).copyWith(fontSize: 14),
+                                            ),
+                                          ),
+                                        )
+                                        .toList(),
+                              ),
+                            ],
+                          ],
+                        ),
+                      )
+                      : const SizedBox.shrink(),
             ),
           ],
         ),
