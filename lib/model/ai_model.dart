@@ -13,6 +13,8 @@ class AiModel {
   final ModelBadge badge;
   final bool isLocked; // true = requires Pro plan
   final IconData icon;
+  final String extendedDescription;
+  final List<String> capabilities;
 
   const AiModel({
     required this.id,
@@ -23,5 +25,7 @@ class AiModel {
     required this.icon,
     this.badge = ModelBadge.none,
     this.isLocked = false,
+    required this.extendedDescription,
+    required this.capabilities,
   });
 }
