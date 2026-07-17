@@ -10,7 +10,7 @@ class ModelSelectionService extends ChangeNotifier {
       description: 'Most capable',
       extendedDescription:
           'Best for complex reasoning, coding, writing, and multimodal tasks. Supports text, vision, and audio.',
-      capabilities: ['Vision', 'Coding', 'Reasoning',],
+      capabilities: ['Vision', 'Coding', 'Reasoning'],
       provider: 'OpenAI',
       tier: ModelTier.balanced,
       badge: ModelBadge.isNew,
@@ -23,7 +23,7 @@ class ModelSelectionService extends ChangeNotifier {
       description: 'Fast & affordable',
       extendedDescription:
           'Optimized for everyday conversations, coding assistance, and quick responses with lower latency.',
-      capabilities: ['Fast', 'Coding', 'Chat',],
+      capabilities: ['Fast', 'Coding', 'Chat'],
       provider: 'OpenAI',
       tier: ModelTier.fast,
       icon: Icons.fast_forward_outlined,
@@ -35,7 +35,7 @@ class ModelSelectionService extends ChangeNotifier {
       description: 'Advanced reasoning',
       extendedDescription:
           'Ideal for professional workflows requiring advanced reasoning, long conversations, and code generation.',
-      capabilities: ['Reasoning', 'Coding', 'Long Context',],
+      capabilities: ['Reasoning', 'Coding', 'Long Context'],
       provider: 'OpenAI',
       tier: ModelTier.balanced,
       badge: ModelBadge.pro,
@@ -64,7 +64,7 @@ class ModelSelectionService extends ChangeNotifier {
       description: 'Speed-optimised',
       extendedDescription:
           'Built for fast responses, everyday productivity, and multimodal conversations with low latency.',
-      capabilities: ['Fast', 'Vision', 'Multimodal',],
+      capabilities: ['Fast', 'Vision', 'Multimodal'],
       provider: 'Google Gemini',
       tier: ModelTier.fast,
       badge: ModelBadge.isNew,
@@ -104,7 +104,7 @@ class ModelSelectionService extends ChangeNotifier {
       description: 'Balanced everyday model',
       extendedDescription:
           'Great for writing, coding, analysis, and long conversations with natural, reliable responses.',
-      capabilities: ['Writing', 'Coding', 'Analysis',],
+      capabilities: ['Writing', 'Coding', 'Analysis'],
       provider: 'Anthropic',
       tier: ModelTier.balanced,
       badge: ModelBadge.isNew,
@@ -130,7 +130,7 @@ class ModelSelectionService extends ChangeNotifier {
       description: 'Most powerful',
       extendedDescription:
           'Anthropic’s most capable model for advanced reasoning, complex coding, research, and enterprise workloads.',
-      capabilities: ['Reasoning', 'Research', 'Coding',],
+      capabilities: ['Reasoning', 'Research', 'Coding'],
       provider: 'Anthropic',
       tier: ModelTier.powerful,
       badge: ModelBadge.pro,
@@ -140,14 +140,28 @@ class ModelSelectionService extends ChangeNotifier {
   ];
 
   List<AiModel> get topModels {
-    final grouped = <String, List<AiModel>>{};
+  final result = <AiModel>[_selectedModel];
 
-    for (final model in models) {
-      grouped.putIfAbsent(model.provider, () => []).add(model);
-    }
+  final providers = models
+      .map((m) => m.provider)
+      .toSet();
 
-    return grouped.values.expand((models) => models.take(2)).toList();
+  for (final provider in providers) {
+    final providerModels = models.where(
+      (m) => m.provider == provider && !m.isLocked,
+    );
+
+    // Prefer a model different from the selected one.
+    final candidate = providerModels.firstWhere(
+      (m) => m.id != _selectedModel.id,
+      orElse: () => providerModels.first,
+    );
+
+    result.add(candidate);
   }
+
+  return result;
+}
 
   static const Map<String, IconData> providerIcons = {
     'OpenAI': Icons.auto_awesome_outlined,
@@ -155,7 +169,7 @@ class ModelSelectionService extends ChangeNotifier {
     'Anthropic': Icons.hub_outlined,
   };
 
-  AiModel _selectedModel = models.first;
+  AiModel _selectedModel = models.firstWhere((model) => !model.isLocked);
   AiModel get selectedModel => _selectedModel;
 
   void selectModel(AiModel model) {
