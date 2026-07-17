@@ -16,13 +16,17 @@ class ModelRow extends StatefulWidget {
   final bool isSelected;
   final VoidCallback? onTap;
   final bool isSelectedHeader;
+  final bool isExpanded;
+  final VoidCallback? onExpand;
 
   const ModelRow({
     super.key,
     required this.model,
     required this.isSelected,
     this.isSelectedHeader = false,
+    required this.isExpanded,
     this.onTap,
+    this.onExpand,
   });
 
   @override
@@ -30,7 +34,6 @@ class ModelRow extends StatefulWidget {
 }
 
 class _ModelRowState extends State<ModelRow> {
-  bool _isExpanded = false;
 
   String badgeLabel(ModelBadge badge) {
     switch (badge) {
@@ -68,10 +71,10 @@ class _ModelRowState extends State<ModelRow> {
   }
 
   void _handleTap() {
-    // Always toggle expansion
-    setState(() => _isExpanded = !_isExpanded);
+    // Expand/collapse
+    widget.onExpand?.call();
 
-    // Only selectable models notify the parent
+    // Select only unlocked models
     if (!widget.model.isLocked) {
       widget.onTap?.call();
     }
@@ -114,8 +117,8 @@ class _ModelRowState extends State<ModelRow> {
                       iconSize: 22,
                     )
                     : Container(
-                      width: 22,
-                      height: 22,
+                      width: 25,
+                      height: 25,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         gradient: LinearGradient(
@@ -140,7 +143,7 @@ class _ModelRowState extends State<ModelRow> {
                           isSelected
                               ? Icon(
                                 Icons.check,
-                                size: 14,
+                                size: 17,
                                 color: AppColors.appWhite,
                               )
                               : null,
@@ -218,7 +221,7 @@ class _ModelRowState extends State<ModelRow> {
               curve: Curves.easeInOut,
               alignment: Alignment.topCenter,
               child:
-                  _isExpanded
+                  widget.isExpanded
                       ? Padding(
                         padding: const EdgeInsets.only(top: 14),
                         child: Column(
