@@ -53,7 +53,7 @@ class ModelDropdownOverlay {
                 alignment: Alignment.topRight,
                 child: Material(
                   child: Container(
-                    width: 280,
+                    width: 240,
                     padding: const EdgeInsets.symmetric(vertical: 8),
                     decoration: BoxDecoration(
                       color: Theme.of(context).colorScheme.surface,
