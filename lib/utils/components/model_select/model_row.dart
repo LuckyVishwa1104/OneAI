@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/model/ai_model.dart';
 import 'package:one_ai/utils/components/action_tile.dart';
+import 'package:one_ai/utils/components/app_button.dart';
 import 'package:one_ai/utils/components/app_icon.dart';
 import 'package:one_ai/utils/components/logo_tile.dart';
 import 'package:one_ai/utils/constants/app_border.dart';
@@ -67,11 +68,13 @@ class _ModelRowState extends State<ModelRow> {
   }
 
   void _handleTap() {
-    if (widget.model.isLocked) return;
-    // Toggle the expanded state locally...
+    // Always toggle expansion
     setState(() => _isExpanded = !_isExpanded);
-    // ...and still let the parent know it was tapped (for selection logic).
-    widget.onTap?.call();
+
+    // Only selectable models notify the parent
+    if (!widget.model.isLocked) {
+      widget.onTap?.call();
+    }
   }
 
   @override
@@ -83,7 +86,7 @@ class _ModelRowState extends State<ModelRow> {
 
     return InkWell(
       borderRadius: AppRadius.radiusXxl,
-      onTap: model.isLocked ? null : _handleTap,
+      onTap: _handleTap,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 220),
         curve: Curves.easeInOut,
@@ -174,6 +177,8 @@ class _ModelRowState extends State<ModelRow> {
                       AppSpacing.h2,
                       Text(
                         model.description,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                         style: AppTextStyles.subHeading(
                           context,
                         ).copyWith(fontSize: 14),
@@ -208,9 +213,6 @@ class _ModelRowState extends State<ModelRow> {
             ),
 
             // Expandable section: extended description + capability chips.
-            // NOTE: this assumes AiModel exposes `extendedDescription`
-            // (String?) and `capabilities` (List<String>). Add those
-            // fields to AiModel if they don't exist yet.
             AnimatedSize(
               duration: const Duration(milliseconds: 220),
               curve: Curves.easeInOut,
@@ -256,6 +258,15 @@ class _ModelRowState extends State<ModelRow> {
                                         .toList(),
                               ),
                             ],
+                            AppSpacing.h12,
+
+                            // upgrade to premium button for locked models
+                            model.isLocked
+                                ? AppButton(
+                                  onTap: () => {},
+                                  title: "Upgrade Plan",
+                                )
+                                : SizedBox(),
                           ],
                         ),
                       )
