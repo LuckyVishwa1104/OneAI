@@ -9,6 +9,8 @@ class ModelProvider extends StatelessWidget {
   final List<AiModel> models;
   final AiModel selectedModel;
   final ValueChanged<AiModel> onSelect;
+  final AiModel? expandedModel;
+  final ValueChanged<AiModel> onExpand;
 
   const ModelProvider({
     super.key,
@@ -16,6 +18,8 @@ class ModelProvider extends StatelessWidget {
     required this.models,
     required this.selectedModel,
     required this.onSelect,
+    required this.expandedModel,
+    required this.onExpand,
   });
 
   @override
@@ -31,6 +35,8 @@ class ModelProvider extends StatelessWidget {
             child: ModelRow(
               model: m,
               isSelected: m.id == selectedModel.id,
+              isExpanded: expandedModel?.id == m.id,
+              onExpand: () => onExpand(m),
               onTap: () => onSelect(m),
             ),
           ),
