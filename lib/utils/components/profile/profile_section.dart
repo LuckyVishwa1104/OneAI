@@ -52,7 +52,7 @@ class ProfileSection extends StatelessWidget {
                 child: Padding(
                   padding: const EdgeInsets.symmetric(
                     horizontal: 18,
-                    vertical: 14,
+                    vertical: 13,
                   ),
                   child: Row(
                     children: [
@@ -79,7 +79,7 @@ class ProfileSection extends StatelessWidget {
                               const SizedBox(height: 4),
                               Text(
                                 options[index].subtitle!,
-                                style: AppTextStyles.subHeading(context),
+                                style: AppTextStyles.subHeading(context).copyWith(fontWeight: FontWeight.w400),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
