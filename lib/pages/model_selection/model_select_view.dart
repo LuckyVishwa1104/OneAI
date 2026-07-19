@@ -36,6 +36,8 @@ class ModelSelectView extends StatelessWidget {
                   model: selected,
                   isSelected: true,
                   isSelectedHeader: true,
+                  isExpanded: false,
+                  onExpand: () => {},
                 ),
 
                 AppSpacing.h12,
@@ -52,7 +54,9 @@ class ModelSelectView extends StatelessWidget {
                           provider: entry.key,
                           models: entry.value,
                           selectedModel: selected,
+                          expandedModel: model.expandedModel,
                           onSelect: model.selectModel,
+                          onExpand: model.toggleExpanded,
                         );
                       }),
                     ],

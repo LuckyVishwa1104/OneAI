@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/model/ai_model.dart';
 import 'package:one_ai/utils/components/action_tile.dart';
+import 'package:one_ai/utils/components/app_button.dart';
 import 'package:one_ai/utils/components/app_icon.dart';
 import 'package:one_ai/utils/components/logo_tile.dart';
 import 'package:one_ai/utils/constants/app_border.dart';
@@ -15,13 +16,17 @@ class ModelRow extends StatefulWidget {
   final bool isSelected;
   final VoidCallback? onTap;
   final bool isSelectedHeader;
+  final bool isExpanded;
+  final VoidCallback? onExpand;
 
   const ModelRow({
     super.key,
     required this.model,
     required this.isSelected,
     this.isSelectedHeader = false,
+    required this.isExpanded,
     this.onTap,
+    this.onExpand,
   });
 
   @override
@@ -29,7 +34,6 @@ class ModelRow extends StatefulWidget {
 }
 
 class _ModelRowState extends State<ModelRow> {
-  bool _isExpanded = false;
 
   String badgeLabel(ModelBadge badge) {
     switch (badge) {
@@ -67,11 +71,13 @@ class _ModelRowState extends State<ModelRow> {
   }
 
   void _handleTap() {
-    if (widget.model.isLocked) return;
-    // Toggle the expanded state locally...
-    setState(() => _isExpanded = !_isExpanded);
-    // ...and still let the parent know it was tapped (for selection logic).
-    widget.onTap?.call();
+    // Expand/collapse
+    widget.onExpand?.call();
+
+    // Select only unlocked models
+    if (!widget.model.isLocked) {
+      widget.onTap?.call();
+    }
   }
 
   @override
@@ -83,7 +89,7 @@ class _ModelRowState extends State<ModelRow> {
 
     return InkWell(
       borderRadius: AppRadius.radiusXxl,
-      onTap: model.isLocked ? null : _handleTap,
+      onTap: _handleTap,
       child: AnimatedContainer(
         duration: const Duration(milliseconds: 220),
         curve: Curves.easeInOut,
@@ -111,8 +117,8 @@ class _ModelRowState extends State<ModelRow> {
                       iconSize: 22,
                     )
                     : Container(
-                      width: 22,
-                      height: 22,
+                      width: 25,
+                      height: 25,
                       decoration: BoxDecoration(
                         shape: BoxShape.circle,
                         gradient: LinearGradient(
@@ -137,7 +143,7 @@ class _ModelRowState extends State<ModelRow> {
                           isSelected
                               ? Icon(
                                 Icons.check,
-                                size: 14,
+                                size: 17,
                                 color: AppColors.appWhite,
                               )
                               : null,
@@ -174,6 +180,8 @@ class _ModelRowState extends State<ModelRow> {
                       AppSpacing.h2,
                       Text(
                         model.description,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
                         style: AppTextStyles.subHeading(
                           context,
                         ).copyWith(fontSize: 14),
@@ -208,15 +216,12 @@ class _ModelRowState extends State<ModelRow> {
             ),
 
             // Expandable section: extended description + capability chips.
-            // NOTE: this assumes AiModel exposes `extendedDescription`
-            // (String?) and `capabilities` (List<String>). Add those
-            // fields to AiModel if they don't exist yet.
             AnimatedSize(
               duration: const Duration(milliseconds: 220),
               curve: Curves.easeInOut,
               alignment: Alignment.topCenter,
               child:
-                  _isExpanded
+                  widget.isExpanded
                       ? Padding(
                         padding: const EdgeInsets.only(top: 14),
                         child: Column(
@@ -256,6 +261,15 @@ class _ModelRowState extends State<ModelRow> {
                                         .toList(),
                               ),
                             ],
+                            AppSpacing.h12,
+
+                            // upgrade to premium button for locked models
+                            model.isLocked
+                                ? AppButton(
+                                  onTap: () => {},
+                                  title: "Upgrade Plan",
+                                )
+                                : SizedBox(),
                           ],
                         ),
                       )
