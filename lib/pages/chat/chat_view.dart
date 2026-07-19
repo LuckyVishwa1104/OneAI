@@ -53,61 +53,26 @@ class ChatView extends StatelessWidget {
               Expanded(
                 child:
                     model.messages.isEmpty
-                        ? Column(
-                          children: [
-                            const Spacer(),
-
-                            AnimatedAiIcon(iconSize: 50),
-                            AppSpacing.h12,
-                            Text(
-                              "Welcome ${model.userName}!",
-                              style: AppTextStyles.heading(
-                                context,
-                              ).copyWith(fontSize: 24),
-                            ),
-                            AppSpacing.h8,
-                            Text(
-                              model.starterMessage,
-                              style: AppTextStyles.subHeading(
-                                context,
-                              ).copyWith(fontSize: 18),
-                            ),
-
-                            const Spacer(),
-
-                            Expanded(
-                              child: ListView(
-                                shrinkWrap: true,
-                                // physics: const NeverScrollableScrollPhysics(),
-                                children:
-                                    model.quickChat.entries.map((entry) {
-                                      return Padding(
-                                        padding: const EdgeInsets.only(
-                                          bottom: 20,
-                                          left: 20,
-                                        ),
-                                        child: Row(
-                                          children: [
-                                            LogoTile(
-                                              icon: entry.key,
-                                              isLogo: false,
-                                              iconSize: 24,
-                                              isCircular: true,
-                                            ),
-                                            AppSpacing.w16,
-                                            Text(
-                                              entry.value,
-                                              style: AppTextStyles.subHeading(
-                                                context,
-                                              ),
-                                            ),
-                                          ],
-                                        ),
-                                      );
-                                    }).toList(),
+                        ? Center(
+                          child: Column(
+                            children: [
+                              const Spacer(),
+                              Text(
+                                "Welcome ${model.userName}!",
+                                style: AppTextStyles.heading(
+                                  context,
+                                ).copyWith(fontSize: 24),
                               ),
-                            ),
-                          ],
+                              AppSpacing.h8,
+                              Text(
+                                model.starterMessage,
+                                style: AppTextStyles.subHeading(
+                                  context,
+                                ).copyWith(fontSize: 18),
+                              ),
+                              const Spacer(),
+                            ],
+                          ),
                         )
                         : ListView.builder(
                           controller: model.scrollController,
@@ -136,17 +101,16 @@ class ChatView extends StatelessWidget {
                           },
                         ),
               ),
+              Padding(
+                padding: AppSpacing.largePadding,
+                child: PromptInput(
+                  promptText: model.promptController,
+                  onSendPrompt: model.sendPrompt,
+                  onAttachmentTap: () {},
+                  onMicTap: () {},
+                ),
+              ),
             ],
-          ),
-
-          bottomNavigationBar: Padding(
-            padding: AppSpacing.defaultPadding,
-            child: PromptInput(
-              promptText: model.promptController,
-              onSendPrompt: model.sendPrompt,
-              onAttachmentTap: () {},
-              onMicTap: () {},
-            ),
           ),
         );
       },
