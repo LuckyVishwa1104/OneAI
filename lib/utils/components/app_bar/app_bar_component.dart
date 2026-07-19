@@ -55,17 +55,11 @@ class _AppBarComponentState extends State<AppBarComponent> {
                 ).copyWith(fontSize: 25, fontWeight: FontWeight.w400),
               )
               : widget.showDefaultTitle
-              ? Row(
-                children: [
-                  const AppIcon(icon: Icons.auto_awesome_outlined, size: 26),
-                  AppSpacing.w4,
-                  Text(
-                    "OneAI",
-                    style: AppTextStyles.heading(
-                      context,
-                    ).copyWith(fontSize: 25, fontWeight: FontWeight.w400),
-                  ),
-                ],
+              ? Text(
+                "OneAI",
+                style: AppTextStyles.heading(
+                  context,
+                ).copyWith(fontSize: 25, fontWeight: FontWeight.w400),
               )
               : null,
       actions:
