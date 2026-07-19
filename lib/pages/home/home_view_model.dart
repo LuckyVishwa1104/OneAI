@@ -1,8 +1,11 @@
+import 'dart:math';
+
 import 'package:flutter/material.dart';
 import 'package:one_ai/app/app.locator.dart';
 import 'package:one_ai/app/app.router.dart';
 import 'package:one_ai/model/drawer_action_model.dart';
 import 'package:one_ai/model/home_tile_model.dart';
+import 'package:one_ai/model/quick_chat.dart';
 import 'package:one_ai/services/counter_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -16,6 +19,7 @@ class HomeViewModel extends BaseViewModel {
     promptController.addListener(() {
       notifyListeners();
     });
+    starterMessage = starterMessages[Random().nextInt(starterMessages.length)];
   }
 
   @override
@@ -24,27 +28,16 @@ class HomeViewModel extends BaseViewModel {
     super.dispose();
   }
 
-  List<HomeTileModel> listTiles = [
-    HomeTileModel(
-      logoIcon: Icons.chat_bubble_outline,
-      title: "General Help",
-      subTitle: "Ask me anything you need",
-    ),
-    HomeTileModel(
-      logoIcon: Icons.lightbulb_outline,
-      title: "Creative Ideas",
-      subTitle: "Help me brainstorm solution",
-    ),
-    HomeTileModel(
-      logoIcon: Icons.code,
-      title: "Code Assitant",
-      subTitle: "Write, debug, or explain",
-    ),
-    HomeTileModel(
-      logoIcon: Icons.image_outlined,
-      title: "Design & Visual",
-      subTitle: "Create UI dsign and layouts",
-    ),
+  late final String starterMessage;
+  final String userName = "Lucky";
+
+  final List<String> starterMessages = [
+    "What can I help you with today?",
+    "Ask me anything.",
+    "Let's build something amazing.",
+    "Ready when you are.",
+    "How can I assist you today?",
+    "Need help solving a problem?",
   ];
 
   bool showMoreActions = false;
@@ -57,10 +50,7 @@ class HomeViewModel extends BaseViewModel {
   final List<DrawerActionModel> moreQuickActions = [
     DrawerActionModel(title: "Voice Chat", icon: Icons.mic_none_rounded),
     DrawerActionModel(title: "Summarize", icon: Icons.summarize_outlined),
-    DrawerActionModel(
-      title: "Analyze",
-      icon: Icons.pie_chart_outline,
-    ),
+    DrawerActionModel(title: "Analyze", icon: Icons.pie_chart_outline),
   ];
 
   final List<String> projects = [
@@ -79,6 +69,21 @@ class HomeViewModel extends BaseViewModel {
     "Resume Improvements",
     "AWS S3 Storage",
     "Angular Components",
+  ];
+
+  final List<QuickChat> quickChat = [
+    QuickChat(
+      icon: Icons.lightbulb_outline_rounded,
+      text: "Generate ideas for projects.",
+    ),
+    QuickChat(
+      icon: Icons.code_rounded,
+      text: "Write, debug, and explain code.",
+    ),
+    QuickChat(
+      icon: Icons.edit_note_rounded,
+      text: "Draft emails, blogs, and content.",
+    ),
   ];
 
   void sendPrompt(BuildContext context) {
