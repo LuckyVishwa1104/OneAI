@@ -2,8 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:one_ai/utils/components/animated_ai_icon.dart';
 import 'package:one_ai/utils/components/app_bar/app_bar_component.dart';
 import 'package:one_ai/utils/components/drawer/app_drawer.dart';
-import 'package:one_ai/utils/components/home_tile.dart';
+import 'package:one_ai/utils/components/logo_tile.dart';
 import 'package:one_ai/utils/components/prompt/prompt_input.dart';
+import 'package:one_ai/utils/constants/app_constant.dart';
 import 'package:one_ai/utils/constants/app_spacing.dart';
 import 'package:one_ai/utils/constants/app_text_styles.dart';
 import 'package:stacked/stacked.dart';
@@ -45,54 +46,64 @@ class HomeView extends StatelessWidget {
             padding: AppSpacing.largePadding,
             child: Column(
               children: [
+                const Spacer(),
+
                 AnimatedAiIcon(iconSize: 50),
-
-                AppSpacing.h8,
-
+                AppSpacing.h12,
                 Text(
-                  "Welcome Back!",
-                  style: AppTextStyles.heading(
-                    context,
-                  ).copyWith(fontSize: 28, fontWeight: FontWeight.w400),
+                  "Welcome ${model.userName}!",
+                  style: AppTextStyles.heading(context).copyWith(fontSize: 24),
                 ),
-
+                AppSpacing.h8,
                 Text(
-                  "How can I help?",
+                  model.starterMessage,
                   style: AppTextStyles.subHeading(
                     context,
-                  ).copyWith(fontSize: 20),
+                  ).copyWith(fontSize: 18),
                 ),
 
-                AppSpacing.h20,
+                const Spacer(),
 
                 Expanded(
                   child: ListView.separated(
-                    physics: ScrollPhysics(),
                     itemBuilder: (context, index) {
-                      return HomeTile(
-                        onTap: model.newChat,
-                        logoIcon: model.listTiles[index].logoIcon,
-                        title: model.listTiles[index].title,
-                        subTitle: model.listTiles[index].subTitle,
+                      final item = model.quickChat[index];
+                      return Row(
+                        children: [
+                          LogoTile(
+                            icon: item.icon,
+                            isLogo: false,
+                            iconSize: 24,
+                            isCircular: true,
+                          ),
+                          AppSpacing.w16,
+                          Text(
+                            item.text,
+                            style: AppTextStyles.subHeading(context),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
                       );
                     },
-                    separatorBuilder: (context, index) => AppSpacing.h12,
+                    physics: ScrollPhysics(),
+                    separatorBuilder: (context, index) => AppSpacing.h20,
                     padding: EdgeInsets.zero,
-                    itemCount: model.listTiles.length,
+                    itemCount: model.quickChat.length,
+                  ),
+                ),
+
+                Padding(
+                  padding: EdgeInsetsGeometry.only(top: AppConstant.lg),
+                  child: PromptInput(
+                    isHome: true,
+                    promptText: model.promptController,
+                    onSendPrompt: () => model.sendPrompt(context),
+                    onAttachmentTap: () {},
+                    onMicTap: () {},
                   ),
                 ),
               ],
-            ),
-          ),
-
-          bottomNavigationBar: Padding(
-            padding: AppSpacing.defaultPadding,
-            child: PromptInput(
-              isHome: true,
-              promptText: model.promptController,
-              onSendPrompt: () => model.sendPrompt(context),
-              onAttachmentTap: () {},
-              onMicTap: () {},
             ),
           ),
         );
