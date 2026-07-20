@@ -14,12 +14,14 @@ class AppBarComponent extends StatefulWidget implements PreferredSizeWidget {
   final bool isAction;
   final bool showDefaultTitle;
   final VoidCallback? tempChat;
+  final bool showDrawer;
   const AppBarComponent({
     super.key,
     this.title,
     this.showDefaultTitle = true,
     this.isAction = true,
-    this.tempChat
+    this.tempChat,
+    this.showDrawer = false,
   });
 
   @override
@@ -43,6 +45,34 @@ class _AppBarComponentState extends State<AppBarComponent> {
     final modelService = locator<ModelSelectionService>();
 
     return AppBar(
+      automaticallyImplyLeading: false,
+      leading:
+          widget.showDrawer
+              ? Builder(
+                builder:
+                    (context) => InkWell(
+                      splashColor: Colors.transparent,
+                      highlightColor: Colors.transparent,
+                      onTap: () => Scaffold.of(context).openDrawer(),
+                      child: AppIcon(
+                        icon: Icons.vertical_distribute_rounded,
+                        color: Theme.of(context).colorScheme.onSurface,
+                        size: 21,
+                      ),
+                    ),
+              )
+              : Navigator.canPop(context)
+              ? InkWell(
+                splashColor: Colors.transparent,
+                highlightColor: Colors.transparent,
+                onTap: () => Navigator.of(context).pop(),
+                child: AppIcon(
+                  icon: Icons.arrow_back_ios_new_rounded,
+                  color: Theme.of(context).colorScheme.onSurface,
+                  size: 22,
+                ),
+              )
+              : null,
       scrolledUnderElevation: 0,
       actionsPadding: EdgeInsets.only(right: 5),
       titleSpacing: AppConstant.xxs,
@@ -52,14 +82,14 @@ class _AppBarComponentState extends State<AppBarComponent> {
                 widget.title!,
                 style: AppTextStyles.heading(
                   context,
-                ).copyWith(fontSize: 25, fontWeight: FontWeight.w400),
+                ).copyWith(fontSize: 22, fontWeight: FontWeight.w400),
               )
               : widget.showDefaultTitle
               ? Text(
                 "OneAI",
                 style: AppTextStyles.heading(
                   context,
-                ).copyWith(fontSize: 25, fontWeight: FontWeight.w400),
+                ).copyWith(fontSize: 22, fontWeight: FontWeight.w400),
               )
               : null,
       actions:
