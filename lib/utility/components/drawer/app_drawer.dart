@@ -39,7 +39,12 @@ class AppDrawer extends StatelessWidget {
           children: [
             // Drawer Header
             Padding(
-              padding: const EdgeInsets.all(16),
+              padding: EdgeInsetsGeometry.only(
+                left: 16,
+                right: 16,
+                bottom: 4,
+                top: 4,
+              ),
               child: Row(
                 mainAxisAlignment: MainAxisAlignment.spaceBetween,
                 children: [
@@ -47,11 +52,12 @@ class AppDrawer extends StatelessWidget {
                     "OneAI",
                     style: AppTextStyles.heading(
                       context,
-                    ).copyWith(fontSize: 25, fontWeight: FontWeight.w400),
+                    ).copyWith(fontSize: 22, fontWeight: FontWeight.w400),
                   ),
                   InkWell(
                     onTap: newChat,
                     child: ActionTile(
+                      verticalPadding: 8,
                       child: Row(
                         children: [
                           Icon(
