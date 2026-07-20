@@ -21,9 +21,11 @@ class HomeView extends StatelessWidget {
             tempChat: () {
               model.newChat();
             },
+            showDrawer: true,
           ),
 
           drawer: AppDrawer(
+            
             quickActions: model.quickActions,
             moreQuickActions: model.moreQuickActions,
             projects: model.projects,
