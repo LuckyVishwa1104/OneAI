@@ -5,6 +5,7 @@ import 'package:one_ai/app/app.locator.dart';
 import 'package:one_ai/app/app.router.dart';
 import 'package:one_ai/model/chat_message_model.dart';
 import 'package:one_ai/model/drawer_action_model.dart';
+import 'package:one_ai/model/quick_chat.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -29,10 +30,7 @@ class ChatViewModel extends BaseViewModel {
   final List<DrawerActionModel> moreQuickActions = [
     DrawerActionModel(title: "Voice Chat", icon: Icons.mic_none_rounded),
     DrawerActionModel(title: "Summarize", icon: Icons.summarize_outlined),
-    DrawerActionModel(
-      title: "Analyze",
-      icon: Icons.pie_chart_outline,
-    ),
+    DrawerActionModel(title: "Analyze", icon: Icons.pie_chart_outline),
   ];
 
   final List<String> projects = [
@@ -62,11 +60,20 @@ class ChatViewModel extends BaseViewModel {
     "Need help solving a problem?",
   ];
 
-  final Map<IconData, String> quickChat = {
-    Icons.lightbulb_outline_rounded: "Generate ideas for projects.",
-    Icons.code_rounded: "Write, debug, and explain code.",
-    Icons.edit_note_rounded: "Draft emails, blogs, and content.",
-  };
+  final List<QuickChat> quickChat = [
+    QuickChat(
+      icon: Icons.lightbulb_outline_rounded,
+      text: "Generate ideas for projects.",
+    ),
+    QuickChat(
+      icon: Icons.code_rounded,
+      text: "Write, debug, and explain code.",
+    ),
+    QuickChat(
+      icon: Icons.edit_note_rounded,
+      text: "Draft emails, blogs, and content.",
+    ),
+  ];
 
   late final String starterMessage;
   final String userName = "Lucky";
