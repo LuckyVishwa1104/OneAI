@@ -21,6 +21,7 @@ class ChatViewModel extends BaseViewModel {
   List<ChatMessageModel> get messages => _messages;
 
   bool showMoreActions = false;
+  final String userName = "Lucky";
 
   final List<DrawerActionModel> quickActions = [
     DrawerActionModel(icon: Icons.code, title: 'Code'),
@@ -51,15 +52,6 @@ class ChatViewModel extends BaseViewModel {
     "Angular Components",
   ];
 
-  final List<String> starterMessages = [
-    "What can I help you with today?",
-    "Ask me anything.",
-    "Let's build something amazing.",
-    "Ready when you are.",
-    "How can I assist you today?",
-    "Need help solving a problem?",
-  ];
-
   final List<QuickChat> quickChat = [
     QuickChat(
       icon: Icons.lightbulb_outline_rounded,
@@ -75,11 +67,7 @@ class ChatViewModel extends BaseViewModel {
     ),
   ];
 
-  late final String starterMessage;
-  final String userName = "Lucky";
-
   ChatViewModel() {
-    starterMessage = starterMessages[Random().nextInt(starterMessages.length)];
     promptController.addListener(() {
       notifyListeners();
     });

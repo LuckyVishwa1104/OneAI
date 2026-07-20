@@ -31,23 +31,6 @@ class ChatView extends StatelessWidget {
             },
           ),
 
-          drawer: AppDrawer(
-            quickActions: model.quickActions,
-            moreQuickActions: model.moreQuickActions,
-            projects: model.projects,
-            recentChats: model.recentChats,
-            moreTap: model.showMore,
-            showMoreActions: model.showMoreActions,
-            profileTap: () {
-              Navigator.pop(context);
-              model.userProfile();
-            },
-            newChat: () {
-              Navigator.pop(context);
-              model.newChat();
-            },
-          ),
-
           body: Column(
             children: [
               /// Chat Messages
@@ -74,7 +57,7 @@ class ChatView extends StatelessWidget {
                               ),
                               AppSpacing.h8,
                               Text(
-                                model.starterMessage,
+                                "Let's get started.",
                                 style: AppTextStyles.subHeading(
                                   context,
                                 ).copyWith(fontSize: 18),
