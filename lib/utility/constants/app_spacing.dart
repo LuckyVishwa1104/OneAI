@@ -45,7 +45,4 @@ class AppSpacing {
   static const EdgeInsets sectionPadding = EdgeInsets.symmetric(
     vertical: AppConstant.xxl,
   );
-  static const EdgeInsets containerPaddingSymHoriXs = EdgeInsets.symmetric(
-    horizontal: AppConstant.xs,
-  );
 }
