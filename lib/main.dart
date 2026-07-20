@@ -25,11 +25,11 @@ class MyApp extends StatelessWidget {
     return ViewModelBuilder<MyAppViewModel>.reactive(
       viewModelBuilder: () => MyAppViewModel(),
       builder:
-          (context, vm, child) => MaterialApp(
+          (context, model, child) => MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: AppTheme.light,
             darkTheme: AppTheme.dark,
-            themeMode: vm.themeMode, // ← reactive
+            themeMode: model.themeMode, // ← reactive
             navigatorKey: StackedService.navigatorKey,
             onGenerateRoute: StackedRouter().onGenerateRoute,
           ),
