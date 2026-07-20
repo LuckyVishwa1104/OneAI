@@ -8,12 +8,12 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:flutter/material.dart' as _i8;
 import 'package:flutter/material.dart';
-import 'package:one_ai/pages/chat/chat_view.dart' as _i5;
-import 'package:one_ai/pages/counter/counter_view.dart' as _i3;
-import 'package:one_ai/pages/home/home_view.dart' as _i2;
-import 'package:one_ai/pages/model_selection/model_select_view.dart' as _i7;
-import 'package:one_ai/pages/splash_screen/splash_screen_view.dart' as _i4;
-import 'package:one_ai/pages/user_profile/user_profile_view.dart' as _i6;
+import 'package:one_ai/screen/chat/chat_view.dart' as _i5;
+import 'package:one_ai/screen/counter/counter_view.dart' as _i3;
+import 'package:one_ai/screen/home/home_view.dart' as _i2;
+import 'package:one_ai/screen/model_selection/model_select_view.dart' as _i7;
+import 'package:one_ai/screen/splash_screen/splash_screen_view.dart' as _i4;
+import 'package:one_ai/screen/user_profile/user_profile_view.dart' as _i6;
 import 'package:stacked/stacked.dart' as _i1;
 import 'package:stacked_services/stacked_services.dart' as _i9;
 

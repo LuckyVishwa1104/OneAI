@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/app/app.locator.dart';
 import 'package:one_ai/app/app.router.dart';
-import 'package:one_ai/app/app_theme.dart';
+import 'package:one_ai/utility/theme/app_theme.dart';
 import 'package:one_ai/firebase_options.dart';
 import 'package:one_ai/services/theme_service.dart';
 import 'package:stacked/stacked.dart';
@@ -25,11 +25,11 @@ class MyApp extends StatelessWidget {
     return ViewModelBuilder<MyAppViewModel>.reactive(
       viewModelBuilder: () => MyAppViewModel(),
       builder:
-          (context, vm, child) => MaterialApp(
+          (context, model, child) => MaterialApp(
             debugShowCheckedModeBanner: false,
             theme: AppTheme.light,
             darkTheme: AppTheme.dark,
-            themeMode: vm.themeMode, // ← reactive
+            themeMode: model.themeMode, // ← reactive
             navigatorKey: StackedService.navigatorKey,
             onGenerateRoute: StackedRouter().onGenerateRoute,
           ),
