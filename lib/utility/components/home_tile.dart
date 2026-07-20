@@ -1,0 +1,87 @@
+import 'package:flutter/material.dart';
+import 'package:one_ai/utility/components/logo_tile.dart';
+import 'package:one_ai/utility/constants/app_border.dart';
+import 'package:one_ai/utility/constants/app_radius.dart';
+import 'package:one_ai/utility/constants/app_shadow.dart';
+import 'package:one_ai/utility/constants/app_spacing.dart';
+import 'package:one_ai/utility/constants/app_text_styles.dart';
+
+class HomeTile extends StatelessWidget {
+  final IconData logoIcon;
+  final double logoHeight;
+  final double logoWidth;
+  final double logoIconSize;
+  final String title;
+  final String subTitle;
+  final VoidCallback? onTap;
+  final EdgeInsetsGeometry? padding;
+  final bool isCircular;
+  final bool isSpacing;
+
+  const HomeTile({
+    super.key,
+    required this.logoIcon,
+    this.logoHeight = 42,
+    this.logoWidth = 42,
+    this.logoIconSize = 25,
+    required this.title,
+    required this.subTitle,
+    this.onTap,
+    this.padding,
+    this.isCircular = false,
+    this.isSpacing = true,
+  });
+
+  @override
+  Widget build(BuildContext context) {
+    return InkWell(
+      borderRadius: AppRadius.radiusXxl,
+      onTap: onTap,
+      child: Container(
+        padding: padding ?? AppSpacing.largePadding,
+
+        decoration: BoxDecoration(
+          color: Theme.of(context).colorScheme.surface,
+          borderRadius: AppRadius.radiusXxl,
+          border: AppBorder.defaultBorder(context),
+          boxShadow: [AppShadow.homeTileShadow],
+        ),
+
+        child: Row(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          children: [
+            
+            LogoTile(icon: logoIcon, isLogo: false, height: 52, width: 52, isCircular: isCircular,),
+
+            AppSpacing.w20,
+
+            Expanded(
+              child: Column(
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  Text(
+                    title,
+                    style: AppTextStyles.heading(context),
+                    maxLines: 1,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+
+                  if (isSpacing) AppSpacing.h4,
+
+                  Text(
+                    subTitle,
+                    style: AppTextStyles.subHeading(context),
+                    maxLines: 2,
+                    overflow: TextOverflow.ellipsis,
+                  ),
+                ],
+              ),
+            ),
+
+            /// furthre code fo holme tile component
+          ],
+        ),
+      ),
+    );
+  }
+}
