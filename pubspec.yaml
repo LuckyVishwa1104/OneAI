@@ -81,11 +81,16 @@ flutter:
   #         weight: 700
 
 # app logo
-flutter_icons:
-  ios: true
-  image_path_ios: "assets/icons/OneAI.png"
-  remove_alpha_ios: true # Ensures no transparency for App Store compliance
-  
+flutter_launcher_icons:
   android: true
-  adaptive_icon_background: "#FFFFFF" # You can use a hex code or an image path
-  adaptive_icon_foreground: "assets/icons/OneAI.png"
+  ios: true
+
+  # iOS uses the complete icon
+  image_path: "assets/icons/one_ai_ios.png"
+
+  # Android Adaptive Icon
+  adaptive_icon_background: "assets/icons/one_ai_background.png"
+  adaptive_icon_foreground: "assets/icons/one_ai_foreground.png"
+
+  remove_alpha_ios: true
+  
