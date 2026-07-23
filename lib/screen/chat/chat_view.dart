@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:one_ai/screen/chat/chat_view_model.dart';
 import 'package:one_ai/utility/components/animated_ai_icon.dart';
 import 'package:one_ai/utility/components/app_bar/app_bar_component.dart';
-import 'package:one_ai/utility/components/drawer/app_drawer.dart';
 import 'package:one_ai/utility/components/chat/chat_bubble.dart';
 import 'package:one_ai/utility/components/logo_tile.dart';
 import 'package:one_ai/utility/components/prompt/prompt_input.dart';
