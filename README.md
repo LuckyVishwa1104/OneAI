@@ -17,3 +17,7 @@ samples, guidance on mobile development, and a full API reference.
 
 # build runner command for generating locator and router file
 dart run build_runner build --delete-conflicting-outputs
+
+# icon generation command 
+dart run flutter_launcher_icons
+
