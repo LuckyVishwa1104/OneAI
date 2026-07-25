@@ -1,18 +1,18 @@
 import 'package:flutter/material.dart';
+import 'package:one_ai/screen/signup/signup_view_model.dart';
 import 'package:one_ai/utility/components/logo_tile.dart' show LogoTile;
 import 'package:one_ai/screen/home/home_view.dart';
-import 'package:one_ai/screen/splash_screen/splash_screen_view_model.dart';
 import 'package:one_ai/utility/constants/app_colors.dart';
 import 'package:one_ai/utility/constants/app_text_styles.dart';
 import 'package:stacked/stacked.dart';
 
-class SplashScreenView extends StatelessWidget {
-  const SplashScreenView({super.key});
+class SignupView extends StatelessWidget {
+  const SignupView({super.key});
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder.reactive(
-      viewModelBuilder: () => SplashScreenViewModel()..init(),
+      viewModelBuilder: () => SignupViewModel()..init(),
       builder: (context, model, child) {
         return Scaffold(
           body: Stack(
