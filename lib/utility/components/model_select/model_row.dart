@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:one_ai/app/app.locator.dart';
+import 'package:one_ai/app/app.router.dart';
 import 'package:one_ai/model/ai_model.dart';
 import 'package:one_ai/utility/components/action_tile.dart';
 import 'package:one_ai/utility/components/app_button.dart';
@@ -10,6 +12,7 @@ import 'package:one_ai/utility/constants/app_radius.dart';
 import 'package:one_ai/utility/constants/app_shadow.dart';
 import 'package:one_ai/utility/constants/app_spacing.dart';
 import 'package:one_ai/utility/constants/app_text_styles.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class ModelRow extends StatefulWidget {
   final AiModel model;
@@ -34,6 +37,8 @@ class ModelRow extends StatefulWidget {
 }
 
 class _ModelRowState extends State<ModelRow> {
+
+  final navigationService = locator<NavigationService>();
 
   String badgeLabel(ModelBadge badge) {
     switch (badge) {
@@ -266,7 +271,7 @@ class _ModelRowState extends State<ModelRow> {
                             // upgrade to premium button for locked models
                             model.isLocked
                                 ? AppButton(
-                                  onTap: () => {},
+                                  onTap: () => navigationService.navigateToSubscriptionView(),
                                   title: "Upgrade Plan",
                                 )
                                 : SizedBox(),
