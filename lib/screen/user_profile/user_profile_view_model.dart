@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/app/app.locator.dart';
+import 'package:one_ai/app/app.router.dart';
 import 'package:one_ai/model/profile_option_model.dart';
 import 'package:one_ai/utility/components/logo_tile.dart';
 import 'package:stacked/stacked.dart';
@@ -8,7 +9,11 @@ import 'package:stacked_services/stacked_services.dart';
 class UserProfileViewModel extends BaseViewModel {
   final navigationService = locator<NavigationService>();
 
-  List<ProfileOptionModel> accountOption = [
+  void userProfile() {
+    navigationService.navigateToSubscriptionView();
+  }
+
+  List<ProfileOptionModel> get accountOption => [
     ProfileOptionModel(
       optionIcon: LogoTile(
         isLogo: false,
@@ -17,7 +22,9 @@ class UserProfileViewModel extends BaseViewModel {
         iconSize: 24,
       ),
       title: "Manage Subscription",
-      onTap: () {},
+      onTap:() {
+    navigationService.navigateToSubscriptionView();
+  },
     ),
 
     ProfileOptionModel(
@@ -201,4 +208,7 @@ class UserProfileViewModel extends BaseViewModel {
       onTap: () {},
     ),
   ];
+
+  
+  
 }

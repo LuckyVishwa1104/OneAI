@@ -4,7 +4,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class SplashScreenViewModel extends BaseViewModel {
+class SignupViewModel extends BaseViewModel {
   final navigationService = locator<NavigationService>();
 
   final List<Color> rainbowColors = [

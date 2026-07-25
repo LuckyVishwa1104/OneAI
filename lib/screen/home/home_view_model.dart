@@ -5,12 +5,10 @@ import 'package:one_ai/app/app.locator.dart';
 import 'package:one_ai/app/app.router.dart';
 import 'package:one_ai/model/drawer_action_model.dart';
 import 'package:one_ai/model/quick_chat.dart';
-import 'package:one_ai/services/counter_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class HomeViewModel extends BaseViewModel {
-  final counterService = locator<CounterService>();
   final navigationService = locator<NavigationService>();
   final TextEditingController promptController = TextEditingController();
 
