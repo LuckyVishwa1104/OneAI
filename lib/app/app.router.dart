@@ -6,15 +6,16 @@
 // **************************************************************************
 
 // ignore_for_file: no_leading_underscores_for_library_prefixes
-import 'package:flutter/material.dart' as _i7;
+import 'package:flutter/material.dart' as _i8;
 import 'package:flutter/material.dart';
 import 'package:one_ai/screen/chat/chat_view.dart' as _i4;
 import 'package:one_ai/screen/home/home_view.dart' as _i2;
 import 'package:one_ai/screen/model_selection/model_select_view.dart' as _i6;
 import 'package:one_ai/screen/signup/signup_view.dart' as _i3;
+import 'package:one_ai/screen/subscription/subscription_view.dart' as _i7;
 import 'package:one_ai/screen/user_profile/user_profile_view.dart' as _i5;
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i8;
+import 'package:stacked_services/stacked_services.dart' as _i9;
 
 class Routes {
   static const homeView = '/home-view';
@@ -27,12 +28,15 @@ class Routes {
 
   static const modelSelectView = '/model-select-view';
 
+  static const subscriptionView = '/subscription-view';
+
   static const all = <String>{
     homeView,
     signupView,
     chatView,
     userProfileView,
     modelSelectView,
+    subscriptionView,
   };
 }
 
@@ -43,6 +47,7 @@ class StackedRouter extends _i1.RouterBase {
     _i1.RouteDef(Routes.chatView, page: _i4.ChatView),
     _i1.RouteDef(Routes.userProfileView, page: _i5.UserProfileView),
     _i1.RouteDef(Routes.modelSelectView, page: _i6.ModelSelectView),
+    _i1.RouteDef(Routes.subscriptionView, page: _i7.SubscriptionView),
   ];
 
   final _pagesMap = <Type, _i1.StackedRouteFactory>{
@@ -50,7 +55,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<HomeViewArguments>(
         orElse: () => const HomeViewArguments(),
       );
-      return _i7.MaterialPageRoute<dynamic>(
+      return _i8.MaterialPageRoute<dynamic>(
         builder: (context) => _i2.HomeView(key: args.key),
         settings: data,
       );
@@ -59,7 +64,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<SignupViewArguments>(
         orElse: () => const SignupViewArguments(),
       );
-      return _i7.MaterialPageRoute<dynamic>(
+      return _i8.MaterialPageRoute<dynamic>(
         builder: (context) => _i3.SignupView(key: args.key),
         settings: data,
       );
@@ -68,7 +73,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<ChatViewArguments>(
         orElse: () => const ChatViewArguments(),
       );
-      return _i7.MaterialPageRoute<dynamic>(
+      return _i8.MaterialPageRoute<dynamic>(
         builder:
             (context) =>
                 _i4.ChatView(key: args.key, initialPrompt: args.initialPrompt),
@@ -79,7 +84,7 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<UserProfileViewArguments>(
         orElse: () => const UserProfileViewArguments(),
       );
-      return _i7.MaterialPageRoute<dynamic>(
+      return _i8.MaterialPageRoute<dynamic>(
         builder: (context) => _i5.UserProfileView(key: args.key),
         settings: data,
       );
@@ -88,8 +93,17 @@ class StackedRouter extends _i1.RouterBase {
       final args = data.getArgs<ModelSelectViewArguments>(
         orElse: () => const ModelSelectViewArguments(),
       );
-      return _i7.MaterialPageRoute<dynamic>(
+      return _i8.MaterialPageRoute<dynamic>(
         builder: (context) => _i6.ModelSelectView(key: args.key),
+        settings: data,
+      );
+    },
+    _i7.SubscriptionView: (data) {
+      final args = data.getArgs<SubscriptionViewArguments>(
+        orElse: () => const SubscriptionViewArguments(),
+      );
+      return _i8.MaterialPageRoute<dynamic>(
+        builder: (context) => _i7.SubscriptionView(key: args.key),
         settings: data,
       );
     },
@@ -105,7 +119,7 @@ class StackedRouter extends _i1.RouterBase {
 class HomeViewArguments {
   const HomeViewArguments({this.key});
 
-  final _i7.Key? key;
+  final _i8.Key? key;
 
   @override
   String toString() {
@@ -127,7 +141,7 @@ class HomeViewArguments {
 class SignupViewArguments {
   const SignupViewArguments({this.key});
 
-  final _i7.Key? key;
+  final _i8.Key? key;
 
   @override
   String toString() {
@@ -149,7 +163,7 @@ class SignupViewArguments {
 class ChatViewArguments {
   const ChatViewArguments({this.key, this.initialPrompt});
 
-  final _i7.Key? key;
+  final _i8.Key? key;
 
   final String? initialPrompt;
 
@@ -173,7 +187,7 @@ class ChatViewArguments {
 class UserProfileViewArguments {
   const UserProfileViewArguments({this.key});
 
-  final _i7.Key? key;
+  final _i8.Key? key;
 
   @override
   String toString() {
@@ -195,7 +209,7 @@ class UserProfileViewArguments {
 class ModelSelectViewArguments {
   const ModelSelectViewArguments({this.key});
 
-  final _i7.Key? key;
+  final _i8.Key? key;
 
   @override
   String toString() {
@@ -214,9 +228,31 @@ class ModelSelectViewArguments {
   }
 }
 
-extension NavigatorStateExtension on _i8.NavigationService {
+class SubscriptionViewArguments {
+  const SubscriptionViewArguments({this.key});
+
+  final _i8.Key? key;
+
+  @override
+  String toString() {
+    return '{"key": "$key"}';
+  }
+
+  @override
+  bool operator ==(covariant SubscriptionViewArguments other) {
+    if (identical(this, other)) return true;
+    return other.key == key;
+  }
+
+  @override
+  int get hashCode {
+    return key.hashCode;
+  }
+}
+
+extension NavigatorStateExtension on _i9.NavigationService {
   Future<dynamic> navigateToHomeView({
-    _i7.Key? key,
+    _i8.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -234,7 +270,7 @@ extension NavigatorStateExtension on _i8.NavigationService {
   }
 
   Future<dynamic> navigateToSignupView({
-    _i7.Key? key,
+    _i8.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -252,7 +288,7 @@ extension NavigatorStateExtension on _i8.NavigationService {
   }
 
   Future<dynamic> navigateToChatView({
-    _i7.Key? key,
+    _i8.Key? key,
     String? initialPrompt,
     int? routerId,
     bool preventDuplicates = true,
@@ -271,7 +307,7 @@ extension NavigatorStateExtension on _i8.NavigationService {
   }
 
   Future<dynamic> navigateToUserProfileView({
-    _i7.Key? key,
+    _i8.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -289,7 +325,7 @@ extension NavigatorStateExtension on _i8.NavigationService {
   }
 
   Future<dynamic> navigateToModelSelectView({
-    _i7.Key? key,
+    _i8.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -306,8 +342,26 @@ extension NavigatorStateExtension on _i8.NavigationService {
     );
   }
 
+  Future<dynamic> navigateToSubscriptionView({
+    _i8.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+    transition,
+  }) async {
+    return navigateTo<dynamic>(
+      Routes.subscriptionView,
+      arguments: SubscriptionViewArguments(key: key),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
   Future<dynamic> replaceWithHomeView({
-    _i7.Key? key,
+    _i8.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -325,7 +379,7 @@ extension NavigatorStateExtension on _i8.NavigationService {
   }
 
   Future<dynamic> replaceWithSignupView({
-    _i7.Key? key,
+    _i8.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -343,7 +397,7 @@ extension NavigatorStateExtension on _i8.NavigationService {
   }
 
   Future<dynamic> replaceWithChatView({
-    _i7.Key? key,
+    _i8.Key? key,
     String? initialPrompt,
     int? routerId,
     bool preventDuplicates = true,
@@ -362,7 +416,7 @@ extension NavigatorStateExtension on _i8.NavigationService {
   }
 
   Future<dynamic> replaceWithUserProfileView({
-    _i7.Key? key,
+    _i8.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -380,7 +434,7 @@ extension NavigatorStateExtension on _i8.NavigationService {
   }
 
   Future<dynamic> replaceWithModelSelectView({
-    _i7.Key? key,
+    _i8.Key? key,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -390,6 +444,24 @@ extension NavigatorStateExtension on _i8.NavigationService {
     return replaceWith<dynamic>(
       Routes.modelSelectView,
       arguments: ModelSelectViewArguments(key: key),
+      id: routerId,
+      preventDuplicates: preventDuplicates,
+      parameters: parameters,
+      transition: transition,
+    );
+  }
+
+  Future<dynamic> replaceWithSubscriptionView({
+    _i8.Key? key,
+    int? routerId,
+    bool preventDuplicates = true,
+    Map<String, String>? parameters,
+    Widget Function(BuildContext, Animation<double>, Animation<double>, Widget)?
+    transition,
+  }) async {
+    return replaceWith<dynamic>(
+      Routes.subscriptionView,
+      arguments: SubscriptionViewArguments(key: key),
       id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,
