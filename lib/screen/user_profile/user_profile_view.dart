@@ -18,7 +18,7 @@ class UserProfileView extends StatelessWidget {
           appBar: AppBarComponent(isAction: false, title: "Settings"),
           body: SafeArea(
             child: SingleChildScrollView(
-              padding: AppSpacing.defaultPadding,
+              padding: AppSpacing.basePadding,
               child: Column(
                 children: [
                   ProfileCard(
@@ -49,7 +49,7 @@ class UserProfileView extends StatelessWidget {
                   AppSpacing.h16,
                   ProfileSection(title: "About", options: model.aboutOptions),
 
-                  AppSpacing.h16,
+                  // AppSpacing.h16,
                 ],
               ),
             ),

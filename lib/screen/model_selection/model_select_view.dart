@@ -21,7 +21,7 @@ class ModelSelectView extends StatelessWidget {
           appBar: AppBarComponent(isAction: false, title: "AI Models"),
 
           body: Padding(
-            padding: AppSpacing.defaultPadding,
+            padding: AppSpacing.basePadding,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
