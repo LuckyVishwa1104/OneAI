@@ -73,7 +73,7 @@ class SubscriptionViewModel extends BaseViewModel {
       id: 'free',
       title: 'Free',
       subtitle: 'Get started with AI',
-      icon: Icons.chat_bubble_outline_rounded,
+      icon: Icons.auto_awesome_outlined,
       badge: 'Default',
       price: 'Free',
       duration: '',

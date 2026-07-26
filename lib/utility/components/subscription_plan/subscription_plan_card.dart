@@ -2,7 +2,6 @@ import 'package:flutter/material.dart';
 import 'package:one_ai/model/subscription_model.dart';
 import 'package:one_ai/utility/components/action_tile.dart';
 import 'package:one_ai/utility/components/app_button.dart';
-import 'package:one_ai/utility/components/app_icon.dart';
 import 'package:one_ai/utility/components/logo_tile.dart';
 import 'package:one_ai/utility/constants/app_border.dart';
 import 'package:one_ai/utility/constants/app_colors.dart';
@@ -56,7 +55,7 @@ class _SubscriptionPlanCardState extends State<SubscriptionPlanCard> {
                 height: 49,
                 width: 49,
                 icon: widget.plan.icon,
-                isLogo: true ,
+                isLogo: false ,
               ),
 
               AppSpacing.w12,
@@ -93,11 +92,9 @@ class _SubscriptionPlanCardState extends State<SubscriptionPlanCard> {
               ),
             ],
           ),
-
           AppSpacing.h4,
 
-          Divider(color: Theme.of(context).dividerColor),
-
+          Divider(color: Theme.of(context).dividerColor,),
           AppSpacing.h4,
 
           AnimatedSize(
@@ -168,7 +165,7 @@ class _SubscriptionPlanCardState extends State<SubscriptionPlanCard> {
                 AppSpacing.h12,
                 AppButton(
                   onTap: () {},
-                  title: "${widget.plan.price}${widget.plan.duration} • Try Now",
+                  title: "${widget.plan.price}${widget.plan.duration} - Try Now",
                 ),
               ],
             ),
