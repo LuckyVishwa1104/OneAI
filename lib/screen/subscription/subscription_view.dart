@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/screen/subscription/subscription_view_model.dart';
 import 'package:one_ai/utility/components/app_bar/app_bar_component.dart';
-import 'package:one_ai/utility/components/app_button.dart';
 import 'package:one_ai/utility/components/subscription_plan/billing_toggle.dart';
 import 'package:one_ai/utility/components/subscription_plan/subscription_plan_card.dart';
 import 'package:one_ai/utility/constants/app_border.dart';
@@ -89,36 +88,25 @@ class SubscriptionView extends StatelessWidget {
                   ),
                 ),
 
-                AppSpacing.h20,
-
-                AppButton(
-                  title: "Upgrade to Pro",
-                  // icon: Icons.auto_awesome,
-                  onTap: () {},
-                ),
-
-                AppSpacing.h20,
-
+                // AppSpacing.h20,
                 // const ComparisonTable(),
-                Container(
-                  decoration: BoxDecoration(
-                    color: Theme.of(context).colorScheme.surface,
-                    borderRadius: AppRadius.radiusXxl,
-                    border: AppBorder.defaultBorder(context),
-                    boxShadow: [AppShadow.homeTileShadow],
-                  ),
-                  child: ExpansionTile(
-                    title: Text(
-                      "Compare all plans",
-                      style: AppTextStyles.heading(context),
-                    ),
-                    children: [
-                      // SubscriptionComparisonTable(),
-                    ],
-                  ),
-                ),
-
-                AppSpacing.h40,
+                // Container(
+                //   decoration: BoxDecoration(
+                //     color: Theme.of(context).colorScheme.surface,
+                //     borderRadius: AppRadius.radiusXxl,
+                //     border: AppBorder.defaultBorder(context),
+                //     boxShadow: [AppShadow.homeTileShadow],
+                //   ),
+                //   child: ExpansionTile(
+                //     title: Text(
+                //       "Compare all plans",
+                //       style: AppTextStyles.heading(context),
+                //     ),
+                //     children: [
+                //       // SubscriptionComparisonTable(),
+                //     ],
+                //   ),
+                // ),
               ],
             ),
           ),
