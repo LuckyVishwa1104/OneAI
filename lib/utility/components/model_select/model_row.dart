@@ -203,14 +203,13 @@ class _ModelRowState extends State<ModelRow> {
                       AppIcon(
                         icon: tierIcon(model.tier),
                         size: 16,
-                        color: AppColors.primary,
                       ),
                       AppSpacing.w4,
                       Text(
                         tierLabel(model.tier),
                         style: AppTextStyles.subHeading(
                           context,
-                        ).copyWith(fontSize: 14, color: AppColors.primary),
+                        ).copyWith(fontSize: 14,),
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                       ),
