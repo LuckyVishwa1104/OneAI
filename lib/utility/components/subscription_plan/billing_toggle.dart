@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:one_ai/utility/components/action_tile.dart';
 import 'package:one_ai/utility/constants/app_border.dart';
 import 'package:one_ai/utility/constants/app_colors.dart';
 import 'package:one_ai/utility/constants/app_shadow.dart';
@@ -85,24 +86,7 @@ class BillingToggle extends StatelessWidget {
                 ),
                 if (badge != null) ...[
                   AppSpacing.w8,
-                  Container(
-                    padding: const EdgeInsets.symmetric(
-                      horizontal: 8,
-                      vertical: 3,
-                    ),
-                    decoration: BoxDecoration(
-                      color: Colors.green.withOpacity(.15),
-                      borderRadius: BorderRadius.circular(12),
-                    ),
-                    child: Text(
-                      badge,
-                      style: const TextStyle(
-                        color: Colors.green,
-                        fontWeight: FontWeight.w700,
-                        fontSize: 11,
-                      ),
-                    ),
-                  ),
+                  ActionTile(verticalPadding: 3, child: Text(badge)),
                 ],
               ],
             ),

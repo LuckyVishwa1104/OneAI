@@ -95,9 +95,7 @@ class _ModelRowState extends State<ModelRow> {
     return InkWell(
       borderRadius: AppRadius.radiusXxl,
       onTap: _handleTap,
-      child: AnimatedContainer(
-        duration: const Duration(milliseconds: 220),
-        curve: Curves.easeInOut,
+      child: Container(
         padding: const EdgeInsets.symmetric(horizontal: 14, vertical: 14),
         decoration: BoxDecoration(
           color: Theme.of(context).colorScheme.surface,
@@ -170,7 +168,7 @@ class _ModelRowState extends State<ModelRow> {
                               maxLines: 1,
                             ),
                           ),
-
+        
                           AppSpacing.w4,
                           if (model.isLocked) ...[
                             AppSpacing.w4,
@@ -203,14 +201,13 @@ class _ModelRowState extends State<ModelRow> {
                       AppIcon(
                         icon: tierIcon(model.tier),
                         size: 16,
-                        color: AppColors.primary,
                       ),
                       AppSpacing.w4,
                       Text(
                         tierLabel(model.tier),
                         style: AppTextStyles.subHeading(
                           context,
-                        ).copyWith(fontSize: 14, color: AppColors.primary),
+                        ).copyWith(fontSize: 14,),
                         overflow: TextOverflow.ellipsis,
                         maxLines: 1,
                       ),
@@ -219,7 +216,7 @@ class _ModelRowState extends State<ModelRow> {
                 ),
               ],
             ),
-
+        
             // Expandable section: extended description + capability chips.
             AnimatedSize(
               duration: const Duration(milliseconds: 220),
@@ -266,13 +263,18 @@ class _ModelRowState extends State<ModelRow> {
                                         .toList(),
                               ),
                             ],
-                            AppSpacing.h12,
-
+                            
+        
                             // upgrade to premium button for locked models
                             model.isLocked
-                                ? AppButton(
-                                  onTap: () => navigationService.navigateToSubscriptionView(),
-                                  title: "Upgrade Plan",
+                                ? Column(
+                                  children: [
+                                    AppSpacing.h12,
+                                    AppButton(
+                                      onTap: () => navigationService.navigateToSubscriptionView(),
+                                      title: "Upgrade Plan",
+                                    ),
+                                  ],
                                 )
                                 : SizedBox(),
                           ],

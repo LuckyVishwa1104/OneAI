@@ -1,49 +1,31 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/app/app.locator.dart';
-import 'package:one_ai/app/app.router.dart';
 import 'package:one_ai/model/subscription_model.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
-class SubscriptionViewModel extends BaseViewModel{
+class SubscriptionViewModel extends BaseViewModel {
   final navigationService = locator<NavigationService>();
 
   bool isAnnual = false;
 
   final List<SubscriptionPlan> _plans = [
-    SubscriptionPlan(
-      id: 'free',
-      title: 'Free',
-      subtitle: 'Get started with AI',
-      icon: Icons.chat_bubble_outline_rounded,
-      price: 'Free',
-      duration: '',
-      isCurrent: true,
-      features: [
-        '40 messages per day',
-        'Nova Flash',
-        'Basic image understanding',
-        'Standard response speed',
-        'Basic file upload',
-      ],
-    ),
 
     SubscriptionPlan(
-      id: 'plus',
-      title: 'Plus',
-      subtitle: 'For curious minds',
-      icon: Icons.bolt_rounded,
-      badge: 'Popular',
-      price: '\$9.99',
+      id: 'max',
+      title: 'Max',
+      subtitle: 'Professionals & Teams',
+      icon: Icons.all_inclusive_rounded,
+      badge: 'Ultimate',
+      price: '\$39.99',
       duration: '/month',
       features: [
-        '300 messages per day',
-        'Nova Flash + Nova Pro',
-        'Image generation',
-        'Priority response speed',
-        'File uploads',
-        'Vision',
-        'Web Search',
+        'Everything in Pro',
+        '5× Usage Limits',
+        'Early access',
+        'Advanced Voice',
+        'Team Workspace',
+        'API Credits',
       ],
     ),
 
@@ -69,25 +51,54 @@ class SubscriptionViewModel extends BaseViewModel{
     ),
 
     SubscriptionPlan(
-      id: 'max',
-      title: 'Max',
-      subtitle: 'Professionals & Teams',
-      icon: Icons.all_inclusive_rounded,
-      badge: 'Ultimate',
-      price: '\$39.99',
+      id: 'plus',
+      title: 'Plus',
+      subtitle: 'For curious minds',
+      icon: Icons.rocket_outlined,
+      badge: 'Popular',
+      price: '\$9.99',
       duration: '/month',
       features: [
-        'Everything in Pro',
-        '5× Usage Limits',
-        'Early access',
-        'Advanced Voice',
-        'Team Workspace',
-        'API Credits',
+        '300 messages per day',
+        'Nova Flash + Nova Pro',
+        'Image generation',
+        'Priority response speed',
+        'File uploads',
+        'Vision',
+        'Web Search',
       ],
     ),
+
+    SubscriptionPlan(
+      id: 'free',
+      title: 'Free',
+      subtitle: 'Get started with AI',
+      icon: Icons.auto_awesome_outlined,
+      badge: 'Default',
+      price: 'Free',
+      duration: '',
+      isCurrent: true,
+      features: [
+        '40 messages per day',
+        'Nova Flash',
+        'Basic image understanding',
+        'Standard response speed',
+        'Basic file upload',
+      ],
+    ),
+    
   ];
 
-  List<SubscriptionPlan> get plans => _plans;
+  List<SubscriptionPlan> get plans {
+    final items = [..._plans];
+
+    items.sort((a, b) {
+      if (a.isSelected == b.isSelected) return 0;
+      return a.isSelected ? -1 : 1;
+    });
+
+    return items;
+  }
 
   void toggleBilling(bool annual) {
     isAnnual = annual;
@@ -96,12 +107,9 @@ class SubscriptionViewModel extends BaseViewModel{
 
   void selectPlan(String id) {
     for (var i = 0; i < _plans.length; i++) {
-      _plans[i] = _plans[i].copyWith(
-        isSelected: _plans[i].id == id,
-      );
+      _plans[i] = _plans[i].copyWith(isSelected: _plans[i].id == id);
     }
 
     notifyListeners();
   }
-
 }
