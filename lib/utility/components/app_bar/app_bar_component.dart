@@ -57,7 +57,7 @@ class _AppBarComponentState extends State<AppBarComponent> {
                       child: AppIcon(
                         icon: Icons.vertical_distribute_rounded,
                         color: Theme.of(context).colorScheme.onSurface,
-                        size: 21,
+                        size: 20,
                       ),
                     ),
               )

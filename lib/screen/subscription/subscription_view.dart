@@ -35,7 +35,7 @@ class SubscriptionView extends StatelessWidget {
                 AppSpacing.h8,
                 Text(
                   "Unlock OneAI's full power",
-                  style: AppTextStyles.heading(context).copyWith(fontSize: 26),
+                  style: AppTextStyles.heading(context).copyWith(fontSize: 24),
                   maxLines: 1,
                   overflow: TextOverflow.ellipsis,
                 ),
@@ -73,7 +73,7 @@ class SubscriptionView extends StatelessWidget {
                       final item = model.quickHighlight[index];
             
                       return SizedBox(
-                        width: 170,
+                        width: 165,
                         child: Container(
                           padding: AppSpacing.basePadding,
                           decoration: BoxDecoration(

@@ -35,7 +35,6 @@ class _SubscriptionPlanCardState extends State<SubscriptionPlanCard> {
             ? widget.plan.features
             : widget.plan.features.take(3).toList();
     return Container(
-      padding: EdgeInsets.all(14),
       decoration: BoxDecoration(
         color: colorScheme.surface,
         borderRadius: AppRadius.radiusXxl,
@@ -46,129 +45,165 @@ class _SubscriptionPlanCardState extends State<SubscriptionPlanCard> {
         boxShadow: [AppShadow.homeTileShadow],
       ),
       child: Column(
-        crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          /// HEADER
-          Row(
-            children: [
-              LogoTile(
-                height: 49,
-                width: 49,
-                icon: widget.plan.icon,
-                isLogo: false ,
+          /// Current plan banner
+          if (widget.plan.isSelected)
+            Container(
+              width: double.infinity,
+              padding: const EdgeInsets.symmetric(horizontal: 16, vertical: 10),
+              decoration: BoxDecoration(
+                gradient: LinearGradient(
+                  colors: Theme.of(context).brightness == Brightness.dark
+                    ? [
+                      AppColors.gradientSubtleDarkStart,
+                      AppColors.gradientSubtleDarkEnd,
+                    ]
+                    : [
+                      AppColors.gradientSubtleLightStart,
+                      AppColors.gradientSubtleLightEnd,
+                    ],
+                ),
+                borderRadius: BorderRadius.only(
+                  topLeft: Radius.circular(24),
+                  topRight: Radius.circular(24),
+                ),
               ),
+              child: Text(
+                "Current Active Plan",
+                style: AppTextStyles.heading(context).copyWith(fontSize: 16, height: 1.45,),
+              ),
+            ),
 
-              AppSpacing.w12,
-
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
+          Padding(
+            padding: const EdgeInsets.all(14),
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                /// HEADER
+                Row(
                   children: [
-                    Text(
-                      widget.plan.title,
-                      style: AppTextStyles.heading(
-                        context,
-                      ).copyWith(fontSize: 20),
+                    LogoTile(
+                      height: 49,
+                      width: 49,
+                      icon: widget.plan.icon,
+                      isLogo: false,
                     ),
 
-                    Text(
-                      widget.plan.subtitle,
-                      style: AppTextStyles.subHeading(context),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
+                    AppSpacing.w12,
+
+                    Expanded(
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          Text(
+                            widget.plan.title,
+                            style: AppTextStyles.heading(
+                              context,
+                            ).copyWith(fontSize: 20),
+                          ),
+
+                          Text(
+                            widget.plan.subtitle,
+                            style: AppTextStyles.subHeading(context),
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                          ),
+                        ],
+                      ),
+                    ),
+
+                    ActionTile(
+                      verticalPadding: 4,
+                      child: Text(
+                        widget.plan.badge!,
+                        style: AppTextStyles.subHeading(
+                          context,
+                        ).copyWith(fontSize: 14),
+                      ),
                     ),
                   ],
                 ),
-              ),
+                AppSpacing.h4,
 
-              ActionTile(
-                verticalPadding: 4,
-                child: Text(
-                  widget.plan.badge!,
-                  style: AppTextStyles.subHeading(
-                    context,
-                  ).copyWith(fontSize: 14),
+                Divider(color: Theme.of(context).dividerColor),
+                AppSpacing.h4,
+
+                AnimatedSize(
+                  duration: const Duration(milliseconds: 220),
+                  curve: Curves.easeInOut,
+                  alignment: Alignment.topCenter,
+                  child: Column(
+                    children: List.generate(visibleFeatures.length, (index) {
+                      final feature = visibleFeatures[index];
+                      final isLast = index == visibleFeatures.length - 1;
+
+                      return Padding(
+                        padding: EdgeInsets.only(bottom: isLast ? 0 : 12),
+                        child: Row(
+                          children: [
+                            LogoTile(
+                              icon: Icons.check_rounded,
+                              isLogo: false,
+                              isCircular: true,
+                              iconSize: 16,
+                              height: 28,
+                              width: 28,
+                            ),
+                            AppSpacing.w12,
+                            Expanded(
+                              child: Text(
+                                feature,
+                                style: AppTextStyles.subHeading(context),
+                              ),
+                            ),
+                          ],
+                        ),
+                      );
+                    }),
+                  ),
                 ),
-              ),
-            ],
-          ),
-          AppSpacing.h4,
-
-          Divider(color: Theme.of(context).dividerColor,),
-          AppSpacing.h4,
-
-          AnimatedSize(
-            duration: const Duration(milliseconds: 220),
-            curve: Curves.easeInOut,
-            alignment: Alignment.topCenter,
-            child: Column(
-              children: List.generate(visibleFeatures.length, (index) {
-                final feature = visibleFeatures[index];
-                final isLast = index == visibleFeatures.length - 1;
-
-                return Padding(
-                  padding: EdgeInsets.only(bottom: isLast ? 0 : 12),
-                  child: Row(
+                if (!_expanded && widget.plan.features.length > 3)
+                  Column(
                     children: [
-                      LogoTile(
-                        icon: Icons.check_rounded,
-                        isLogo: false,
-                        isCircular: true,
-                        iconSize: 16,
-                        height: 28,
-                        width: 28,
-                      ),
-                      AppSpacing.w12,
-                      Expanded(
-                        child: Text(
-                          feature,
-                          style: AppTextStyles.subHeading(context),
+                      AppSpacing.h8,
+                      InkWell(
+                        borderRadius: BorderRadius.circular(8),
+                        onTap: () {
+                          setState(() {
+                            _expanded = true;
+                          });
+                        },
+                        child: Row(
+                          children: [
+                            const Icon(Icons.keyboard_arrow_down_rounded),
+                            AppSpacing.w4,
+                            Text(
+                              "${widget.plan.features.length - 3} more features",
+                              style: AppTextStyles.heading(context).copyWith(
+                                fontWeight: FontWeight.w500,
+                                fontSize: 16,
+                              ),
+                            ),
+                          ],
                         ),
                       ),
                     ],
                   ),
-                );
-              }),
-            ),
-          ),
-          if (!_expanded && widget.plan.features.length > 3)
-            Column(
-              children: [
-                AppSpacing.h8,
-                InkWell(
-                  borderRadius: BorderRadius.circular(8),
-                  onTap: () {
-                    setState(() {
-                      _expanded = true;
-                    });
-                  },
-                  child: Row(
+
+                if (!widget.plan.isCurrent && !widget.plan.isSelected)
+                  Column(
                     children: [
-                      const Icon(Icons.keyboard_arrow_down_rounded),
-                      AppSpacing.w4,
-                      Text(
-                        "${widget.plan.features.length - 3} more features",
-                        style: AppTextStyles.heading(
-                          context,
-                        ).copyWith(fontWeight: FontWeight.w500, fontSize: 16),
+                      AppSpacing.h12,
+                      AppButton(
+                        onTap: () {},
+                        title:
+                            "${widget.plan.price}${widget.plan.duration} - Try Now",
                       ),
                     ],
                   ),
-                ),
               ],
             ),
-
-          
-          if (!widget.plan.isCurrent && !widget.plan.isSelected)
-            Column(
-              children: [
-                AppSpacing.h12,
-                AppButton(
-                  onTap: () {},
-                  title: "${widget.plan.price}${widget.plan.duration} - Try Now",
-                ),
-              ],
-            ),
+          ),
         ],
       ),
     );

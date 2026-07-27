@@ -19,7 +19,7 @@ class BillingToggle extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      height: 58,
+      height: 50,
       padding: const EdgeInsets.all(4),
       decoration: BoxDecoration(
         color: Theme.of(context).colorScheme.surface,
@@ -77,7 +77,6 @@ class BillingToggle extends StatelessWidget {
                   title,
                   style: AppTextStyles.subHeading(context).copyWith(
                     fontSize: 16,
-                    fontWeight: FontWeight.w600,
                     color:
                         selected
                             ? AppColors.appWhite
@@ -86,7 +85,7 @@ class BillingToggle extends StatelessWidget {
                 ),
                 if (badge != null) ...[
                   AppSpacing.w8,
-                  ActionTile(verticalPadding: 3, child: Text(badge)),
+                  ActionTile(verticalPadding: 2, child: Text(badge)),
                 ],
               ],
             ),
