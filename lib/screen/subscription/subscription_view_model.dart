@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/app/app.locator.dart';
+import 'package:one_ai/model/quick_chat.dart';
 import 'package:one_ai/model/subscription_model.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -8,6 +9,24 @@ class SubscriptionViewModel extends BaseViewModel {
   final navigationService = locator<NavigationService>();
 
   bool isAnnual = false;
+
+  final List<QuickChat> quickHighlight = [
+    QuickChat(
+      icon: Icons.lock_outlined,
+      title: "Secure payments",
+      subtitle: "256 bit SSL",
+    ),
+    QuickChat(
+      icon: Icons.timer_outlined,
+      title: "Cancle anytime",
+      subtitle: "No lock-in"
+    ),
+    QuickChat(
+      icon: Icons.privacy_tip_outlined,
+      title: "Privacy First",
+      subtitle: "No data selling"
+    ),
+  ];
 
   final List<SubscriptionPlan> _plans = [
 
