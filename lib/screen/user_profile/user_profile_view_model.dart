@@ -22,6 +22,7 @@ class UserProfileViewModel extends BaseViewModel {
         iconSize: 24,
       ),
       title: "Manage Subscription",
+      subtitle: "OneAI Pro",
       onTap:() {
     navigationService.navigateToSubscriptionView();
   },

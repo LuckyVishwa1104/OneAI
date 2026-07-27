@@ -4,7 +4,6 @@ import 'package:flutter/material.dart';
 import 'package:one_ai/app/app.locator.dart';
 import 'package:one_ai/app/app.router.dart';
 import 'package:one_ai/model/drawer_action_model.dart';
-import 'package:one_ai/model/quick_chat.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -65,21 +64,6 @@ class HomeViewModel extends BaseViewModel {
     "Resume Improvements",
     "AWS S3 Storage",
     "Angular Components",
-  ];
-
-  final List<QuickChat> quickChat = [
-    QuickChat(
-      icon: Icons.lightbulb_outline_rounded,
-      text: "Generate ideas for projects.",
-    ),
-    QuickChat(
-      icon: Icons.code_rounded,
-      text: "Write, debug, and explain code.",
-    ),
-    QuickChat(
-      icon: Icons.edit_note_rounded,
-      text: "Draft emails, blogs, and content.",
-    ),
   ];
 
   void sendPrompt(BuildContext context) {

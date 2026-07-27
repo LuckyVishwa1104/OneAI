@@ -53,19 +53,25 @@ class ChatViewModel extends BaseViewModel {
   final List<QuickChat> quickChat = [
     QuickChat(
       icon: Icons.lightbulb_outline_rounded,
-      text: "Generate ideas for projects.",
+      title: "Generate ideas for projects.",
     ),
     QuickChat(
       icon: Icons.code_rounded,
-      text: "Write, debug, and explain code.",
+      title: "Write, debug, and explain code.",
     ),
     QuickChat(
       icon: Icons.edit_note_rounded,
-      text: "Draft emails, blogs, and content.",
+      title: "Draft emails, blogs, and content.",
     ),
   ];
 
   ChatViewModel() {
+    promptController.addListener(() {
+      notifyListeners();
+    });
+  }
+
+  void quickActionTap(){
     promptController.addListener(() {
       notifyListeners();
     });

@@ -46,7 +46,7 @@ class ChatView extends StatelessWidget {
                             children: [
                               const Spacer(),
 
-                              AnimatedAiIcon(iconSize: 50),
+                              AnimatedAiIcon(iconSize: 45 ),
                               AppSpacing.h12,
                               Text(
                                 "Hello ${model.userName}!",
@@ -78,7 +78,7 @@ class ChatView extends StatelessWidget {
                                         ),
                                         AppSpacing.w16,
                                         Text(
-                                          item.text,
+                                          item.title,
                                           style: AppTextStyles.subHeading(
                                             context,
                                           ),
