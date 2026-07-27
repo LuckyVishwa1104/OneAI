@@ -20,7 +20,7 @@ class ModelSelectView extends StatelessWidget {
         return Scaffold(
           appBar: AppBarComponent(isAction: false, title: "AI Models"),
 
-          body: Padding(
+          body: SingleChildScrollView(
             padding: AppSpacing.basePadding,
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
@@ -40,27 +40,27 @@ class ModelSelectView extends StatelessWidget {
                   onExpand: () => {},
                 ),
 
-                AppSpacing.h12,
+                AppSpacing.h8,
 
                 Divider(color: Theme.of(context).dividerColor, thickness: 1.2),
 
-                AppSpacing.h12,
+                // AppSpacing.h12,
 
-                Expanded(
-                  child: ListView(
-                    children: [
-                      ...model.groupedModels.entries.map((entry) {
-                        return ModelProvider(
-                          provider: entry.key,
-                          models: entry.value,
-                          selectedModel: selected,
-                          expandedModel: model.expandedModel,
-                          onSelect: model.selectModel,
-                          onExpand: model.toggleExpanded,
-                        );
-                      }),
-                    ],
-                  ),
+                ListView(
+                  shrinkWrap: true,
+                  physics: const NeverScrollableScrollPhysics(),
+                  children: [
+                    ...model.groupedModels.entries.map((entry) {
+                      return ModelProvider(
+                        provider: entry.key,
+                        models: entry.value,
+                        selectedModel: selected,
+                        expandedModel: model.expandedModel,
+                        onSelect: model.selectModel,
+                        onExpand: model.toggleExpanded,
+                      );
+                    }),
+                  ],
                 ),
               ],
             ),
