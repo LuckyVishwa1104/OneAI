@@ -1,4 +1,6 @@
 import 'package:flutter/material.dart';
+import 'package:one_ai/app/app.locator.dart';
+import 'package:one_ai/app/app.router.dart';
 import 'package:one_ai/model/drawer_action_model.dart';
 import 'package:one_ai/utility/components/action_tile.dart';
 import 'package:one_ai/utility/components/app_icon.dart';
@@ -7,6 +9,7 @@ import 'package:one_ai/utility/components/drawer/drawer_section_tile.dart';
 import 'package:one_ai/utility/components/logo_tile.dart';
 import 'package:one_ai/utility/constants/app_spacing.dart';
 import 'package:one_ai/utility/constants/app_text_styles.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class AppDrawer extends StatelessWidget {
   final bool showMoreActions;
@@ -32,6 +35,7 @@ class AppDrawer extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
+    final NavigationService navigationService = locator<NavigationService>();
     return Drawer(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       child: SafeArea(
@@ -132,14 +136,12 @@ class AppDrawer extends StatelessWidget {
                     ),
 
                     // Projects
-                    DrawerSectionTile(title: "Projects", viewAll: true),
-
-                    DrawerActionTile(
-                      title: "New Project",
-                      isProject: false,
-                      icon: Icons.add,
-                      isChat: false,
-                      onTap: () {},
+                    DrawerSectionTile(
+                      title: "Projects",
+                      viewAll: true,
+                      onViewAll: () {
+                        navigationService.navigateToProjectView();
+                      },
                     ),
 
                     ...projects.map(
@@ -150,6 +152,14 @@ class AppDrawer extends StatelessWidget {
                         onTap: () {},
                       ),
                     ),
+
+                    // DrawerActionTile(
+                    //   title: "All Projects",
+                    //   isProject: false,
+                    //   icon: Icons.folder_copy_outlined,
+                    //   isChat: false,
+                    //   onTap: () {navigationService.navigateToProjectView();},
+                    // ),
 
                     // Recent Chats
                     DrawerSectionTile(title: "Recent Chats", viewAll: true),

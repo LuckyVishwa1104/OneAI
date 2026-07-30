@@ -1,6 +1,7 @@
 import 'package:one_ai/screen/chat/chat_view.dart';
 import 'package:one_ai/screen/home/home_view.dart';
 import 'package:one_ai/screen/model_selection/model_select_view.dart';
+import 'package:one_ai/screen/project/project_view.dart';
 import 'package:one_ai/screen/signup/signup_view.dart';
 import 'package:one_ai/screen/subscription/subscription_view.dart';
 import 'package:one_ai/screen/user_profile/user_profile_view.dart';
@@ -16,7 +17,9 @@ import 'package:stacked_services/stacked_services.dart';
     MaterialRoute(page: ChatView,),
     MaterialRoute(page: UserProfileView),
     MaterialRoute(page: ModelSelectView),
-    MaterialRoute(page: SubscriptionView)
+    MaterialRoute(page: SubscriptionView),
+    MaterialRoute(page: ProjectView),
+
   ],
   dependencies: [
     Singleton(classType: NavigationService),
