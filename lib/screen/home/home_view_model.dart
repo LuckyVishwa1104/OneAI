@@ -40,11 +40,10 @@ class HomeViewModel extends BaseViewModel {
   final List<DrawerActionModel> quickActions = [
     DrawerActionModel(icon: Icons.code, title: 'Code'),
     DrawerActionModel(icon: Icons.image_outlined, title: 'Image'),
+    DrawerActionModel(title: "Voice Chat", icon: Icons.mic_none_rounded),
   ];
 
   final List<DrawerActionModel> moreQuickActions = [
-    DrawerActionModel(title: "Voice Chat", icon: Icons.mic_none_rounded),
-    DrawerActionModel(title: "Summarize", icon: Icons.summarize_outlined),
     DrawerActionModel(title: "Analyze", icon: Icons.pie_chart_outline),
   ];
 

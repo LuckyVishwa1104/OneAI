@@ -15,24 +15,27 @@ class DrawerSectionTile extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 6, 16, 6),
-      child: Align(
-        alignment: Alignment.centerLeft,
-        child: Row(
-          mainAxisAlignment: MainAxisAlignment.spaceBetween,
-          children: [
-            Text(
-              title.toUpperCase(),
-              style: AppTextStyles.subHeading(context).copyWith(
-                fontSize: 12,
-                color: Theme.of(context).colorScheme.onSurface,
-                letterSpacing: 1.1,
+    return InkWell(
+      onTap: onViewAll,
+      child: Padding(
+        padding: const EdgeInsets.fromLTRB(16, 6, 16, 6),
+        child: Align(
+          alignment: Alignment.centerLeft,
+          child: Row(
+            mainAxisAlignment: MainAxisAlignment.spaceBetween,
+            children: [
+              Text(
+                title.toUpperCase(),
+                style: AppTextStyles.subHeading(context).copyWith(
+                  fontSize: 12,
+                  color: Theme.of(context).colorScheme.onSurface,
+                  letterSpacing: 1.1,
+                ),
               ),
-            ),
-            if (viewAll)
-            AppIcon(icon: Icons.navigate_next,),
-          ],
+              if (viewAll)
+              AppIcon(icon: Icons.navigate_next,),
+            ],
+          ),
         ),
       ),
     );
