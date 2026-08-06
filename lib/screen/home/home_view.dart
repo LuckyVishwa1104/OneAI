@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:one_ai/utility/components/animated_ai_icon.dart';
 import 'package:one_ai/utility/components/app_bar/app_bar_component.dart';
 import 'package:one_ai/utility/components/drawer/app_drawer.dart';
 import 'package:one_ai/utility/components/prompt/prompt_input.dart';
@@ -25,7 +26,6 @@ class HomeView extends StatelessWidget {
           ),
 
           drawer: AppDrawer(
-            
             quickActions: model.quickActions,
             moreQuickActions: model.moreQuickActions,
             projects: model.projects,
@@ -47,6 +47,8 @@ class HomeView extends StatelessWidget {
             child: Column(
               children: [
                 const Spacer(),
+                AnimatedAiIcon(iconSize: 45),
+                AppSpacing.h12,
                 Text(
                   "Welcome Back!",
                   style: AppTextStyles.heading(context).copyWith(fontSize: 24),
