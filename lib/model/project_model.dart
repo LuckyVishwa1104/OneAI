@@ -1,46 +1,16 @@
 import 'package:flutter/material.dart';
+import 'package:one_ai/model/chat_item_model.dart';
 
 class ProjectModel {
   final String id;
-
   final String title;
-
-  final String instructions;
-
   final IconData icon;
+  final List<ChatItemModel> chats;
 
-  final bool pinned;
-
-  final int chatCount;
-
-  final DateTime updatedAt;
-
-  ProjectModel({
+  const ProjectModel({
     required this.id,
     required this.title,
-    required this.instructions,
-    this.icon = Icons.folder_rounded,
-    this.chatCount = 0,
-    this.pinned = false,
-    required this.updatedAt,
+    this.icon = Icons.folder_outlined,
+    required this.chats,
   });
-
-  ProjectModel copyWith({
-    String? title,
-    String? instructions,
-    IconData? icon,
-    bool? pinned,
-    int? chatCount,
-    DateTime? updatedAt,
-  }) {
-    return ProjectModel(
-      id: id,
-      title: title ?? this.title,
-      instructions: instructions ?? this.instructions,
-      icon: icon ?? this.icon,
-      pinned: pinned ?? this.pinned,
-      chatCount: chatCount ?? this.chatCount,
-      updatedAt: updatedAt ?? this.updatedAt,
-    );
-  }
 }

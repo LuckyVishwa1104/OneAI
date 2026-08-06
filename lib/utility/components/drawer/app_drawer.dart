@@ -153,14 +153,6 @@ class AppDrawer extends StatelessWidget {
                       ),
                     ),
 
-                    // DrawerActionTile(
-                    //   title: "All Projects",
-                    //   isProject: false,
-                    //   icon: Icons.folder_copy_outlined,
-                    //   isChat: false,
-                    //   onTap: () {navigationService.navigateToProjectView();},
-                    // ),
-
                     // Recent Chats
                     DrawerSectionTile(title: "Recent Chats", viewAll: true),
 
