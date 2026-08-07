@@ -38,7 +38,6 @@ class ProjectView extends StatelessWidget {
               padding: AppSpacing.basePadding,
               child: Column(
                 children: [
-
                   model.projects.isNotEmpty
                       ? SearchBarComponent(
                         controller: model.searchController,
@@ -62,7 +61,6 @@ class ProjectView extends StatelessWidget {
                     title: "Add Project",
                     icon: Icons.add,
                   ),
-
                 ],
               ),
             ),
@@ -105,13 +103,13 @@ class ProjectView extends StatelessWidget {
                       overflow: TextOverflow.ellipsis,
                       style: AppTextStyles.heading(
                         context,
-                      ).copyWith(fontSize: 20, fontWeight: FontWeight.w400),
+                      ).copyWith(fontSize: 18),
                     ),
                     Text(
                       recentChat?.title ?? 'No chats yet',
                       style: AppTextStyles.subHeading(
                         context,
-                      ).copyWith(fontWeight: FontWeight.w400),
+                      ).copyWith(fontSize: 14),
                       maxLines: 1,
                       overflow: TextOverflow.ellipsis,
                     ),
