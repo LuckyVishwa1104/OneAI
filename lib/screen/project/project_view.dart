@@ -75,7 +75,7 @@ class ProjectView extends StatelessWidget {
     return ListView.separated(
       padding: EdgeInsets.zero,
       itemCount: model.projects.length,
-      separatorBuilder: (_, __) => AppSpacing.h24,
+      separatorBuilder: (_, __) => AppSpacing.h16,
       itemBuilder: (context, index) {
         final project = model.projects[index];
         final recentChat =
@@ -84,39 +84,42 @@ class ProjectView extends StatelessWidget {
         return InkWell(
           onTap: () {},
           borderRadius: AppRadius.radiusMd,
-          child: Row(
-            children: [
-              LogoTile(
-                height: 47,
-                width: 47,
-                icon: project.icon,
-                isLogo: false,
-              ),
-              AppSpacing.w12,
-              Expanded(
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      project.title,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                      style: AppTextStyles.heading(
-                        context,
-                      ).copyWith(fontSize: 18),
-                    ),
-                    Text(
-                      recentChat?.title ?? 'No chats yet',
-                      style: AppTextStyles.subHeading(
-                        context,
-                      ).copyWith(fontSize: 14),
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                  ],
+          child: Padding(
+            padding: const EdgeInsets.symmetric(vertical: 4,),
+            child: Row(
+              children: [
+                LogoTile(
+                  height: 47,
+                  width: 47,
+                  icon: project.icon,
+                  isLogo: false,
                 ),
-              ),
-            ],
+                AppSpacing.w12,
+                Expanded(
+                  child: Column(
+                    crossAxisAlignment: CrossAxisAlignment.start,
+                    children: [
+                      Text(
+                        project.title,
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                        style: AppTextStyles.heading(
+                          context,
+                        ).copyWith(fontSize: 18),
+                      ),
+                      Text(
+                        recentChat?.title ?? 'No chats yet',
+                        style: AppTextStyles.subHeading(
+                          context,
+                        ).copyWith(fontSize: 14),
+                        maxLines: 1,
+                        overflow: TextOverflow.ellipsis,
+                      ),
+                    ],
+                  ),
+                ),
+              ],
+            ),
           ),
         );
       },
