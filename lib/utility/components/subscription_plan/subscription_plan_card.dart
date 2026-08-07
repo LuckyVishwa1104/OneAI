@@ -83,8 +83,8 @@ class _SubscriptionPlanCardState extends State<SubscriptionPlanCard> {
                 Row(
                   children: [
                     LogoTile(
-                      height: 49,
-                      width: 49,
+                      height: 47,
+                      width: 47,
                       icon: widget.plan.icon,
                       isLogo: false,
                     ),
