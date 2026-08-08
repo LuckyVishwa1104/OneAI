@@ -4,6 +4,7 @@ import 'package:one_ai/utility/components/app_bar/app_bar_component.dart';
 import 'package:one_ai/utility/components/app_button.dart';
 import 'package:one_ai/utility/components/logo_tile.dart';
 import 'package:one_ai/utility/components/project_component/create_project_bottom_sheet.dart';
+import 'package:one_ai/utility/components/quick_option_popup.dart';
 import 'package:one_ai/utility/components/search_bar_component.dart';
 import 'package:one_ai/utility/constants/app_colors.dart';
 import 'package:one_ai/utility/constants/app_radius.dart';
@@ -75,7 +76,7 @@ class ProjectView extends StatelessWidget {
     return ListView.separated(
       padding: EdgeInsets.zero,
       itemCount: model.projects.length,
-      separatorBuilder: (_, __) => AppSpacing.h16,
+      separatorBuilder: (_, __) => AppSpacing.h8,
       itemBuilder: (context, index) {
         final project = model.projects[index];
         final recentChat =
@@ -83,9 +84,12 @@ class ProjectView extends StatelessWidget {
 
         return InkWell(
           onTap: () {},
+          onLongPress: () {
+            QuickOptionPopup.show(context, model.getProjectOptions(project));
+          },
           borderRadius: AppRadius.radiusMd,
           child: Padding(
-            padding: const EdgeInsets.symmetric(vertical: 4,),
+            padding: const EdgeInsets.symmetric(vertical: 8),
             child: Row(
               children: [
                 LogoTile(
