@@ -6,7 +6,6 @@ import 'package:one_ai/utility/constants/app_colors.dart';
 import 'package:one_ai/utility/constants/app_radius.dart';
 import 'package:one_ai/utility/constants/app_shadow.dart';
 import 'package:one_ai/utility/constants/app_spacing.dart';
-import 'package:one_ai/utility/constants/app_text_styles.dart';
 
 class QuickActionMenu {
   static Future<void> show({
