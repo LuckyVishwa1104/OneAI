@@ -23,6 +23,7 @@ import 'package:stacked_services/stacked_services.dart';
   ],
   dependencies: [
     Singleton(classType: NavigationService),
+    LazySingleton(classType: DialogService),
     LazySingleton(classType: ThemeService), 
     LazySingleton(classType: ModelSelectionService),
   ],
