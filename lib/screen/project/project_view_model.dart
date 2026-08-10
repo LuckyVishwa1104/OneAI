@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/app/app.locator.dart';
 import 'package:one_ai/model/chat_item_model.dart';
+import 'package:one_ai/model/enums/dialog_type.dart';
 import 'package:one_ai/model/project_model.dart';
 import 'package:one_ai/model/quick_action_model.dart';
-import 'package:one_ai/utility/components/custom_dialog_box.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class ProjectViewModel extends BaseViewModel {
   final NavigationService navigationService = locator<NavigationService>();
+  final DialogService dialogService = locator<DialogService>();
 
   final TextEditingController searchController = TextEditingController();
 
@@ -124,22 +125,14 @@ class ProjectViewModel extends BaseViewModel {
     ),
   ];
 
-  List<QuickActionModel> getProjectOptions(
-    ProjectModel project,
-    BuildContext context,
-  ) {
+  List<QuickActionModel> getProjectOptions(ProjectModel project) {
     return [
       QuickActionModel(
-        // Optional: If your ProjectModel has an `isPinned` property, you can toggle the text/icon
         icon: Icons.push_pin_outlined,
         title: "Pin Project",
         onTap: () {
-          // Removes the project from its current position and inserts it at the top
           projects.remove(project);
           projects.insert(0, project);
-
-          // Note: If your ProjectModel has a boolean like `isPinned`, you would toggle it here instead:
-          // project.isPinned = !project.isPinned;
 
           notifyListeners();
         },
@@ -148,6 +141,7 @@ class ProjectViewModel extends BaseViewModel {
         icon: Icons.message_outlined,
         title: "New Project Chat",
         onTap: () {
+          // todo : tobe impleemnted later
           // Creates a new chat and adds it to the top of the project's chat list
           final newChat = ChatItemModel(
             id: 'chat_${DateTime.now().millisecondsSinceEpoch}',
@@ -157,52 +151,50 @@ class ProjectViewModel extends BaseViewModel {
 
           project.chats.insert(0, newChat);
           notifyListeners();
-          // Optional: Navigate to the actual chat view right after creation
-          // navigationService.navigateTo(Routes.chatView, arguments: newChat);
         },
       ),
       QuickActionModel(
         icon: Icons.edit_outlined,
         title: "Rename",
         onTap: () async {
-          // Typically, you would use a DialogService here to prompt the user for a new name.
-          // Example:
-          // final response = await dialogService.showDialog(title: 'Rename Project');
-          // if (response?.confirmed == true && response?.data != null) {
-          //   project.title = response.data;
-          //   notifyListeners();
-          // }
-
-          // Placeholder renaming logic for demonstration:
-          // project.title = "${project.title} (Renamed)";
-          showDialog(
-            context: context,
-            builder:
-                (_) => CustomDialogBox(
-                  title: 'Rename Project',
-                  showTextField: true,
-                  initialText: project.title,
-                  cancelText: 'Cancel',
-                  confirmText: 'Save',
-                  onConfirmWithText: (newName) {
-                    if (newName.trim().isNotEmpty) {
-                      project.title = newName.trim();
-                      notifyListeners();
-                    }
-                  },
-                ),
+          final response = await dialogService.showCustomDialog(
+            variant: DialogType.rename,
+            title: 'Rename Project',
+            description: project.title,
           );
-          notifyListeners();
+
+          if (response?.confirmed == true) {
+            final newName = (response!.data as String?)?.trim();
+            if (newName != null && newName.isNotEmpty) {
+              final index = projects.indexWhere((p) => p.id == project.id);
+              if (index != -1) {
+                projects[index] = ProjectModel(
+                  id: project.id,
+                  title: newName,
+                  chats: project.chats,
+                );
+                notifyListeners();
+              }
+            }
+          }
         },
       ),
       QuickActionModel(
         icon: Icons.delete_outline,
         title: "Delete Project",
         isDestructive: true,
-        onTap: () {
-          // Removes the specific project from the master list
-          projects.removeWhere((p) => p.id == project.id);
-          notifyListeners();
+        onTap: () async {
+          final response = await dialogService.showCustomDialog(
+            variant: DialogType.confirm,
+            title: 'Delete Project',
+            description: 'Delete "${project.title}"? This cannot be undone.',
+            mainButtonTitle: 'Delete',
+            secondaryButtonTitle: 'Cancel',
+          );
+          if (response?.confirmed == true) {
+            projects.removeWhere((p) => p.id == project.id);
+            notifyListeners();
+          }
         },
       ),
     ];
@@ -210,9 +202,6 @@ class ProjectViewModel extends BaseViewModel {
 
   Future initialise() async {
     setBusy(true);
-
-    // Load projects
-
     setBusy(false);
   }
 }

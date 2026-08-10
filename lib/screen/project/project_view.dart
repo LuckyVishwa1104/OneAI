@@ -76,10 +76,9 @@ class ProjectView extends StatelessWidget {
             return InkWell(
               onTap: () {},
               onLongPress: () {
-                // display a overlay pop-up
                 QuickActionMenu.show(
                   context: innerContext,
-                  actions: model.getProjectOptions(project, innerContext),
+                  actions: model.getProjectOptions(project),
                 );
               },
               borderRadius: AppRadius.radiusMd,
@@ -152,6 +151,4 @@ class ProjectView extends StatelessWidget {
       ),
     );
   }
-
 }
-
