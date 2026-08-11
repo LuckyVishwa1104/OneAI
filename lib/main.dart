@@ -14,7 +14,8 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await setupLocator();
   await locator<ThemeService>().init();
-  setupDialogUi();  
+  setupDialogUi();
+  setupBottomSheetUi(); 
   runApp(const MyApp());
 }
 
