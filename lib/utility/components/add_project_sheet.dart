@@ -1,13 +1,23 @@
 import 'package:flutter/material.dart';
+import 'package:one_ai/model/add_project_model.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class AddProjectSheet extends StatefulWidget {
-  const AddProjectSheet({super.key});
+  final SheetRequest request;
+  final Function(SheetResponse response) completer;
+
+  const AddProjectSheet({
+    super.key,
+    required this.request,
+    required this.completer,
+  });
 
   @override
   State<AddProjectSheet> createState() => _AddProjectSheetState();
 }
 
 class _AddProjectSheetState extends State<AddProjectSheet> {
+  final _formKey = GlobalKey<FormState>();
   final _titleController = TextEditingController();
   final _instructionController = TextEditingController();
 
@@ -31,20 +41,23 @@ class _AddProjectSheetState extends State<AddProjectSheet> {
   }
 
   void _handleCreate() {
-    final title = _titleController.text.trim();
-    if (title.isEmpty) return; // simple guard, add error UI if you want
-
-    Navigator.pop(context, {
-      'title': title,
-      'instructions': _instructionController.text.trim(),
-      'icon': _selectedIcon,
-    });
+    if (_formKey.currentState!.validate()) {
+      widget.completer(
+        SheetResponse<AddProjectModel>(
+          confirmed: true,
+          data: AddProjectModel(
+            title: _titleController.text.trim(),
+            instructions: _instructionController.text.trim(),
+            icon: _selectedIcon,
+          ),
+        ),
+      );
+    }
   }
 
   @override
   Widget build(BuildContext context) {
     return Padding(
-      // pushes content above the keyboard
       padding: EdgeInsets.only(
         left: 16,
         right: 16,
@@ -52,97 +65,108 @@ class _AddProjectSheetState extends State<AddProjectSheet> {
         bottom: MediaQuery.of(context).viewInsets.bottom + 16,
       ),
       child: SingleChildScrollView(
-        child: Column(
-          mainAxisSize: MainAxisSize.min,
-          crossAxisAlignment: CrossAxisAlignment.start,
-          children: [
-            Center(
-              child: Container(
-                width: 40,
-                height: 4,
-                margin: const EdgeInsets.only(bottom: 16),
-                decoration: BoxDecoration(
-                  color: Colors.grey.shade400,
-                  borderRadius: BorderRadius.circular(4),
-                ),
-              ),
-            ),
-
-            Text(
-              'New Project',
-              style: Theme.of(context).textTheme.titleLarge,
-            ),
-            const SizedBox(height: 16),
-
-            TextField(
-              controller: _titleController,
-              autofocus: true,
-              decoration: const InputDecoration(
-                labelText: 'Project name',
-                border: OutlineInputBorder(),
-              ),
-            ),
-            const SizedBox(height: 12),
-
-            TextField(
-              controller: _instructionController,
-              maxLines: 3,
-              decoration: const InputDecoration(
-                labelText: 'Instructions (optional)',
-                border: OutlineInputBorder(),
-                alignLabelWithHint: true,
-              ),
-            ),
-            const SizedBox(height: 16),
-
-            Text(
-              'Icon',
-              style: Theme.of(context).textTheme.labelLarge,
-            ),
-            const SizedBox(height: 8),
-
-            Row(
-              mainAxisAlignment: MainAxisAlignment.spaceBetween,
-              children: _iconOptions.map((iconData) {
-                final isSelected = iconData == _selectedIcon;
-                return InkWell(
-                  onTap: () => setState(() => _selectedIcon = iconData),
-                  borderRadius: BorderRadius.circular(24),
-                  child: Container(
-                    padding: const EdgeInsets.all(10),
-                    decoration: BoxDecoration(
-                      shape: BoxShape.circle,
-                      color: isSelected
-                          ? Theme.of(context).colorScheme.primary
-                          : Colors.transparent,
-                      border: Border.all(
-                        color: isSelected
-                            ? Theme.of(context).colorScheme.primary
-                            : Colors.grey.shade400,
-                      ),
-                    ),
-                    child: Icon(
-                      iconData,
-                      color: isSelected ? Colors.white : Colors.grey.shade700,
-                      size: 22,
-                    ),
+        child: Form(
+          key: _formKey,
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              Center(
+                child: Container(
+                  width: 40,
+                  height: 4,
+                  margin: const EdgeInsets.only(bottom: 16),
+                  decoration: BoxDecoration(
+                    color: Colors.grey.shade400,
+                    borderRadius: BorderRadius.circular(4),
                   ),
-                );
-              }).toList(),
-            ),
-            const SizedBox(height: 24),
-
-            SizedBox(
-              width: double.infinity,
-              child: ElevatedButton(
-                onPressed: _handleCreate,
-                child: const Padding(
-                  padding: EdgeInsets.symmetric(vertical: 12),
-                  child: Text('Create'),
                 ),
               ),
-            ),
-          ],
+
+              Text(
+                'New Project',
+                style: Theme.of(context).textTheme.titleLarge,
+              ),
+              const SizedBox(height: 16),
+
+              TextFormField(
+                controller: _titleController,
+                autofocus: true,
+                decoration: const InputDecoration(
+                  labelText: 'Project name',
+                  border: OutlineInputBorder(),
+                ),
+                validator:
+                    (value) =>
+                        (value == null || value.trim().isEmpty)
+                            ? 'Project name is required'
+                            : null,
+              ),
+              const SizedBox(height: 12),
+
+              TextFormField(
+                controller: _instructionController,
+                maxLines: 3,
+                decoration: const InputDecoration(
+                  labelText: 'Instructions (optional)',
+                  border: OutlineInputBorder(),
+                  alignLabelWithHint: true,
+                ),
+              ),
+              const SizedBox(height: 16),
+
+              Text('Icon', style: Theme.of(context).textTheme.labelLarge),
+              const SizedBox(height: 8),
+
+              Row(
+                mainAxisAlignment: MainAxisAlignment.spaceBetween,
+                children:
+                    _iconOptions.map((iconData) {
+                      final isSelected = iconData == _selectedIcon;
+                      return InkWell(
+                        onTap: () => setState(() => _selectedIcon = iconData),
+                        borderRadius: BorderRadius.circular(24),
+                        child: Container(
+                          padding: const EdgeInsets.all(10),
+                          decoration: BoxDecoration(
+                            shape: BoxShape.circle,
+                            color:
+                                isSelected
+                                    ? Theme.of(context).colorScheme.primary
+                                    : Colors.transparent,
+                            border: Border.all(
+                              color:
+                                  isSelected
+                                      ? Theme.of(context).colorScheme.primary
+                                      : Colors.grey.shade400,
+                            ),
+                          ),
+                          child: Icon(
+                            iconData,
+                            color:
+                                isSelected
+                                    ? Colors.white
+                                    : Colors.grey.shade700,
+                            size: 22,
+                          ),
+                        ),
+                      );
+                    }).toList(),
+              ),
+              const SizedBox(height: 24),
+
+              SizedBox(
+                width: double.infinity,
+                child: ElevatedButton(
+                  onPressed: _handleCreate,
+                  child: const Padding(
+                    padding: EdgeInsets.symmetric(vertical: 12),
+                    child: Text('Create'),
+                  ),
+                ),
+              ),
+            ],
+          ),
         ),
       ),
     );
