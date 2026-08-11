@@ -200,6 +200,23 @@ class ProjectViewModel extends BaseViewModel {
     ];
   }
 
+  void addProject({
+    required String title,
+    String? instructions,
+    required IconData icon,
+  }) {
+    final newProject = ProjectModel(
+      id: 'proj_${DateTime.now().millisecondsSinceEpoch}',
+      title: title,
+      instructions: instructions,
+      icon: icon,
+      chats: [],
+    );
+
+    projects.insert(0, newProject); // shows up at top of the list
+    notifyListeners();
+  }
+
   Future initialise() async {
     setBusy(true);
     setBusy(false);
