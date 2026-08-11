@@ -48,29 +48,7 @@ class ProjectView extends StatelessWidget {
                   // button to add new project
                   AppSpacing.h8,
                   AppButton(
-                    onTap: () async {
-                      final result = await showModalBottomSheet<
-                        Map<String, dynamic>
-                      >(
-                        context: context,
-                        isScrollControlled:
-                            true, // required so it resizes above the keyboard
-                        shape: const RoundedRectangleBorder(
-                          borderRadius: BorderRadius.vertical(
-                            top: Radius.circular(16),
-                          ),
-                        ),
-                        builder: (_) => const AddProjectSheet(),
-                      );
-
-                      if (result != null) {
-                        model.addProject(
-                          title: result['title'] as String,
-                          instructions: result['instructions'] as String?,
-                          icon: result['icon'] as IconData,
-                        );
-                      }
-                    },
+                    onTap: model.onAddProjectTapped,
                     title: "Add Project",
                     icon: Icons.add,
                   ),

@@ -1,6 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/app/app.locator.dart';
+import 'package:one_ai/model/add_project_model.dart';
 import 'package:one_ai/model/chat_item_model.dart';
+import 'package:one_ai/model/enums/bottom_sheet_type.dart';
 import 'package:one_ai/model/enums/dialog_type.dart';
 import 'package:one_ai/model/project_model.dart';
 import 'package:one_ai/model/quick_action_model.dart';
@@ -10,6 +12,7 @@ import 'package:stacked_services/stacked_services.dart';
 class ProjectViewModel extends BaseViewModel {
   final NavigationService navigationService = locator<NavigationService>();
   final DialogService dialogService = locator<DialogService>();
+  final BottomSheetService bottomSheetService = locator<BottomSheetService>();
 
   final TextEditingController searchController = TextEditingController();
 
@@ -200,21 +203,25 @@ class ProjectViewModel extends BaseViewModel {
     ];
   }
 
-  void addProject({
-    required String title,
-    String? instructions,
-    required IconData icon,
-  }) {
-    final newProject = ProjectModel(
-      id: 'proj_${DateTime.now().millisecondsSinceEpoch}',
-      title: title,
-      instructions: instructions,
-      icon: icon,
-      chats: [],
+  Future<void> onAddProjectTapped() async {
+    final response = await bottomSheetService.showCustomSheet(
+      variant: BottomSheetType.addProject,
     );
 
-    projects.insert(0, newProject); // shows up at top of the list
-    notifyListeners();
+    if (response?.confirmed == true) {
+      final result = response!.data as AddProjectModel;
+
+      final newProject = ProjectModel(
+        id: 'proj_${DateTime.now().millisecondsSinceEpoch}',
+        title: result.title,
+        instructions: result.instructions,
+        icon: result.icon,
+        chats: [],
+      );
+
+      projects.insert(0, newProject);
+      notifyListeners();
+    }
   }
 
   Future initialise() async {
