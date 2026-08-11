@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/screen/project/project_view_model.dart';
+import 'package:one_ai/utility/components/add_project_sheet.dart';
 import 'package:one_ai/utility/components/app_bar/app_bar_component.dart';
 import 'package:one_ai/utility/components/app_button.dart';
 import 'package:one_ai/utility/components/logo_tile.dart';
@@ -47,7 +48,29 @@ class ProjectView extends StatelessWidget {
                   // button to add new project
                   AppSpacing.h8,
                   AppButton(
-                    onTap: () {},
+                    onTap: () async {
+                      final result = await showModalBottomSheet<
+                        Map<String, dynamic>
+                      >(
+                        context: context,
+                        isScrollControlled:
+                            true, // required so it resizes above the keyboard
+                        shape: const RoundedRectangleBorder(
+                          borderRadius: BorderRadius.vertical(
+                            top: Radius.circular(16),
+                          ),
+                        ),
+                        builder: (_) => const AddProjectSheet(),
+                      );
+
+                      if (result != null) {
+                        model.addProject(
+                          title: result['title'] as String,
+                          instructions: result['instructions'] as String?,
+                          icon: result['icon'] as IconData,
+                        );
+                      }
+                    },
                     title: "Add Project",
                     icon: Icons.add,
                   ),
