@@ -110,7 +110,12 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
                               child: Center(
                                 child: Text(
                                   widget.cancelText ?? 'Cancel',
-                                  style: AppTextStyles.subHeading(context),
+                                  style: AppTextStyles.subHeading(
+                                    context,
+                                  ).copyWith(
+                                    color:
+                                        Theme.of(context).colorScheme.onSurface,
+                                  ),
                                 ),
                               ),
                             ),
@@ -136,7 +141,12 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
                               child: Center(
                                 child: Text(
                                   widget.confirmText,
-                                  style: AppTextStyles.subHeading(context),
+                                  style: AppTextStyles.subHeading(
+                                    context,
+                                  ).copyWith(
+                                    color:
+                                        Theme.of(context).colorScheme.onSurface,
+                                  ),
                                 ),
                               ),
                             ),
