@@ -206,6 +206,7 @@ class ProjectViewModel extends BaseViewModel {
   Future<void> onAddProjectTapped() async {
     final response = await bottomSheetService.showCustomSheet(
       variant: BottomSheetType.addProject,
+      isScrollControlled: true,
     );
 
     if (response?.confirmed == true) {

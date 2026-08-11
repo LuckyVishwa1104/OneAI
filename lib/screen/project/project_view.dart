@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/screen/project/project_view_model.dart';
-import 'package:one_ai/utility/components/add_project_sheet.dart';
 import 'package:one_ai/utility/components/app_bar/app_bar_component.dart';
 import 'package:one_ai/utility/components/app_button.dart';
 import 'package:one_ai/utility/components/logo_tile.dart';
