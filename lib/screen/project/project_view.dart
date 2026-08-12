@@ -114,13 +114,13 @@ class ProjectView extends StatelessWidget {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
-                          if (project.isPinned) ...[
-                            AppSpacing.w8,
-                            AppIcon(icon: Icons.push_pin_outlined),
-                          ],
                         ],
                       ),
                     ),
+                    if (project.isPinned) ...[
+                      AppSpacing.w8,
+                      AppIcon(icon: Icons.push_pin_outlined),
+                    ],
                   ],
                 ),
               ),
