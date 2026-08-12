@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/app/app.locator.dart';
 import 'package:one_ai/app/app.router.dart';
+import 'package:one_ai/app/dialog_manager.dart';
 import 'package:one_ai/utility/theme/app_theme.dart';
 import 'package:one_ai/firebase_options.dart';
 import 'package:one_ai/services/theme_service.dart';
@@ -13,6 +14,8 @@ Future<void> main() async {
   await Firebase.initializeApp(options: DefaultFirebaseOptions.currentPlatform);
   await setupLocator();
   await locator<ThemeService>().init();
+  setupDialogUi();
+  setupBottomSheetUi(); 
   runApp(const MyApp());
 }
 

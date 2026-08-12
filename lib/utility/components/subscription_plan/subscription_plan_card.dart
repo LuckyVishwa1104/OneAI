@@ -83,8 +83,8 @@ class _SubscriptionPlanCardState extends State<SubscriptionPlanCard> {
                 Row(
                   children: [
                     LogoTile(
-                      height: 49,
-                      width: 49,
+                      height: 47,
+                      width: 47,
                       icon: widget.plan.icon,
                       isLogo: false,
                     ),
@@ -99,12 +99,12 @@ class _SubscriptionPlanCardState extends State<SubscriptionPlanCard> {
                             widget.plan.title,
                             style: AppTextStyles.heading(
                               context,
-                            ).copyWith(fontSize: 20),
+                            ).copyWith(fontSize: 18),
                           ),
 
                           Text(
                             widget.plan.subtitle,
-                            style: AppTextStyles.subHeading(context),
+                            style: AppTextStyles.subHeading(context).copyWith(fontSize: 14,),
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),

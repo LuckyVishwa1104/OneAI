@@ -1,0 +1,1 @@
+enum DialogType { rename, confirm }
