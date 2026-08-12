@@ -131,29 +131,33 @@ class ProjectViewModel extends BaseViewModel {
   List<QuickActionModel> getProjectOptions(ProjectModel project) {
     return [
       QuickActionModel(
-        icon: Icons.push_pin_outlined,
-        title: "Pin Project",
+        icon: project.isPinned ? Icons.push_pin_outlined : Icons.push_pin,
+        title: project.isPinned ? "Unpin Project" : "Pin Project",
         onTap: () {
-          projects.remove(project);
-          projects.insert(0, project);
-
-          notifyListeners();
+          final index = _projects.indexWhere((p) => p.id == project.id);
+          if (index != -1) {
+            _projects[index] = project.copyWith(isPinned: !project.isPinned);
+            notifyListeners();
+          }
         },
       ),
       QuickActionModel(
         icon: Icons.message_outlined,
         title: "New Project Chat",
         onTap: () {
-          // todo : tobe impleemnted later
-          // Creates a new chat and adds it to the top of the project's chat list
           final newChat = ChatItemModel(
             id: 'chat_${DateTime.now().millisecondsSinceEpoch}',
             title: 'New Chat',
             lastUpdated: DateTime.now(),
           );
 
-          project.chats.insert(0, newChat);
-          notifyListeners();
+          final index = _projects.indexWhere((p) => p.id == project.id);
+          if (index != -1) {
+            _projects[index] = project.copyWith(
+              chats: [newChat, ...project.chats],
+            );
+            notifyListeners();
+          }
         },
       ),
       QuickActionModel(
@@ -169,13 +173,9 @@ class ProjectViewModel extends BaseViewModel {
           if (response?.confirmed == true) {
             final newName = (response!.data as String?)?.trim();
             if (newName != null && newName.isNotEmpty) {
-              final index = projects.indexWhere((p) => p.id == project.id);
+              final index = _projects.indexWhere((p) => p.id == project.id);
               if (index != -1) {
-                projects[index] = ProjectModel(
-                  id: project.id,
-                  title: newName,
-                  chats: project.chats,
-                );
+                _projects[index] = project.copyWith(title: newName);
                 notifyListeners();
               }
             }
@@ -195,7 +195,7 @@ class ProjectViewModel extends BaseViewModel {
             secondaryButtonTitle: 'Cancel',
           );
           if (response?.confirmed == true) {
-            projects.removeWhere((p) => p.id == project.id);
+            _projects.removeWhere((p) => p.id == project.id);
             notifyListeners();
           }
         },
@@ -229,7 +229,7 @@ class ProjectViewModel extends BaseViewModel {
         chats: [],
       );
 
-      projects.insert(0, newProject);
+      _projects.insert(0, newProject);
       notifyListeners();
     }
   }
