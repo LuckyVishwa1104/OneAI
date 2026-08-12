@@ -1,11 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/model/add_project_model.dart';
 import 'package:one_ai/utility/components/app_button.dart';
+import 'package:one_ai/utility/components/app_text_field.dart';
 import 'package:one_ai/utility/components/logo_tile.dart';
-import 'package:one_ai/utility/constants/app_border.dart';
 import 'package:one_ai/utility/constants/app_colors.dart';
 import 'package:one_ai/utility/constants/app_radius.dart';
-import 'package:one_ai/utility/constants/app_shadow.dart';
 import 'package:one_ai/utility/constants/app_spacing.dart';
 import 'package:one_ai/utility/constants/app_text_styles.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -103,20 +102,19 @@ class _AddProjectSheetState extends State<AddProjectSheet> {
                       ),
                     ),
                   ),
-    
+
                   Text(
                     'New Project',
-                    style: AppTextStyles.heading(context).copyWith(fontWeight: FontWeight.w400)
+                    style: AppTextStyles.heading(
+                      context,
+                    ).copyWith(fontWeight: FontWeight.w400),
                   ),
                   AppSpacing.h20,
-    
-                  TextFormField(
+
+                  AppTextField(
                     controller: _titleController,
                     autofocus: true,
-                    decoration: const InputDecoration(
-                      labelText: 'Project name',
-                      border: OutlineInputBorder(),
-                    ),
+                    hintText: "Project Name",
                     validator:
                         (value) =>
                             (value == null || value.trim().isEmpty)
@@ -124,21 +122,17 @@ class _AddProjectSheetState extends State<AddProjectSheet> {
                                 : null,
                   ),
                   AppSpacing.h12,
-    
-                  TextFormField(
+
+                  AppTextField(
                     controller: _instructionController,
+                    hintText: "Enter Instructions",
                     maxLines: 3,
-                    decoration: const InputDecoration(
-                      labelText: 'Instructions (optional)',
-                      border: OutlineInputBorder(),
-                      alignLabelWithHint: true,
-                    ),
                   ),
                   AppSpacing.h16,
-    
+
                   Text('Icons', style: AppTextStyles.subHeading(context)),
                   AppSpacing.h8,
-    
+
                   SizedBox(
                     height: 56,
                     child: ListView.separated(
@@ -148,7 +142,7 @@ class _AddProjectSheetState extends State<AddProjectSheet> {
                       itemBuilder: (context, index) {
                         final iconData = _iconOptions[index];
                         final isSelected = iconData == _selectedIcon;
-    
+
                         return InkWell(
                           onTap: () => setState(() => _selectedIcon = iconData),
                           borderRadius: BorderRadius.circular(24),
@@ -164,7 +158,7 @@ class _AddProjectSheetState extends State<AddProjectSheet> {
                     ),
                   ),
                   AppSpacing.h24,
-    
+
                   AppButton(onTap: _handleCreate, title: "Create"),
                 ],
               ),
