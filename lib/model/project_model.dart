@@ -7,6 +7,7 @@ class ProjectModel {
   final String? instructions;
   final IconData icon;
   final List<ChatItemModel> chats;
+  final bool isPinned;
 
   ProjectModel({
     required this.id,
@@ -14,5 +15,6 @@ class ProjectModel {
     this.instructions,
     this.icon = Icons.folder_outlined,
     required this.chats,
+    this.isPinned = false,
   });
 }
