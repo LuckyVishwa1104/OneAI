@@ -44,7 +44,7 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
       child: Container(
         width: 250,
         decoration: BoxDecoration(
-          color: Theme.of(context).colorScheme.surface,
+          color: Theme.of(context).scaffoldBackgroundColor,
           borderRadius: AppRadius.radiusXxl,
           border: AppBorder.defaultBorder(context),
           boxShadow: [AppShadow.homeTileShadow],
@@ -57,7 +57,7 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
                 children: [
-                  Text(widget.title, style: AppTextStyles.heading(context)),
+                  Text(widget.title, style: AppTextStyles.heading(context).copyWith(fontWeight: FontWeight.w400,)),
                   if (widget.content != null) ...[
                     AppSpacing.h16,
                     Text(
@@ -69,6 +69,7 @@ class _CustomDialogBoxState extends State<CustomDialogBox> {
                   ],
                   if (widget.showTextField) ...[
                     AppSpacing.h12,
+                   
                     TextField(
                       controller: _controller,
                       autofocus: true,
