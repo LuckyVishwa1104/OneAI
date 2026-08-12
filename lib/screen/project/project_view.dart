@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:one_ai/screen/project/project_view_model.dart';
 import 'package:one_ai/utility/components/app_bar/app_bar_component.dart';
 import 'package:one_ai/utility/components/app_button.dart';
+import 'package:one_ai/utility/components/app_icon.dart';
 import 'package:one_ai/utility/components/logo_tile.dart';
 import 'package:one_ai/utility/components/quick_action_menu.dart';
 import 'package:one_ai/utility/components/search_bar_component.dart';
@@ -113,6 +114,10 @@ class ProjectView extends StatelessWidget {
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                           ),
+                          if (project.isPinned) ...[
+                            AppSpacing.w8,
+                            AppIcon(icon: Icons.push_pin_outlined),
+                          ],
                         ],
                       ),
                     ),

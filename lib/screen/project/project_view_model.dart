@@ -16,7 +16,7 @@ class ProjectViewModel extends BaseViewModel {
 
   final TextEditingController searchController = TextEditingController();
 
-  final List<ProjectModel> projects = [
+  final List<ProjectModel> _projects = [
     ProjectModel(
       id: 'proj_1',
       title: 'Website Redesign',
@@ -201,6 +201,15 @@ class ProjectViewModel extends BaseViewModel {
         },
       ),
     ];
+  }
+
+  List<ProjectModel> get projects {
+    final sorted = [..._projects];
+    sorted.sort((a, b) {
+      if (a.isPinned == b.isPinned) return 0;
+      return a.isPinned ? -1 : 1;
+    });
+    return sorted;
   }
 
   Future<void> onAddProjectTapped() async {
