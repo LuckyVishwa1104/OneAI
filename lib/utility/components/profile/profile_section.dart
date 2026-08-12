@@ -79,7 +79,7 @@ class ProfileSection extends StatelessWidget {
                               const SizedBox(height: 4),
                               Text(
                                 options[index].subtitle!,
-                                style: AppTextStyles.subHeading(context).copyWith(fontWeight: FontWeight.w400),
+                                style: AppTextStyles.subHeading(context).copyWith(fontSize: 14,),
                                 maxLines: 1,
                                 overflow: TextOverflow.ellipsis,
                               ),
