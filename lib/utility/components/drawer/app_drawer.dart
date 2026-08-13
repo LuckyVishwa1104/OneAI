@@ -101,38 +101,33 @@ class AppDrawer extends StatelessWidget {
                       ),
                     ),
 
-                    DrawerActionTile(
-                      isProject: false,
-                      isChat: false,
-                      icon:
-                          showMoreActions
-                              ? Icons.expand_less
-                              : Icons.expand_more,
-                      title: "More",
-                      onTap: moreTap,
-                    ),
-
-                    AnimatedCrossFade(
+                    AnimatedSwitcher(
                       duration: const Duration(milliseconds: 250),
-                      crossFadeState:
+                      child:
                           showMoreActions
-                              ? CrossFadeState.showSecond
-                              : CrossFadeState.showFirst,
-                      firstChild: const SizedBox.shrink(),
-                      secondChild: Column(
-                        children:
-                            moreQuickActions
-                                .map(
-                                  (action) => DrawerActionTile(
-                                    title: action.title,
-                                    icon: action.icon,
-                                    isProject: false,
-                                    isChat: false,
-                                    onTap: newChat,
-                                  ),
-                                )
-                                .toList(),
-                      ),
+                              ? Column(
+                                key: const ValueKey('expanded'),
+                                children:
+                                    moreQuickActions
+                                        .map(
+                                          (action) => DrawerActionTile(
+                                            title: action.title,
+                                            icon: action.icon,
+                                            isProject: false,
+                                            isChat: false,
+                                            onTap: newChat,
+                                          ),
+                                        )
+                                        .toList(),
+                              )
+                              : DrawerActionTile(
+                                key: const ValueKey('more'),
+                                isProject: false,
+                                isChat: false,
+                                icon: Icons.expand_more,
+                                title: "More",
+                                onTap: moreTap,
+                              ),
                     ),
 
                     // Projects
