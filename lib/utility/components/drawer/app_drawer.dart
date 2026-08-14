@@ -135,6 +135,7 @@ class AppDrawer extends StatelessWidget {
                       title: "Projects",
                       viewAll: true,
                       onViewAll: () {
+                        Navigator.of(context).pop();
                         navigationService.navigateToProjectView();
                       },
                     ),
@@ -149,7 +150,14 @@ class AppDrawer extends StatelessWidget {
                     ),
 
                     // Recent Chats
-                    DrawerSectionTile(title: "Recent Chats", viewAll: true),
+                    DrawerSectionTile(
+                      title: "Recent Chats",
+                      viewAll: true,
+                      onViewAll: () {
+                        Navigator.of(context).pop();
+                        navigationService.navigateToAllChatView();
+                      },
+                    ),
 
                     ...recentChats.map(
                       (chat) => DrawerActionTile(
@@ -160,7 +168,25 @@ class AppDrawer extends StatelessWidget {
                       ),
                     ),
 
-                    const SizedBox(height: 20),
+                    AppSpacing.h2,
+                    InkWell(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        navigationService.navigateToAllChatView();
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Load More Chats",
+                            style: AppTextStyles.subHeading(context).copyWith(
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
+                          ),
+                          AppIcon(icon: Icons.navigate_next),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
