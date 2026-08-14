@@ -131,7 +131,12 @@ class StackedRouter extends _i1.RouterBase {
         orElse: () => const AllChatViewArguments(),
       );
       return _i10.MaterialPageRoute<dynamic>(
-        builder: (context) => _i9.AllChatView(key: args.key),
+        builder:
+            (context) => _i9.AllChatView(
+              key: args.key,
+              projectId: args.projectId,
+              projectTitle: args.projectTitle,
+            ),
         settings: data,
       );
     },
@@ -301,24 +306,30 @@ class ProjectViewArguments {
 }
 
 class AllChatViewArguments {
-  const AllChatViewArguments({this.key});
+  const AllChatViewArguments({this.key, this.projectId, this.projectTitle});
 
   final _i10.Key? key;
 
+  final String? projectId;
+
+  final String? projectTitle;
+
   @override
   String toString() {
-    return '{"key": "$key"}';
+    return '{"key": "$key", "projectId": "$projectId", "projectTitle": "$projectTitle"}';
   }
 
   @override
   bool operator ==(covariant AllChatViewArguments other) {
     if (identical(this, other)) return true;
-    return other.key == key;
+    return other.key == key &&
+        other.projectId == projectId &&
+        other.projectTitle == projectTitle;
   }
 
   @override
   int get hashCode {
-    return key.hashCode;
+    return key.hashCode ^ projectId.hashCode ^ projectTitle.hashCode;
   }
 }
 
@@ -452,6 +463,8 @@ extension NavigatorStateExtension on _i11.NavigationService {
 
   Future<dynamic> navigateToAllChatView({
     _i10.Key? key,
+    String? projectId,
+    String? projectTitle,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -460,7 +473,11 @@ extension NavigatorStateExtension on _i11.NavigationService {
   }) async {
     return navigateTo<dynamic>(
       Routes.allChatView,
-      arguments: AllChatViewArguments(key: key),
+      arguments: AllChatViewArguments(
+        key: key,
+        projectId: projectId,
+        projectTitle: projectTitle,
+      ),
       id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,
@@ -597,6 +614,8 @@ extension NavigatorStateExtension on _i11.NavigationService {
 
   Future<dynamic> replaceWithAllChatView({
     _i10.Key? key,
+    String? projectId,
+    String? projectTitle,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -605,7 +624,11 @@ extension NavigatorStateExtension on _i11.NavigationService {
   }) async {
     return replaceWith<dynamic>(
       Routes.allChatView,
-      arguments: AllChatViewArguments(key: key),
+      arguments: AllChatViewArguments(
+        key: key,
+        projectId: projectId,
+        projectTitle: projectTitle,
+      ),
       id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,
