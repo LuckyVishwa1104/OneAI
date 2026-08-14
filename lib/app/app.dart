@@ -1,3 +1,4 @@
+import 'package:one_ai/screen/all_chat/all_chat_view.dart';
 import 'package:one_ai/screen/chat/chat_view.dart';
 import 'package:one_ai/screen/home/home_view.dart';
 import 'package:one_ai/screen/model_selection/model_select_view.dart';
@@ -19,6 +20,7 @@ import 'package:stacked_services/stacked_services.dart';
     MaterialRoute(page: ModelSelectView),
     MaterialRoute(page: SubscriptionView),
     MaterialRoute(page: ProjectView),
+    MaterialRoute(page: AllChatView),
 
   ],
   dependencies: [
