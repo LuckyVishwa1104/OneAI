@@ -3,9 +3,9 @@ import 'package:one_ai/screen/project/project_view_model.dart';
 import 'package:one_ai/utility/components/app_bar/app_bar_component.dart';
 import 'package:one_ai/utility/components/app_button.dart';
 import 'package:one_ai/utility/components/app_icon.dart';
+import 'package:one_ai/utility/components/app_text_field.dart';
 import 'package:one_ai/utility/components/logo_tile.dart';
 import 'package:one_ai/utility/components/quick_action_menu.dart';
-import 'package:one_ai/utility/components/search_bar_component.dart';
 import 'package:one_ai/utility/constants/app_radius.dart';
 import 'package:one_ai/utility/constants/app_spacing.dart';
 import 'package:one_ai/utility/constants/app_text_styles.dart';
@@ -29,10 +29,13 @@ class ProjectView extends StatelessWidget {
               child: Column(
                 children: [
                   model.projects.isNotEmpty
-                      ? SearchBarComponent(
+                      ? AppTextField(
                         controller: model.searchController,
-                        leadingIcon: Icons.search_outlined,
-                        hintText: "Search Project",
+                        // focusNode: searchFocusNode,
+                        leadingIcon: Icons.search,
+                        hintText: 'Search projects',
+                        height: 56,
+                        borderRadius: BorderRadius.circular(30),
                       )
                       : SizedBox(),
                   AppSpacing.h8,
