@@ -131,7 +131,7 @@ class ProjectViewModel extends BaseViewModel {
   List<QuickActionModel> getProjectOptions(ProjectModel project) {
     return [
       QuickActionModel(
-        icon: project.isPinned ? Icons.push_pin_outlined : Icons.push_pin,
+        icon: project.isPinned ? Icons.push_pin : Icons.push_pin_outlined,
         title: project.isPinned ? "Unpin Project" : "Pin Project",
         onTap: () {
           final index = _projects.indexWhere((p) => p.id == project.id);
