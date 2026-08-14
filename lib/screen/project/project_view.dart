@@ -87,7 +87,7 @@ class ProjectView extends StatelessWidget {
               },
               borderRadius: AppRadius.radiusMd,
               child: Padding(
-                padding: const EdgeInsets.symmetric(vertical: 8),
+                padding: EdgeInsetsGeometry.only(top: 8, bottom: 8, left: 8,),
                 child: Row(
                   children: [
                     LogoTile(
@@ -143,9 +143,9 @@ class ProjectView extends StatelessWidget {
           LogoTile(
             icon: Icons.folder_copy_outlined,
             isLogo: false,
-            height: 80,
-            width: 80,
-            iconSize: 38,
+            height: 65,
+            width: 65,
+            iconSize: 35,
           ),
           AppSpacing.h24,
           Text("No Projects Yet", style: AppTextStyles.heading(context)),
