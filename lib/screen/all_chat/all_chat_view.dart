@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:one_ai/screen/project/project_view_model.dart';
+import 'package:one_ai/model/project_model.dart';
+import 'package:one_ai/screen/all_chat/all_chat_viewmodel.dart';
 import 'package:one_ai/utility/components/app_bar/app_bar_component.dart';
 import 'package:one_ai/utility/components/app_button.dart';
 import 'package:one_ai/utility/components/app_icon.dart';
@@ -11,47 +12,47 @@ import 'package:one_ai/utility/constants/app_spacing.dart';
 import 'package:one_ai/utility/constants/app_text_styles.dart';
 import 'package:stacked/stacked.dart';
 
-class ProjectView extends StatelessWidget {
-  const ProjectView({super.key});
+class AllChatView extends StatelessWidget {
+  final ProjectModel? project;
+
+  const AllChatView({super.key, this.project});
 
   @override
   Widget build(BuildContext context) {
-    return ViewModelBuilder<ProjectViewModel>.reactive(
-      viewModelBuilder: () => ProjectViewModel(),
+    return ViewModelBuilder<AllChatViewmodel>.reactive(
+      viewModelBuilder:  () =>  AllChatViewmodel(project: project),
       builder: (context, model, child) {
         return Scaffold(
-          appBar: AppBarComponent(isAction: false, title: "Projects"),
-
+          appBar: AppBarComponent(isAction: false, title: model.appBarTitle),
           body: SafeArea(
             child: Padding(
               padding: AppSpacing.basePadding,
               child: Column(
                 children: [
-                  model.projects.isNotEmpty
-                      ? AppTextField(
-                        controller: model.searchController,
-                        // focusNode: searchFocusNode,
-                        leadingIcon: Icons.search,
-                        hintText: 'Search projects',
-                        height: 56,
-                        borderRadius: BorderRadius.circular(30),
-                      )
-                      : SizedBox(),
-                  AppSpacing.h8,
+                  model.chats.isNotEmpty
+                      ?
+                  AppTextField(
+                    controller: model.searchController,
+                    leadingIcon: Icons.search,
+                    hintText: 'Search chats',
+                    height: 56,
+                    borderRadius: BorderRadius.circular(30),
+                  ) : SizedBox(),
+                  AppSpacing.h12,
 
-                  // here display porject if list is not empty else display new project widget
                   Expanded(
                     child:
-                        model.projects.isNotEmpty
-                            ? _buildProjectList(context, model)
+                        model.chats.isNotEmpty
+                            ? _buildChatList(context, model)
                             : _buildEmptyView(context),
                   ),
 
-                  // button to add new project
                   AppSpacing.h8,
                   AppButton(
-                    onTap: model.onAddProjectTapped,
-                    title: "Add Project",
+                    onTap: () {
+                      model.navToNewChat();
+                    },
+                    title: "New Chat",
                     icon: Icons.add,
                   ),
                 ],
@@ -63,27 +64,21 @@ class ProjectView extends StatelessWidget {
     );
   }
 
-  // project list view widget
-  Widget _buildProjectList(BuildContext context, ProjectViewModel model) {
+  // chat list view widget
+  Widget _buildChatList(BuildContext context, AllChatViewmodel model) {
     return ListView.separated(
-      padding: EdgeInsets.zero,
-      itemCount: model.projects.length,
+      itemCount: model.chats.length,
       separatorBuilder: (_, __) => AppSpacing.h8,
       itemBuilder: (context, index) {
-        final project = model.projects[index];
-        final recentChat =
-            project.chats.isNotEmpty ? project.chats.first : null;
-
+        final chat = model.chats[index];
         return Builder(
           builder: (BuildContext innerContext) {
             return InkWell(
-              onTap: () {
-                model.onProjectTapped(project);
-              },
+              onTap: () {},
               onLongPress: () {
                 QuickActionMenu.show(
                   context: innerContext,
-                  actions: model.getProjectOptions(project),
+                  actions: model.getChatOptions(chat),
                 );
               },
               borderRadius: AppRadius.radiusMd,
@@ -91,19 +86,12 @@ class ProjectView extends StatelessWidget {
                 padding: EdgeInsetsGeometry.only(top: 8, bottom: 8, left: 8),
                 child: Row(
                   children: [
-                    LogoTile(
-                      height: 47,
-                      width: 47,
-                      icon: project.icon,
-                      isLogo: false,
-                    ),
-                    AppSpacing.w12,
                     Expanded(
                       child: Column(
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Text(
-                            project.title,
+                            chat.title,
                             maxLines: 1,
                             overflow: TextOverflow.ellipsis,
                             style: AppTextStyles.heading(
@@ -111,20 +99,21 @@ class ProjectView extends StatelessWidget {
                             ).copyWith(fontSize: 18),
                           ),
                           Text(
-                            recentChat?.title ?? 'No chats yet',
+                            chat.lastMessage?.message ?? "No messages yet",
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
                             style: AppTextStyles.subHeading(
                               context,
                             ).copyWith(fontSize: 14),
-                            maxLines: 1,
-                            overflow: TextOverflow.ellipsis,
                           ),
+                          
                         ],
                       ),
                     ),
-                    if (project.isPinned) ...[
-                      AppSpacing.w8,
-                      AppIcon(icon: Icons.push_pin_outlined),
-                    ],
+                    if (chat.isPinned) ...[
+                          AppSpacing.w8,
+                          AppIcon(icon: Icons.push_pin_outlined),
+                        ],
                   ],
                 ),
               ),
@@ -142,17 +131,17 @@ class ProjectView extends StatelessWidget {
         mainAxisAlignment: MainAxisAlignment.center,
         children: [
           LogoTile(
-            icon: Icons.folder_copy_outlined,
+            icon: Icons.message_outlined,
             isLogo: false,
             height: 65,
             width: 65,
             iconSize: 35,
           ),
           AppSpacing.h24,
-          Text("No Projects Yet", style: AppTextStyles.heading(context)),
+          Text("No Chats Yet", style: AppTextStyles.heading(context)),
           AppSpacing.h8,
           Text(
-            "Create projects to organize\nrelated chats and instructions.",
+            "Start a conversation to\nto get any kind of help and assistance!",
             textAlign: TextAlign.center,
             style: AppTextStyles.subHeading(context),
           ),
