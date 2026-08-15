@@ -70,7 +70,7 @@ class _AddProjectSheetState extends State<AddProjectSheet> {
       child: SafeArea(
         top: false,
         child: Padding(
-          padding: EdgeInsets.only(left: 16, right: 16, top: 16, bottom: 16),
+          padding: AppSpacing.basePadding,
           child: SingleChildScrollView(
             child: Form(
               key: _formKey,
@@ -147,8 +147,8 @@ class _AddProjectSheetState extends State<AddProjectSheet> {
                           onTap: () => setState(() => _selectedIcon = iconData),
                           borderRadius: BorderRadius.circular(24),
                           child: LogoTile(
-                            height: 56,
-                            width: 56,
+                            height: 52,
+                            width: 52,
                             icon: iconData,
                             isCircular: true,
                             isLogo: isSelected ? true : false,

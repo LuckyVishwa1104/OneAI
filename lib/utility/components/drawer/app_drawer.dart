@@ -101,38 +101,33 @@ class AppDrawer extends StatelessWidget {
                       ),
                     ),
 
-                    DrawerActionTile(
-                      isProject: false,
-                      isChat: false,
-                      icon:
-                          showMoreActions
-                              ? Icons.expand_less
-                              : Icons.expand_more,
-                      title: "More",
-                      onTap: moreTap,
-                    ),
-
-                    AnimatedCrossFade(
+                    AnimatedSwitcher(
                       duration: const Duration(milliseconds: 250),
-                      crossFadeState:
+                      child:
                           showMoreActions
-                              ? CrossFadeState.showSecond
-                              : CrossFadeState.showFirst,
-                      firstChild: const SizedBox.shrink(),
-                      secondChild: Column(
-                        children:
-                            moreQuickActions
-                                .map(
-                                  (action) => DrawerActionTile(
-                                    title: action.title,
-                                    icon: action.icon,
-                                    isProject: false,
-                                    isChat: false,
-                                    onTap: newChat,
-                                  ),
-                                )
-                                .toList(),
-                      ),
+                              ? Column(
+                                key: const ValueKey('expanded'),
+                                children:
+                                    moreQuickActions
+                                        .map(
+                                          (action) => DrawerActionTile(
+                                            title: action.title,
+                                            icon: action.icon,
+                                            isProject: false,
+                                            isChat: false,
+                                            onTap: newChat,
+                                          ),
+                                        )
+                                        .toList(),
+                              )
+                              : DrawerActionTile(
+                                key: const ValueKey('more'),
+                                isProject: false,
+                                isChat: false,
+                                icon: Icons.expand_more,
+                                title: "More",
+                                onTap: moreTap,
+                              ),
                     ),
 
                     // Projects
@@ -140,6 +135,7 @@ class AppDrawer extends StatelessWidget {
                       title: "Projects",
                       viewAll: true,
                       onViewAll: () {
+                        Navigator.of(context).pop();
                         navigationService.navigateToProjectView();
                       },
                     ),
@@ -154,7 +150,14 @@ class AppDrawer extends StatelessWidget {
                     ),
 
                     // Recent Chats
-                    DrawerSectionTile(title: "Recent Chats", viewAll: true),
+                    DrawerSectionTile(
+                      title: "Recent Chats",
+                      viewAll: true,
+                      onViewAll: () {
+                        Navigator.of(context).pop();
+                        navigationService.navigateToAllChatView();
+                      },
+                    ),
 
                     ...recentChats.map(
                       (chat) => DrawerActionTile(
@@ -165,7 +168,25 @@ class AppDrawer extends StatelessWidget {
                       ),
                     ),
 
-                    const SizedBox(height: 20),
+                    AppSpacing.h2,
+                    InkWell(
+                      onTap: () {
+                        Navigator.of(context).pop();
+                        navigationService.navigateToAllChatView();
+                      },
+                      child: Row(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(
+                            "Load More Chats",
+                            style: AppTextStyles.subHeading(context).copyWith(
+                              color: Theme.of(context).colorScheme.onSurface,
+                            ),
+                          ),
+                          AppIcon(icon: Icons.navigate_next),
+                        ],
+                      ),
+                    ),
                   ],
                 ),
               ),
