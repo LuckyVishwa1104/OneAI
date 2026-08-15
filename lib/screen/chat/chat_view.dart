@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:one_ai/model/chat_message_model.dart';
 import 'package:one_ai/screen/chat/chat_view_model.dart';
 import 'package:one_ai/utility/components/app_bar/app_bar_component.dart';
 import 'package:one_ai/utility/components/chat/chat_bubble.dart';
@@ -11,14 +12,16 @@ import 'package:stacked/stacked.dart';
 
 class ChatView extends StatelessWidget {
   final String? initialPrompt;
-  const ChatView({super.key, this.initialPrompt});
+  final List<ChatMessageModel>? initialMessages;
+
+  const ChatView({super.key, this.initialPrompt, this.initialMessages});
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder.reactive(
       viewModelBuilder: () => ChatViewModel(),
       onViewModelReady: (model) {
-        model.initialize(initialPrompt);
+        model.initialize(initialPrompt, initialMessages: initialMessages);
       },
       builder: (context, model, child) {
         return Scaffold(
