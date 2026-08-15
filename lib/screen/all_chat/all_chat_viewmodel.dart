@@ -188,7 +188,67 @@ class AllChatViewmodel extends BaseViewModel {
     ];
   }
 
+  final List<ChatMessageModel> mockConversation = [
+    ChatMessageModel(
+      message: 'Can you explain Provider vs Riverpod?',
+      type: MessageType.user,
+      createdAt: DateTime.now().subtract(const Duration(minutes: 12)),
+    ),
+    ChatMessageModel(
+      message:
+          'Provider is simpler and built on InheritedWidget, while Riverpod '
+          'is compile-safe, doesn\'t need BuildContext, and supports better '
+          'testing and async state handling.',
+      type: MessageType.assistant,
+      createdAt: DateTime.now().subtract(const Duration(minutes: 11)),
+    ),
+    ChatMessageModel(
+      message: 'Which one would you recommend for a mid-size app?',
+      type: MessageType.user,
+      createdAt: DateTime.now().subtract(const Duration(minutes: 9)),
+    ),
+    ChatMessageModel(
+      message:
+          'Riverpod, especially if you plan to scale — it avoids common '
+          'Provider pitfalls like context lookup errors and makes state '
+          'testable in isolation.',
+      type: MessageType.assistant,
+      createdAt: DateTime.now().subtract(const Duration(minutes: 8)),
+    ),
+    ChatMessageModel(
+      message: 'Does Riverpod work well with code generation?',
+      type: MessageType.user,
+      createdAt: DateTime.now().subtract(const Duration(minutes: 6)),
+    ),
+    ChatMessageModel(
+      message:
+          'Yes — riverpod_generator lets you annotate providers with '
+          '@riverpod and it generates the boilerplate for you, which keeps '
+          'things concise as your app grows.',
+      type: MessageType.assistant,
+      createdAt: DateTime.now().subtract(const Duration(minutes: 5)),
+    ),
+    ChatMessageModel(
+      message:
+          'Got it, thanks! One last thing — any tips for testing providers?',
+      type: MessageType.user,
+      createdAt: DateTime.now().subtract(const Duration(minutes: 2)),
+    ),
+    ChatMessageModel(
+      message:
+          'Use ProviderContainer in your tests to read and override providers '
+          'directly, without needing a widget tree — it makes unit testing '
+          'business logic much faster.',
+      type: MessageType.assistant,
+      createdAt: DateTime.now().subtract(const Duration(minutes: 1)),
+    ),
+  ];
+
   void navToNewChat() {
+    navigationService.navigateToChatView(initialMessages: mockConversation);
+  }
+
+  void navToChatView() {
     navigationService.navigateToChatView();
   }
 
