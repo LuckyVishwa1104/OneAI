@@ -8,6 +8,7 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:flutter/material.dart' as _i10;
 import 'package:flutter/material.dart';
+import 'package:one_ai/model/project_model.dart' as _i11;
 import 'package:one_ai/screen/all_chat/all_chat_view.dart' as _i9;
 import 'package:one_ai/screen/chat/chat_view.dart' as _i4;
 import 'package:one_ai/screen/home/home_view.dart' as _i2;
@@ -17,7 +18,7 @@ import 'package:one_ai/screen/signup/signup_view.dart' as _i3;
 import 'package:one_ai/screen/subscription/subscription_view.dart' as _i7;
 import 'package:one_ai/screen/user_profile/user_profile_view.dart' as _i5;
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i11;
+import 'package:stacked_services/stacked_services.dart' as _i12;
 
 class Routes {
   static const homeView = '/home-view';
@@ -132,11 +133,7 @@ class StackedRouter extends _i1.RouterBase {
       );
       return _i10.MaterialPageRoute<dynamic>(
         builder:
-            (context) => _i9.AllChatView(
-              key: args.key,
-              projectId: args.projectId,
-              projectTitle: args.projectTitle,
-            ),
+            (context) => _i9.AllChatView(key: args.key, project: args.project),
         settings: data,
       );
     },
@@ -306,34 +303,30 @@ class ProjectViewArguments {
 }
 
 class AllChatViewArguments {
-  const AllChatViewArguments({this.key, this.projectId, this.projectTitle});
+  const AllChatViewArguments({this.key, this.project});
 
   final _i10.Key? key;
 
-  final String? projectId;
-
-  final String? projectTitle;
+  final _i11.ProjectModel? project;
 
   @override
   String toString() {
-    return '{"key": "$key", "projectId": "$projectId", "projectTitle": "$projectTitle"}';
+    return '{"key": "$key", "project": "$project"}';
   }
 
   @override
   bool operator ==(covariant AllChatViewArguments other) {
     if (identical(this, other)) return true;
-    return other.key == key &&
-        other.projectId == projectId &&
-        other.projectTitle == projectTitle;
+    return other.key == key && other.project == project;
   }
 
   @override
   int get hashCode {
-    return key.hashCode ^ projectId.hashCode ^ projectTitle.hashCode;
+    return key.hashCode ^ project.hashCode;
   }
 }
 
-extension NavigatorStateExtension on _i11.NavigationService {
+extension NavigatorStateExtension on _i12.NavigationService {
   Future<dynamic> navigateToHomeView({
     _i10.Key? key,
     int? routerId,
@@ -463,8 +456,7 @@ extension NavigatorStateExtension on _i11.NavigationService {
 
   Future<dynamic> navigateToAllChatView({
     _i10.Key? key,
-    String? projectId,
-    String? projectTitle,
+    _i11.ProjectModel? project,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -473,11 +465,7 @@ extension NavigatorStateExtension on _i11.NavigationService {
   }) async {
     return navigateTo<dynamic>(
       Routes.allChatView,
-      arguments: AllChatViewArguments(
-        key: key,
-        projectId: projectId,
-        projectTitle: projectTitle,
-      ),
+      arguments: AllChatViewArguments(key: key, project: project),
       id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,
@@ -614,8 +602,7 @@ extension NavigatorStateExtension on _i11.NavigationService {
 
   Future<dynamic> replaceWithAllChatView({
     _i10.Key? key,
-    String? projectId,
-    String? projectTitle,
+    _i11.ProjectModel? project,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -624,11 +611,7 @@ extension NavigatorStateExtension on _i11.NavigationService {
   }) async {
     return replaceWith<dynamic>(
       Routes.allChatView,
-      arguments: AllChatViewArguments(
-        key: key,
-        projectId: projectId,
-        projectTitle: projectTitle,
-      ),
+      arguments: AllChatViewArguments(key: key, project: project),
       id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,
