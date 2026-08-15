@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:one_ai/model/project_model.dart';
 import 'package:one_ai/screen/all_chat/all_chat_viewmodel.dart';
 import 'package:one_ai/utility/components/app_bar/app_bar_component.dart';
 import 'package:one_ai/utility/components/app_button.dart';
@@ -12,18 +13,17 @@ import 'package:one_ai/utility/constants/app_text_styles.dart';
 import 'package:stacked/stacked.dart';
 
 class AllChatView extends StatelessWidget {
-  final String? projectId;
-  final String? projectTitle;
+  final ProjectModel? project;
 
-  const AllChatView({super.key, this.projectId, this.projectTitle});
+  const AllChatView({super.key, this.project});
 
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<AllChatViewmodel>.reactive(
-      viewModelBuilder: () => AllChatViewmodel(),
+      viewModelBuilder:  () =>  AllChatViewmodel(project: project),
       builder: (context, model, child) {
         return Scaffold(
-          appBar: AppBarComponent(isAction: false, title: "Chats"),
+          appBar: AppBarComponent(isAction: false, title: model.appBarTitle),
           body: SafeArea(
             child: Padding(
               padding: AppSpacing.basePadding,
