@@ -18,7 +18,6 @@ class ProjectView extends StatelessWidget {
   Widget build(BuildContext context) {
     return ViewModelBuilder<ProjectViewModel>.reactive(
       viewModelBuilder: () => ProjectViewModel(),
-      onViewModelReady: (model) => model.initialise(),
       builder: (context, model, child) {
         return Scaffold(
           appBar: AppBarComponent(isAction: false, title: "Projects"),
@@ -78,7 +77,9 @@ class ProjectView extends StatelessWidget {
         return Builder(
           builder: (BuildContext innerContext) {
             return InkWell(
-              onTap: () {},
+              onTap: () {
+                model.onProjectTapped(project);
+              },
               onLongPress: () {
                 QuickActionMenu.show(
                   context: innerContext,
@@ -87,7 +88,7 @@ class ProjectView extends StatelessWidget {
               },
               borderRadius: AppRadius.radiusMd,
               child: Padding(
-                padding: EdgeInsetsGeometry.only(top: 8, bottom: 8, left: 8,),
+                padding: EdgeInsetsGeometry.only(top: 8, bottom: 8, left: 8),
                 child: Row(
                   children: [
                     LogoTile(
