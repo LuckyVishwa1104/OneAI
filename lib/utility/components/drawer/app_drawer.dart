@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/app/app.locator.dart';
 import 'package:one_ai/app/app.router.dart';
+import 'package:one_ai/model/chat_message_model.dart';
 import 'package:one_ai/model/drawer_action_model.dart';
 import 'package:one_ai/utility/components/action_tile.dart';
 import 'package:one_ai/utility/components/app_icon.dart';
@@ -36,6 +37,37 @@ class AppDrawer extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     final NavigationService navigationService = locator<NavigationService>();
+
+    // mock conversation list - remove after API connection
+    final List<ChatMessageModel> mockConversation = [
+      ChatMessageModel(
+        message: 'Can you explain Provider vs Riverpod?',
+        type: MessageType.user,
+        createdAt: DateTime.now().subtract(const Duration(minutes: 12)),
+      ),
+      ChatMessageModel(
+        message:
+            'Provider is simpler and built on InheritedWidget, while Riverpod '
+            'is compile-safe, doesn\'t need BuildContext, and supports better '
+            'testing and async state handling.',
+        type: MessageType.assistant,
+        createdAt: DateTime.now().subtract(const Duration(minutes: 11)),
+      ),
+      ChatMessageModel(
+        message: 'Which one would you recommend for a mid-size app?',
+        type: MessageType.user,
+        createdAt: DateTime.now().subtract(const Duration(minutes: 9)),
+      ),
+      ChatMessageModel(
+        message:
+            'Riverpod, especially if you plan to scale — it avoids common '
+            'Provider pitfalls like context lookup errors and makes state '
+            'testable in isolation.',
+        type: MessageType.assistant,
+        createdAt: DateTime.now().subtract(const Duration(minutes: 8)),
+      ),
+    ];
+
     return Drawer(
       backgroundColor: Theme.of(context).scaffoldBackgroundColor,
       child: SafeArea(
@@ -145,7 +177,10 @@ class AppDrawer extends StatelessWidget {
                         title: project,
                         isProject: true,
                         isChat: false,
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.of(context).pop();
+                          navigationService.navigateToAllChatView();
+                        },
                       ),
                     ),
 
@@ -164,7 +199,12 @@ class AppDrawer extends StatelessWidget {
                         isChat: true,
                         title: chat,
                         isProject: false,
-                        onTap: () {},
+                        onTap: () {
+                          Navigator.of(context).pop();
+                          navigationService.navigateToChatView(
+                            initialMessages: mockConversation,
+                          );
+                        },
                       ),
                     ),
 
