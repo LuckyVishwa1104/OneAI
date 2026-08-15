@@ -8,7 +8,8 @@
 // ignore_for_file: no_leading_underscores_for_library_prefixes
 import 'package:flutter/material.dart' as _i10;
 import 'package:flutter/material.dart';
-import 'package:one_ai/model/project_model.dart' as _i11;
+import 'package:one_ai/model/chat_message_model.dart' as _i11;
+import 'package:one_ai/model/project_model.dart' as _i12;
 import 'package:one_ai/screen/all_chat/all_chat_view.dart' as _i9;
 import 'package:one_ai/screen/chat/chat_view.dart' as _i4;
 import 'package:one_ai/screen/home/home_view.dart' as _i2;
@@ -18,7 +19,7 @@ import 'package:one_ai/screen/signup/signup_view.dart' as _i3;
 import 'package:one_ai/screen/subscription/subscription_view.dart' as _i7;
 import 'package:one_ai/screen/user_profile/user_profile_view.dart' as _i5;
 import 'package:stacked/stacked.dart' as _i1;
-import 'package:stacked_services/stacked_services.dart' as _i12;
+import 'package:stacked_services/stacked_services.dart' as _i13;
 
 class Routes {
   static const homeView = '/home-view';
@@ -86,8 +87,11 @@ class StackedRouter extends _i1.RouterBase {
       );
       return _i10.MaterialPageRoute<dynamic>(
         builder:
-            (context) =>
-                _i4.ChatView(key: args.key, initialPrompt: args.initialPrompt),
+            (context) => _i4.ChatView(
+              key: args.key,
+              initialPrompt: args.initialPrompt,
+              initialMessages: args.initialMessages,
+            ),
         settings: data,
       );
     },
@@ -191,26 +195,30 @@ class SignupViewArguments {
 }
 
 class ChatViewArguments {
-  const ChatViewArguments({this.key, this.initialPrompt});
+  const ChatViewArguments({this.key, this.initialPrompt, this.initialMessages});
 
   final _i10.Key? key;
 
   final String? initialPrompt;
 
+  final List<_i11.ChatMessageModel>? initialMessages;
+
   @override
   String toString() {
-    return '{"key": "$key", "initialPrompt": "$initialPrompt"}';
+    return '{"key": "$key", "initialPrompt": "$initialPrompt", "initialMessages": "$initialMessages"}';
   }
 
   @override
   bool operator ==(covariant ChatViewArguments other) {
     if (identical(this, other)) return true;
-    return other.key == key && other.initialPrompt == initialPrompt;
+    return other.key == key &&
+        other.initialPrompt == initialPrompt &&
+        other.initialMessages == initialMessages;
   }
 
   @override
   int get hashCode {
-    return key.hashCode ^ initialPrompt.hashCode;
+    return key.hashCode ^ initialPrompt.hashCode ^ initialMessages.hashCode;
   }
 }
 
@@ -307,7 +315,7 @@ class AllChatViewArguments {
 
   final _i10.Key? key;
 
-  final _i11.ProjectModel? project;
+  final _i12.ProjectModel? project;
 
   @override
   String toString() {
@@ -326,7 +334,7 @@ class AllChatViewArguments {
   }
 }
 
-extension NavigatorStateExtension on _i12.NavigationService {
+extension NavigatorStateExtension on _i13.NavigationService {
   Future<dynamic> navigateToHomeView({
     _i10.Key? key,
     int? routerId,
@@ -366,6 +374,7 @@ extension NavigatorStateExtension on _i12.NavigationService {
   Future<dynamic> navigateToChatView({
     _i10.Key? key,
     String? initialPrompt,
+    List<_i11.ChatMessageModel>? initialMessages,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -374,7 +383,11 @@ extension NavigatorStateExtension on _i12.NavigationService {
   }) async {
     return navigateTo<dynamic>(
       Routes.chatView,
-      arguments: ChatViewArguments(key: key, initialPrompt: initialPrompt),
+      arguments: ChatViewArguments(
+        key: key,
+        initialPrompt: initialPrompt,
+        initialMessages: initialMessages,
+      ),
       id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,
@@ -456,7 +469,7 @@ extension NavigatorStateExtension on _i12.NavigationService {
 
   Future<dynamic> navigateToAllChatView({
     _i10.Key? key,
-    _i11.ProjectModel? project,
+    _i12.ProjectModel? project,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -512,6 +525,7 @@ extension NavigatorStateExtension on _i12.NavigationService {
   Future<dynamic> replaceWithChatView({
     _i10.Key? key,
     String? initialPrompt,
+    List<_i11.ChatMessageModel>? initialMessages,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
@@ -520,7 +534,11 @@ extension NavigatorStateExtension on _i12.NavigationService {
   }) async {
     return replaceWith<dynamic>(
       Routes.chatView,
-      arguments: ChatViewArguments(key: key, initialPrompt: initialPrompt),
+      arguments: ChatViewArguments(
+        key: key,
+        initialPrompt: initialPrompt,
+        initialMessages: initialMessages,
+      ),
       id: routerId,
       preventDuplicates: preventDuplicates,
       parameters: parameters,
@@ -602,7 +620,7 @@ extension NavigatorStateExtension on _i12.NavigationService {
 
   Future<dynamic> replaceWithAllChatView({
     _i10.Key? key,
-    _i11.ProjectModel? project,
+    _i12.ProjectModel? project,
     int? routerId,
     bool preventDuplicates = true,
     Map<String, String>? parameters,
