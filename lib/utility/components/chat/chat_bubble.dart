@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:one_ai/model/chat_message_model.dart';
 import 'package:one_ai/utility/components/chat/model_message_bubble.dart';
 import 'package:one_ai/utility/components/chat/user_message_bubble.dart';
+import 'package:one_ai/model/enums/enum.dart';
 
 class ChatBubble extends StatelessWidget {
   final ChatMessageModel message;

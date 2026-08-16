@@ -11,6 +11,7 @@ import 'package:one_ai/utility/components/logo_tile.dart';
 import 'package:one_ai/utility/constants/app_spacing.dart';
 import 'package:one_ai/utility/constants/app_text_styles.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:one_ai/model/enums/enum.dart';
 
 class AppDrawer extends StatelessWidget {
   final bool showMoreActions;
