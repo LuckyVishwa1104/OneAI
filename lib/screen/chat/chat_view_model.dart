@@ -71,7 +71,7 @@ class ChatViewModel extends BaseViewModel {
     });
   }
 
-  void quickActionTap(){
+  void quickActionTap() {
     promptController.addListener(() {
       notifyListeners();
     });
@@ -89,7 +89,21 @@ class ChatViewModel extends BaseViewModel {
   bool _isLoading = false;
   bool get isLoading => _isLoading;
 
-  Future<void> initialize(String? prompt) async {
+  Future<void> initialize(
+    String? prompt, {
+    List<ChatMessageModel>? initialMessages,
+  }) async {
+    // If an existing conversation was passed in, load it and stop —
+    // don't also try to send a fresh prompt.
+    if (initialMessages != null && initialMessages.isNotEmpty) {
+      _messages
+        ..clear()
+        ..addAll(initialMessages);
+      notifyListeners();
+      _scrollToBottom();
+      return;
+    }
+
     if (prompt == null || prompt.trim().isEmpty) {
       return;
     }
@@ -148,7 +162,6 @@ class ChatViewModel extends BaseViewModel {
 
   Future<String> generateAiResponse(String prompt) async {
     await Future.delayed(const Duration(seconds: 2));
-
     return "AI Response for: $prompt";
   }
 
@@ -158,7 +171,6 @@ class ChatViewModel extends BaseViewModel {
         return i;
       }
     }
-
     return -1;
   }
 

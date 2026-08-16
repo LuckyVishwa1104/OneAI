@@ -20,7 +20,7 @@ class AllChatView extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return ViewModelBuilder<AllChatViewmodel>.reactive(
-      viewModelBuilder:  () =>  AllChatViewmodel(project: project),
+      viewModelBuilder: () => AllChatViewmodel(project: project),
       builder: (context, model, child) {
         return Scaffold(
           appBar: AppBarComponent(isAction: false, title: model.appBarTitle),
@@ -30,14 +30,14 @@ class AllChatView extends StatelessWidget {
               child: Column(
                 children: [
                   model.chats.isNotEmpty
-                      ?
-                  AppTextField(
-                    controller: model.searchController,
-                    leadingIcon: Icons.search,
-                    hintText: 'Search chats',
-                    height: 56,
-                    borderRadius: BorderRadius.circular(30),
-                  ) : SizedBox(),
+                      ? AppTextField(
+                        controller: model.searchController,
+                        leadingIcon: Icons.search,
+                        hintText: 'Search chats',
+                        height: 56,
+                        borderRadius: BorderRadius.circular(30),
+                      )
+                      : SizedBox(),
                   AppSpacing.h12,
 
                   Expanded(
@@ -50,7 +50,7 @@ class AllChatView extends StatelessWidget {
                   AppSpacing.h8,
                   AppButton(
                     onTap: () {
-                      model.navToNewChat();
+                      model.navToChatView();
                     },
                     title: "New Chat",
                     icon: Icons.add,
@@ -74,7 +74,7 @@ class AllChatView extends StatelessWidget {
         return Builder(
           builder: (BuildContext innerContext) {
             return InkWell(
-              onTap: () {},
+              onTap: model.navToNewChat,
               onLongPress: () {
                 QuickActionMenu.show(
                   context: innerContext,
@@ -106,14 +106,13 @@ class AllChatView extends StatelessWidget {
                               context,
                             ).copyWith(fontSize: 14),
                           ),
-                          
                         ],
                       ),
                     ),
                     if (chat.isPinned) ...[
-                          AppSpacing.w8,
-                          AppIcon(icon: Icons.push_pin_outlined),
-                        ],
+                      AppSpacing.w8,
+                      AppIcon(icon: Icons.push_pin_outlined),
+                    ],
                   ],
                 ),
               ),
