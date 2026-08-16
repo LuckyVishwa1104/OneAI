@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:one_ai/app/app.locator.dart';
 import 'package:one_ai/app/app.router.dart';
 import 'package:one_ai/model/ai_model.dart';
+import 'package:one_ai/model/enums/enum.dart';
 import 'package:one_ai/utility/components/action_tile.dart';
 import 'package:one_ai/utility/components/app_button.dart';
 import 'package:one_ai/utility/components/app_icon.dart';

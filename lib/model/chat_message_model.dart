@@ -1,4 +1,4 @@
-enum MessageType { user, assistant }
+import 'package:one_ai/model/enums/enum.dart';
 
 class ChatMessageModel {
   final String message;

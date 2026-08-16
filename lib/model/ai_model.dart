@@ -1,8 +1,5 @@
 import 'package:flutter/material.dart';
-
-enum ModelTier { fast, balanced, powerful }
-
-enum ModelBadge { none, isNew, pro, preview }
+import 'package:one_ai/model/enums/enum.dart';
 
 class AiModel {
   final String id;

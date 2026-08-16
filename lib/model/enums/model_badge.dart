@@ -1,0 +1,1 @@
+enum ModelBadge { none, isNew, pro, preview }

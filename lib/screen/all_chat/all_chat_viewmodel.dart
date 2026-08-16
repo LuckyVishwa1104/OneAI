@@ -3,11 +3,11 @@ import 'package:one_ai/app/app.locator.dart';
 import 'package:one_ai/app/app.router.dart';
 import 'package:one_ai/model/chat_item_model.dart';
 import 'package:one_ai/model/chat_message_model.dart';
-import 'package:one_ai/model/enums/dialog_type.dart';
 import 'package:one_ai/model/project_model.dart';
 import 'package:one_ai/model/quick_action_model.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:one_ai/model/enums/enum.dart';
 
 class AllChatViewmodel extends BaseViewModel {
   final NavigationService navigationService = locator<NavigationService>();

@@ -6,6 +6,7 @@ import 'package:one_ai/model/drawer_action_model.dart';
 import 'package:one_ai/model/quick_chat.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:one_ai/model/enums/enum.dart';
 
 class ChatViewModel extends BaseViewModel {
   final navigationService = locator<NavigationService>();
