@@ -1,0 +1,1 @@
+enum ModelTier { fast, balanced, powerful }
