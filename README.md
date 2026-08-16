@@ -411,18 +411,18 @@ Every contribution matters.
 > Screenshots and product demonstrations will be added as the application reaches the next milestone.
 
 <p align="center">
-<img width="250" height="650" alt="Screenshot_1786860834" src="https://github.com/user-attachments/assets/08c9177b-0dfa-40a5-9445-f186eeea3dcd" />
-<img width="250" height="650" alt="Screenshot_1786860844" src="https://github.com/user-attachments/assets/cbc41a84-0822-4dec-9177-8acef71f4020" />
-<img width="250" height="650" alt="Screenshot_1786860866" src="https://github.com/user-attachments/assets/24092b80-c235-4c2e-8bc7-51953ea14922" />
-<img width="250" height="650" alt="Screenshot_1786860849" src="https://github.com/user-attachments/assets/6d6e97f2-e56e-4cd3-8078-a6637319a5c3" />
-<img width="280" height="650" alt="Screenshot_1786860881" src="https://github.com/user-attachments/assets/f6a21076-fdf0-42ff-aec0-edd35fb27a05" />
-<img width="280" height="650" alt="Screenshot_1786860884" src="https://github.com/user-attachments/assets/0085a674-1765-4f53-9ffc-9aec2f40f75e" />
-<img width="280" height="650" alt="Screenshot_1786860898" src="https://github.com/user-attachments/assets/d0e3fc17-6680-4686-9a6b-d1b8e2e1fc10" />
-<img width="280" height="650" alt="Screenshot_1786860908" src="https://github.com/user-attachments/assets/c40bb10c-0fc5-48a4-be20-9eb100e83a21" />
-<img width="280" height="650" alt="Screenshot_1786860916" src="https://github.com/user-attachments/assets/9ac55b54-f4c9-4939-8a58-54ab2bd349d1" />
-<img width="280" height="650" alt="Screenshot_1786860924" src="https://github.com/user-attachments/assets/3159be68-e200-47e7-9596-bf7ed0c0de1d" />
-<img width="280" height="650" alt="Screenshot_1786860932" src="https://github.com/user-attachments/assets/6e0a7337-8d58-44e3-9658-eca1f18cb89e" />
-<img width="280" height="650" alt="Screenshot_1786860939" src="https://github.com/user-attachments/assets/4ae707be-bb04-4afa-9e8c-5d9b43f3bf6f" />
+<img width="250" height="580" alt="Screenshot_1786860834" src="https://github.com/user-attachments/assets/08c9177b-0dfa-40a5-9445-f186eeea3dcd" />
+<img width="250" height="580" alt="Screenshot_1786860844" src="https://github.com/user-attachments/assets/cbc41a84-0822-4dec-9177-8acef71f4020" />
+<img width="250" height="580" alt="Screenshot_1786860866" src="https://github.com/user-attachments/assets/24092b80-c235-4c2e-8bc7-51953ea14922" />
+<img width="250" height="580" alt="Screenshot_1786860849" src="https://github.com/user-attachments/assets/6d6e97f2-e56e-4cd3-8078-a6637319a5c3" />
+<img width="250" height="580" alt="Screenshot_1786860881" src="https://github.com/user-attachments/assets/f6a21076-fdf0-42ff-aec0-edd35fb27a05" />
+<img width="250" height="580" alt="Screenshot_1786860884" src="https://github.com/user-attachments/assets/0085a674-1765-4f53-9ffc-9aec2f40f75e" />
+<img width="250" height="580" alt="Screenshot_1786860898" src="https://github.com/user-attachments/assets/d0e3fc17-6680-4686-9a6b-d1b8e2e1fc10" />
+<img width="250" height="580" alt="Screenshot_1786860908" src="https://github.com/user-attachments/assets/c40bb10c-0fc5-48a4-be20-9eb100e83a21" />
+<img width="250" height="580" alt="Screenshot_1786860916" src="https://github.com/user-attachments/assets/9ac55b54-f4c9-4939-8a58-54ab2bd349d1" />
+<img width="250" height="580" alt="Screenshot_1786860924" src="https://github.com/user-attachments/assets/3159be68-e200-47e7-9596-bf7ed0c0de1d" />
+<img width="250" height="580" alt="Screenshot_1786860932" src="https://github.com/user-attachments/assets/6e0a7337-8d58-44e3-9658-eca1f18cb89e" />
+<img width="250" height="580" alt="Screenshot_1786860939" src="https://github.com/user-attachments/assets/4ae707be-bb04-4afa-9e8c-5d9b43f3bf6f" />
 </p>
 
 ---
