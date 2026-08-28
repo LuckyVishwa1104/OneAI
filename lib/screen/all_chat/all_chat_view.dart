@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/model/project_model.dart';
-import 'package:one_ai/screen/all_chat/all_chat_viewmodel.dart';
+import 'package:one_ai/screen/all_chat/all_chat_view_model.dart';
 import 'package:one_ai/utility/components/app_bar/app_bar_component.dart';
 import 'package:one_ai/utility/components/app_button.dart';
 import 'package:one_ai/utility/components/app_icon.dart';
