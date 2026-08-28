@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/model/chat_message_model.dart';
 import 'package:one_ai/utility/components/app_icon.dart';
-import 'package:one_ai/utility/constants/app_constant.dart';
-import 'package:one_ai/utility/constants/app_spacing.dart';
-import 'package:one_ai/utility/constants/app_text_styles.dart';
+import 'package:one_ai/utility/constants/constant.dart';
 
 class ModelMessageBubble extends StatelessWidget {
   final ChatMessageModel message;

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:one_ai/utility/constants/app_colors.dart';
-import 'package:one_ai/utility/constants/app_radius.dart';
+import 'package:one_ai/utility/constants/constant.dart';
 
 class ActionTile extends StatelessWidget {
   final Widget child;

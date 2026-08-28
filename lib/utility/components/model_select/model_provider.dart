@@ -1,8 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/model/ai_model.dart';
 import 'package:one_ai/utility/components/model_select/model_row.dart';
-import 'package:one_ai/utility/constants/app_spacing.dart';
-import 'package:one_ai/utility/constants/app_text_styles.dart';
+import 'package:one_ai/utility/constants/constant.dart';
 
 class ModelProvider extends StatelessWidget {
   final String provider;
