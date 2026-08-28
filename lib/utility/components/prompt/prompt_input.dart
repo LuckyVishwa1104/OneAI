@@ -1,8 +1,7 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
-import 'package:one_ai/utility/components/logo_tile.dart';
-import 'package:one_ai/utility/components/prompt/prompt_action.dart';
 import 'package:one_ai/utility/constants/constant.dart';
+import 'package:one_ai/utility/components/component.dart';
 
 class PromptInput extends StatefulWidget {
   final TextEditingController promptText;

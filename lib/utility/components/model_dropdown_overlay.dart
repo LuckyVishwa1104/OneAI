@@ -2,10 +2,9 @@ import 'package:flutter/material.dart';
 import 'package:one_ai/app/app.locator.dart';
 import 'package:one_ai/app/app.router.dart';
 import 'package:one_ai/services/model_selection_service.dart';
-import 'package:one_ai/utility/components/app_icon.dart';
-import 'package:one_ai/utility/components/logo_tile.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:one_ai/utility/constants/constant.dart';
+import 'package:one_ai/utility/components/component.dart';
 
 class ModelDropdownOverlay {
   static OverlayEntry? _entry;

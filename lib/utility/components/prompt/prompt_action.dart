@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:one_ai/utility/components/logo_tile.dart';
+import 'package:one_ai/utility/components/component.dart';
 
 class PromptAction extends StatelessWidget {
   final String text;

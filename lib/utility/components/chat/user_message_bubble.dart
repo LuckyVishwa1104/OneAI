@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/model/chat_message_model.dart';
-import 'package:one_ai/utility/components/app_icon.dart';
 import 'package:one_ai/utility/constants/constant.dart';
+import 'package:one_ai/utility/components/component.dart';
 
 class UserMessageBubble extends StatefulWidget {
   final ChatMessageModel message;

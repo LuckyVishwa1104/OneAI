@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:one_ai/utility/components/app_icon.dart';
+import 'package:one_ai/utility/components/component.dart';
 import 'package:one_ai/utility/constants/constant.dart';
 
 class LogoTile extends StatelessWidget {

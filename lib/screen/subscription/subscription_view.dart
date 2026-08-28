@@ -1,12 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/screen/subscription/subscription_view_model.dart';
-import 'package:one_ai/utility/components/animated_ai_icon.dart';
-import 'package:one_ai/utility/components/app_bar/app_bar_component.dart';
-import 'package:one_ai/utility/components/app_icon.dart';
-import 'package:one_ai/utility/components/subscription_plan/billing_toggle.dart';
-import 'package:one_ai/utility/components/subscription_plan/subscription_plan_card.dart';
 import 'package:stacked/stacked.dart';
 import 'package:one_ai/utility/constants/constant.dart';
+import 'package:one_ai/utility/components/component.dart';
 
 class SubscriptionView extends StatelessWidget {
   const SubscriptionView({super.key});

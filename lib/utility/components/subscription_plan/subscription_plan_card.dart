@@ -1,9 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/model/subscription_model.dart';
-import 'package:one_ai/utility/components/action_tile.dart';
-import 'package:one_ai/utility/components/app_button.dart';
-import 'package:one_ai/utility/components/logo_tile.dart';
 import 'package:one_ai/utility/constants/constant.dart';
+import 'package:one_ai/utility/components/component.dart';
 
 class SubscriptionPlanCard extends StatefulWidget {
   final SubscriptionPlan plan;

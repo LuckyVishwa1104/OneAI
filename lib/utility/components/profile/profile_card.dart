@@ -1,8 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:one_ai/utility/components/action_tile.dart';
-import 'package:one_ai/utility/components/app_icon.dart';
-import 'package:one_ai/utility/components/logo_tile.dart';
 import 'package:one_ai/utility/constants/constant.dart';
+import 'package:one_ai/utility/components/component.dart';
 
 class ProfileCard extends StatelessWidget {
   final String userName;

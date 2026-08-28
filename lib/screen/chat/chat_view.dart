@@ -1,12 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/model/chat_message_model.dart';
 import 'package:one_ai/screen/chat/chat_view_model.dart';
-import 'package:one_ai/utility/components/app_bar/app_bar_component.dart';
-import 'package:one_ai/utility/components/chat/chat_bubble.dart';
-import 'package:one_ai/utility/components/logo_tile.dart';
-import 'package:one_ai/utility/components/prompt/prompt_input.dart';
 import 'package:stacked/stacked.dart';
 import 'package:one_ai/utility/constants/constant.dart';
+import 'package:one_ai/utility/components/component.dart';
 
 class ChatView extends StatelessWidget {
   final String? initialPrompt;
