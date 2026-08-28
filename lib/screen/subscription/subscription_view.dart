@@ -5,12 +5,8 @@ import 'package:one_ai/utility/components/app_bar/app_bar_component.dart';
 import 'package:one_ai/utility/components/app_icon.dart';
 import 'package:one_ai/utility/components/subscription_plan/billing_toggle.dart';
 import 'package:one_ai/utility/components/subscription_plan/subscription_plan_card.dart';
-import 'package:one_ai/utility/constants/app_border.dart';
-import 'package:one_ai/utility/constants/app_radius.dart';
-import 'package:one_ai/utility/constants/app_shadow.dart';
-import 'package:one_ai/utility/constants/app_spacing.dart';
-import 'package:one_ai/utility/constants/app_text_styles.dart';
 import 'package:stacked/stacked.dart';
+import 'package:one_ai/utility/constants/constant.dart';
 
 class SubscriptionView extends StatelessWidget {
   const SubscriptionView({super.key});

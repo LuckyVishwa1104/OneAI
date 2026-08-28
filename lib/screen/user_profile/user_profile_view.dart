@@ -3,8 +3,8 @@ import 'package:one_ai/screen/user_profile/user_profile_view_model.dart';
 import 'package:one_ai/utility/components/app_bar/app_bar_component.dart';
 import 'package:one_ai/utility/components/profile/profile_card.dart';
 import 'package:one_ai/utility/components/profile/profile_section.dart';
-import 'package:one_ai/utility/constants/app_spacing.dart';
 import 'package:stacked/stacked.dart';
+import 'package:one_ai/utility/constants/constant.dart';
 
 class UserProfileView extends StatelessWidget {
   const UserProfileView({super.key});

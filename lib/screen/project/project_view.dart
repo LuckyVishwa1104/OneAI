@@ -6,10 +6,8 @@ import 'package:one_ai/utility/components/app_icon.dart';
 import 'package:one_ai/utility/components/app_text_field.dart';
 import 'package:one_ai/utility/components/logo_tile.dart';
 import 'package:one_ai/utility/components/quick_action_menu.dart';
-import 'package:one_ai/utility/constants/app_radius.dart';
-import 'package:one_ai/utility/constants/app_spacing.dart';
-import 'package:one_ai/utility/constants/app_text_styles.dart';
 import 'package:stacked/stacked.dart';
+import 'package:one_ai/utility/constants/constant.dart';
 
 class ProjectView extends StatelessWidget {
   const ProjectView({super.key});

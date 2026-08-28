@@ -5,10 +5,8 @@ import 'package:one_ai/utility/components/app_bar/app_bar_component.dart';
 import 'package:one_ai/utility/components/chat/chat_bubble.dart';
 import 'package:one_ai/utility/components/logo_tile.dart';
 import 'package:one_ai/utility/components/prompt/prompt_input.dart';
-import 'package:one_ai/utility/constants/app_constant.dart';
-import 'package:one_ai/utility/constants/app_spacing.dart';
-import 'package:one_ai/utility/constants/app_text_styles.dart';
 import 'package:stacked/stacked.dart';
+import 'package:one_ai/utility/constants/constant.dart';
 
 class ChatView extends StatelessWidget {
   final String? initialPrompt;
