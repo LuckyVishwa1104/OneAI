@@ -1,10 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:one_ai/utility/components/action_tile.dart';
-import 'package:one_ai/utility/constants/app_border.dart';
-import 'package:one_ai/utility/constants/app_colors.dart';
-import 'package:one_ai/utility/constants/app_shadow.dart';
-import 'package:one_ai/utility/constants/app_spacing.dart';
-import 'package:one_ai/utility/constants/app_text_styles.dart';
+import 'package:one_ai/utility/components/component.dart';
+import 'package:one_ai/utility/constants/constant.dart';
 
 class BillingToggle extends StatelessWidget {
   final bool isAnnual;

@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:one_ai/utility/components/app_icon.dart';
-import 'package:one_ai/utility/constants/app_colors.dart';
-import 'package:one_ai/utility/constants/app_radius.dart' show AppRadius;
+import 'package:one_ai/utility/components/component.dart';
+import 'package:one_ai/utility/constants/constant.dart';
 
 class LogoTile extends StatelessWidget {
   final bool isLogo;

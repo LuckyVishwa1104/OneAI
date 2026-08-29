@@ -1,11 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/model/quick_action_model.dart';
-import 'package:one_ai/utility/components/app_icon.dart';
-import 'package:one_ai/utility/constants/app_border.dart';
-import 'package:one_ai/utility/constants/app_colors.dart';
-import 'package:one_ai/utility/constants/app_radius.dart';
-import 'package:one_ai/utility/constants/app_shadow.dart';
-import 'package:one_ai/utility/constants/app_spacing.dart';
+import 'package:one_ai/utility/components/component.dart';
+import 'package:one_ai/utility/constants/constant.dart';
 
 class QuickActionMenu {
   static Future<void> show({

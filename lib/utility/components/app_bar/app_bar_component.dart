@@ -1,13 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/app/app.locator.dart';
 import 'package:one_ai/services/model_selection_service.dart';
-import 'package:one_ai/utility/components/app_bar/app_bar_action.dart';
-import 'package:one_ai/utility/components/app_icon.dart';
-import 'package:one_ai/utility/components/model_dropdown_overlay.dart';
-import 'package:one_ai/utility/constants/app_colors.dart';
-import 'package:one_ai/utility/constants/app_constant.dart';
-import 'package:one_ai/utility/constants/app_spacing.dart';
-import 'package:one_ai/utility/constants/app_text_styles.dart';
+import 'package:one_ai/utility/constants/constant.dart';
+import 'package:one_ai/utility/components/component.dart';
 
 class AppBarComponent extends StatefulWidget implements PreferredSizeWidget {
   final String? title;

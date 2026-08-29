@@ -1,7 +1,5 @@
 import 'package:flutter/material.dart';
-import 'package:one_ai/utility/constants/app_colors.dart';
-import 'package:one_ai/utility/constants/app_constant.dart';
-import 'package:one_ai/utility/constants/app_spacing.dart';
+import 'package:one_ai/utility/constants/constant.dart';
 
 class AppButton extends StatelessWidget {
   final VoidCallback onTap;

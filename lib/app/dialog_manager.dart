@@ -1,10 +1,8 @@
 import 'package:one_ai/app/app.locator.dart';
 import 'package:one_ai/model/enums/bottom_sheet_type.dart';
 import 'package:one_ai/model/enums/dialog_type.dart';
-import 'package:one_ai/utility/components/add_project_sheet.dart';
-import 'package:one_ai/utility/components/dialogs/confirm_dialog.dart';
-import 'package:one_ai/utility/components/dialogs/rename_dialog.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:one_ai/utility/components/component.dart';
 
 void setupDialogUi() {
   final dialogService = locator<DialogService>();

@@ -1,11 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/screen/model_selection/model_select_view_model.dart';
-import 'package:one_ai/utility/components/app_bar/app_bar_component.dart';
-import 'package:one_ai/utility/components/model_select/model_provider.dart';
-import 'package:one_ai/utility/components/model_select/model_row.dart';
-import 'package:one_ai/utility/constants/app_spacing.dart';
-import 'package:one_ai/utility/constants/app_text_styles.dart';
 import 'package:stacked/stacked.dart';
+import 'package:one_ai/utility/constants/constant.dart';
+import 'package:one_ai/utility/components/component.dart';
 
 class ModelSelectView extends StatelessWidget {
   const ModelSelectView({super.key});

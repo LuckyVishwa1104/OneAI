@@ -1,10 +1,9 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/screen/signup/signup_view_model.dart';
-import 'package:one_ai/utility/components/logo_tile.dart' show LogoTile;
 import 'package:one_ai/screen/home/home_view.dart';
-import 'package:one_ai/utility/constants/app_colors.dart';
-import 'package:one_ai/utility/constants/app_text_styles.dart';
 import 'package:stacked/stacked.dart';
+import 'package:one_ai/utility/constants/constant.dart';
+import 'package:one_ai/utility/components/component.dart';
 
 class SignupView extends StatelessWidget {
   const SignupView({super.key});

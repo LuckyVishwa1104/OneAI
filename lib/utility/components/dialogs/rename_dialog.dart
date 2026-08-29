@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
-import 'package:one_ai/utility/components/dialogs/custom_dialog_box.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:one_ai/utility/components/component.dart';
 
 class RenameDialog extends StatelessWidget {
   final DialogRequest request;
