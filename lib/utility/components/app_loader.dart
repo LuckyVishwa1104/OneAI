@@ -1,6 +1,5 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
-
 import '../constants/constant.dart';
 
 /// A circular loading indicator with a linear-gradient background track
@@ -9,9 +8,9 @@ import '../constants/constant.dart';
 class GradientCircularProgressIndicator extends StatefulWidget {
   const GradientCircularProgressIndicator({
     super.key,
-    this.size = 48,
-    this.strokeWidth = 4,
-    this.sweepAngle = 90, // degrees covered by the moving arc
+    this.size = 28,
+    this.strokeWidth = 3,
+    this.sweepAngle = 180, // degrees covered by the moving arc
     this.duration = const Duration(milliseconds: 1200),
     this.indicatorColor,
     this.indicatorGradientColors,
@@ -55,33 +54,55 @@ class _GradientCircularProgressIndicatorState
   Widget build(BuildContext context) {
     final isDark = Theme.of(context).brightness == Brightness.dark;
 
-    final backgroundColors = isDark
-        ? [
-            AppColors.gradientSubtleDarkStart,
-            AppColors.gradientSubtleDarkEnd,
-          ]
-        : [
-            AppColors.gradientSubtleLightStart,
-            AppColors.gradientSubtleLightEnd,
-          ];
+    final backgroundColors =
+        isDark
+            ? [
+              AppColors.gradientSubtleDarkStart,
+              AppColors.gradientSubtleDarkEnd,
+            ]
+            : [
+              AppColors.gradientSubtleLightStart,
+              AppColors.gradientSubtleLightEnd,
+            ];
 
     final baseIndicatorColor =
-        widget.indicatorColor ?? Theme.of(context).colorScheme.primary;
+        widget.indicatorColor ?? AppColors.primary;
 
-    final indicatorColors = widget.indicatorGradientColors ??
+    final indicatorColors =
+        widget.indicatorGradientColors ??
         [baseIndicatorColor, baseIndicatorColor];
 
     return AnimatedBuilder(
       animation: _controller,
       builder: (context, _) {
-        return CustomPaint(
-          size: Size.square(widget.size),
-          painter: _GradientCircularProgressPainter(
-            progress: _controller.value,
-            strokeWidth: widget.strokeWidth,
-            sweepAngleDegrees: widget.sweepAngle,
-            backgroundColors: backgroundColors,
-            indicatorColors: indicatorColors,
+        return Container(
+          decoration: BoxDecoration(
+            gradient: LinearGradient(
+              colors:
+                  Theme.of(context).brightness == Brightness.dark
+                      ? [
+                        AppColors.gradientSubtleDarkStart,
+                        AppColors.gradientSubtleDarkEnd,
+                      ]
+                      : [
+                        AppColors.gradientSubtleLightStart,
+                        AppColors.gradientSubtleLightEnd,
+                      ],
+              begin: Alignment.topLeft,
+              end: Alignment.bottomRight,
+            ),
+            shape: BoxShape.circle,
+          ),
+          padding: EdgeInsets.all(8),
+          child: CustomPaint(
+            size: Size.square(widget.size),
+            painter: _GradientCircularProgressPainter(
+              progress: _controller.value,
+              strokeWidth: widget.strokeWidth,
+              sweepAngleDegrees: widget.sweepAngle,
+              backgroundColors: backgroundColors,
+              indicatorColors: indicatorColors,
+            ),
           ),
         );
       },
@@ -112,15 +133,16 @@ class _GradientCircularProgressPainter extends CustomPainter {
     final rect = Rect.fromCircle(center: center, radius: radius);
 
     // 1. Background track — full circle with a linear gradient.
-    final backgroundPaint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = strokeWidth
-      ..strokeCap = StrokeCap.round
-      ..shader = LinearGradient(
-        colors: backgroundColors,
-        begin: Alignment.topLeft,
-        end: Alignment.bottomRight,
-      ).createShader(rect);
+    final backgroundPaint =
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = strokeWidth
+          ..strokeCap = StrokeCap.round
+          ..shader = LinearGradient(
+            colors: backgroundColors,
+            begin: Alignment.topLeft,
+            end: Alignment.bottomRight,
+          ).createShader(rect);
 
     canvas.drawCircle(center, radius, backgroundPaint);
 
@@ -128,21 +150,22 @@ class _GradientCircularProgressPainter extends CustomPainter {
     final sweepRadians = sweepAngleDegrees * math.pi / 180;
     final startAngle = progress * 2 * math.pi;
 
-    final indicatorPaint = Paint()
-      ..style = PaintingStyle.stroke
-      ..strokeWidth = strokeWidth
-      ..strokeCap = StrokeCap.round
-      ..shader = SweepGradient(
-        colors: [
-          indicatorColors.last.withOpacity(0),
-          indicatorColors.first,
-          indicatorColors.last,
-        ],
-        stops: const [0.0, 0.3, 1.0],
-        startAngle: 0,
-        endAngle: sweepRadians,
-        transform: GradientRotation(startAngle),
-      ).createShader(rect);
+    final indicatorPaint =
+        Paint()
+          ..style = PaintingStyle.stroke
+          ..strokeWidth = strokeWidth
+          ..strokeCap = StrokeCap.round
+          ..shader = SweepGradient(
+            colors: [
+              indicatorColors.last.withAlpha(0),
+              indicatorColors.first,
+              indicatorColors.last,
+            ],
+            stops: const [0.0, 0.3, 1.0],
+            startAngle: 0,
+            endAngle: sweepRadians,
+            transform: GradientRotation(startAngle),
+          ).createShader(rect);
 
     canvas.drawArc(rect, startAngle, sweepRadians, false, indicatorPaint);
   }
