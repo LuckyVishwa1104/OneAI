@@ -6,6 +6,7 @@ import 'package:one_ai/screen/project/project_view.dart';
 import 'package:one_ai/screen/signup/signup_view.dart';
 import 'package:one_ai/screen/subscription/subscription_view.dart';
 import 'package:one_ai/screen/user_profile/user_profile_view.dart';
+import 'package:one_ai/services/auth/auth_service.dart';
 import 'package:one_ai/services/model_selection_service.dart';
 import 'package:one_ai/services/theme_service.dart';
 import 'package:stacked/stacked_annotations.dart';
@@ -29,6 +30,7 @@ import 'package:stacked_services/stacked_services.dart';
     LazySingleton(classType: BottomSheetService), 
     LazySingleton(classType: ThemeService), 
     LazySingleton(classType: ModelSelectionService),
+    LazySingleton(classType: AuthService),
   ],
 )
 class App {}

@@ -12,6 +12,7 @@ import 'package:stacked_services/src/dialog/dialog_service.dart';
 import 'package:stacked_services/src/navigation/navigation_service.dart';
 import 'package:stacked_shared/stacked_shared.dart';
 
+import '../services/auth/auth_service.dart';
 import '../services/model_selection_service.dart';
 import '../services/theme_service.dart';
 
@@ -33,4 +34,5 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => BottomSheetService());
   locator.registerLazySingleton(() => ThemeService());
   locator.registerLazySingleton(() => ModelSelectionService());
+  locator.registerLazySingleton(() => AuthService());
 }
