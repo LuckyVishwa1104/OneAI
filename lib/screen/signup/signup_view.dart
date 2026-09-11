@@ -1,6 +1,7 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/screen/signup/signup_view_model.dart';
 import 'package:one_ai/screen/home/home_view.dart';
+import 'package:one_ai/utility/components/app_loader.dart';
 import 'package:stacked/stacked.dart';
 import 'package:one_ai/utility/constants/constant.dart';
 import 'package:one_ai/utility/components/component.dart';
@@ -107,15 +108,12 @@ class SignupView extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       ElevatedButton.icon(
-                        onPressed: () {
-                          // Handle Google login
-                          Navigator.push(
-                            context,
-                            MaterialPageRoute(builder: (context) => HomeView()),
-                          );
-                        },
+                        onPressed: model.isBusy ? null : model.signInWithGoogle,
                         icon: Icon(Icons.login, color: Colors.white),
-                        label: Text('Continue with Google'),
+                        label:
+                            model.isBusy
+                                ? GradientCircularProgressIndicator()
+                                : const Text('Continue with Google'),
                         style: ElevatedButton.styleFrom(
                           backgroundColor: Colors.blueAccent,
                           minimumSize: Size(double.infinity, 50),
