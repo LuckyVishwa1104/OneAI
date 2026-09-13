@@ -1,6 +1,7 @@
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:one_ai/app/app.locator.dart';
+import 'package:one_ai/app/app.router.dart';
 import 'package:one_ai/services/auth/auth_service.dart';
 import 'package:stacked/stacked.dart';
 import 'dart:async';
@@ -45,31 +46,35 @@ class SignupViewModel extends BaseViewModel {
   }
 
   Future<void> signInWithGoogle() async {
-    if (isBusy) return;
+  if (isBusy) return;
 
-    setBusy(true);
+  setBusy(true);
 
-    try {
-      final userCredential = await authService.signInWithGoogle();
+  try {
+    final user = await authService.signInWithGoogle();
 
-      final user = userCredential.user;
-
+    if (user != null) {
       debugPrint('Google Sign-In successful');
-      debugPrint('UID: ${user?.uid}');
-      debugPrint('Email: ${user?.email}');
-      debugPrint('Name: ${user?.displayName}');
+      debugPrint('UID: ${user.uid}');
+      debugPrint('Email: ${user.email}');
+      debugPrint('Name: ${user.displayName}');
 
-      // Navigation will be added next.
-    } on GoogleSignInException catch (e) {
-      debugPrint('Google Sign-In error: ${e.code}');
-    } on FirebaseAuthException catch (e) {
-      debugPrint('Firebase Auth error: ${e.code} - ${e.message}');
-    } catch (e) {
-      debugPrint('Unexpected authentication error: $e');
-    } finally {
-      setBusy(false);
+      await navigationService.clearStackAndShow(
+        Routes.homeView,
+      );
     }
+  } on GoogleSignInException catch (e) {
+    debugPrint('Google Sign-In error: ${e.code}');
+  } on FirebaseAuthException catch (e) {
+    debugPrint(
+      'Firebase Auth error: ${e.code} - ${e.message}',
+    );
+  } catch (e) {
+    debugPrint('Unexpected authentication error: $e');
+  } finally {
+    setBusy(false);
   }
+}
 
   void _startTypingEffect() {
     _typingTimer?.cancel();
