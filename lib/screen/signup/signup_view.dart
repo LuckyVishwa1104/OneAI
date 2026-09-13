@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/screen/signup/signup_view_model.dart';
-import 'package:one_ai/screen/home/home_view.dart';
 import 'package:one_ai/utility/components/app_loader.dart';
 import 'package:stacked/stacked.dart';
 import 'package:one_ai/utility/constants/constant.dart';
