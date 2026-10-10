@@ -106,31 +106,42 @@ class SignupView extends StatelessWidget {
                   child: Column(
                     mainAxisSize: MainAxisSize.min,
                     children: [
-                      ElevatedButton.icon(
-                        onPressed: model.isBusy ? null : model.signInWithGoogle,
-                        icon: Icon(Icons.login, color: Colors.white),
-                        label:
-                            model.isBusy
-                                ? GradientCircularProgressIndicator()
-                                : const Text('Continue with Google'),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.blueAccent,
-                          minimumSize: Size(double.infinity, 50),
-                          foregroundColor: Colors.white,
+                      AppButton(
+                        onTap: model.isBusy ? null : model.signInWithGoogle,
+                        title: 'Continue with Google',
+                        expanded: true,
+                        height: 50,
+                        isPrimary: false,
+                        backgroundColor: Colors.white,
+                        foregroundColor: Colors.black87,
+                        borderColor: Colors.grey.shade300,
+                        leading: Image.asset(
+                          'assets/icons/google.png',
+                          width: 20,
+                          height: 20,
                         ),
+                        isLoading: model.isBusy,
+                        loadingWidget:
+                            const GradientCircularProgressIndicator(),
                       ),
                       SizedBox(height: 15),
-                      ElevatedButton.icon(
-                        onPressed: () {
-                          // Handle Apple login
-                        },
-                        icon: Icon(Icons.apple, color: Colors.white),
-                        label: Text('Continue with Apple'),
-                        style: ElevatedButton.styleFrom(
-                          backgroundColor: Colors.black,
-                          minimumSize: Size(double.infinity, 50),
-                          foregroundColor: Colors.white,
+                      AppButton(
+                        onTap: model.isBusy ? null : () {},
+                        title: 'Continue with Apple',
+                        expanded: true,
+                        height: 50,
+                        isPrimary: false,
+                        backgroundColor: Colors.black,
+                        foregroundColor: Colors.white,
+                        leading: Image.asset(
+                          'assets/icons/apple.png',
+                          width: 20,
+                          height: 20,
+                          color: Colors.white,
                         ),
+                        isLoading: model.isBusy,
+                        loadingWidget:
+                            const GradientCircularProgressIndicator(),
                       ),
                       const SizedBox(height: 15),
                       // --- NEW EMAIL BUTTON ---
