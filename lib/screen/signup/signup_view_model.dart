@@ -1,11 +1,19 @@
+import 'package:firebase_auth/firebase_auth.dart';
+import 'package:google_sign_in/google_sign_in.dart';
 import 'package:one_ai/app/app.locator.dart';
+import 'package:one_ai/app/app.router.dart';
+import 'package:one_ai/services/auth/auth_service.dart';
 import 'package:stacked/stacked.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
 
+enum AuthProvider { google, apple }
+
 class SignupViewModel extends BaseViewModel {
   final navigationService = locator<NavigationService>();
+  final authService = locator<AuthService>();
+  final snackbarService = locator<SnackbarService>();
 
   final List<Color> rainbowColors = [
     Color(0xFFFFC9C9), // Pastel Red
@@ -36,8 +44,73 @@ class SignupViewModel extends BaseViewModel {
   String get displayedText => _displayedText;
   Color get currentColor => rainbowColors[_index];
 
+  AuthProvider? _activeProvider;
+  AuthProvider? get activeProvider => _activeProvider;
+
+  bool isLoadingFor(AuthProvider provider) =>
+      isBusy && _activeProvider == provider;
+
   void init() {
     _startTypingEffect();
+  }
+
+  Future<void> signInWithGoogle() async {
+    if (isBusy) return;
+
+    _activeProvider = AuthProvider.google;
+    setBusy(true);
+
+    User? user;
+
+    try {
+      user = await authService.signInWithGoogle();
+    } on GoogleSignInException catch (e) {
+      if (e.code == GoogleSignInExceptionCode.canceled) {
+        debugPrint('Google Sign-In cancelled by user');
+      } else {
+        debugPrint('Google Sign-In error: ${e.code}');
+        _showError('Google sign-in failed. Please try again.');
+      }
+    } on FirebaseAuthException catch (e) {
+      debugPrint('Firebase Auth error: ${e.code} - ${e.message}');
+      _showError('Authentication failed. Please try again.');
+    } catch (e) {
+      debugPrint('Unexpected authentication error: $e');
+      _showError('Something went wrong. Please try again.');
+    } finally {
+      _activeProvider = null;
+      setBusy(false);
+    }
+
+    if (user != null) {
+      await navigationService.clearStackAndShow(Routes.homeView);
+    }
+  }
+
+  Future<void> signInWithApple() async {
+    if (isBusy) return;
+
+    _activeProvider = AuthProvider.apple;
+    setBusy(true);
+
+    try {
+      // TODO: replace with authService.signInWithApple()
+      await Future.delayed(const Duration(seconds: 3));
+      debugPrint('Apple Sign-In (placeholder) completed');
+
+      // TODO: navigate on success
+      // await navigationService.clearStackAndShow(Routes.homeView);
+    } catch (e) {
+      debugPrint('Apple authentication error: $e');
+      _showError('Apple sign-in failed. Please try again.');
+    } finally {
+      _activeProvider = null;
+      setBusy(false);
+    }
+  }
+
+  void _showError(String message) {
+    snackbarService.showSnackbar(message: message);
   }
 
   void _startTypingEffect() {
