@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/screen/signup/signup_view_model.dart';
-import 'package:one_ai/utility/components/app_loader.dart';
 import 'package:stacked/stacked.dart';
 import 'package:one_ai/utility/constants/constant.dart';
 import 'package:one_ai/utility/components/component.dart';
@@ -70,12 +69,7 @@ class SignupView extends StatelessWidget {
                             // AI Icon positioned in upper half
                             Align(
                               alignment: Alignment(0, -0.45),
-                              child: LogoTile(
-                                icon: Icons.auto_awesome,
-                                height: 62,
-                                width: 62,
-                                iconSize: 40,
-                              ),
+                              child: AnimatedAiIcon(iconSize: 60),
                             ),
                           ],
                         ),
@@ -107,65 +101,51 @@ class SignupView extends StatelessWidget {
                     mainAxisSize: MainAxisSize.min,
                     children: [
                       AppButton(
+                        borderRadius: AppConstant.xxxl,
                         onTap: model.isBusy ? null : model.signInWithGoogle,
                         title: 'Continue with Google',
                         expanded: true,
-                        height: 50,
+                        height: AppConstant.massive,
                         isPrimary: false,
-                        backgroundColor: Colors.white,
-                        foregroundColor: Colors.black87,
-                        borderColor: Colors.grey.shade300,
+                        backgroundColor: Theme.of(context).colorScheme.surface,
+                        foregroundColor:
+                            Theme.of(context).colorScheme.onSurfaceVariant,
+                        borderColor: Theme.of(context).dividerColor,
                         leading: Image.asset(
-                          'assets/icons/google.png',
-                          width: 20,
-                          height: 20,
+                          'assets/others/google.png',
+                          width: 19,
+                          height: 19,
                         ),
-                        isLoading: model.isBusy,
-                        loadingWidget:
-                            const GradientCircularProgressIndicator(),
+                        isLoading: model.isLoadingFor(AuthProvider.google),
                       ),
-                      SizedBox(height: 15),
+                      AppSpacing.h16,
                       AppButton(
-                        onTap: model.isBusy ? null : () {},
+                        onTap:
+                            model.isBusy
+                                ? null
+                                : model
+                                    .signInWithApple, // to be implemented later
                         title: 'Continue with Apple',
                         expanded: true,
-                        height: 50,
+                        borderRadius: AppConstant.xxxl,
+                        height: AppConstant.massive,
                         isPrimary: false,
-                        backgroundColor: Colors.black,
-                        foregroundColor: Colors.white,
+                        borderColor: Theme.of(context).dividerColor,
+                        backgroundColor: Theme.of(context).colorScheme.surface,
+                        foregroundColor:
+                            Theme.of(context).colorScheme.onSurfaceVariant,
                         leading: Image.asset(
-                          'assets/icons/apple.png',
+                          'assets/others/apple.png',
                           width: 20,
                           height: 20,
-                          color: Colors.white,
+                          color:
+                              Theme.of(context).brightness == Brightness.dark
+                                  ? Colors.white
+                                  : null,
                         ),
-                        isLoading: model.isBusy,
-                        loadingWidget:
-                            const GradientCircularProgressIndicator(),
+                        isLoading: model.isLoadingFor(AuthProvider.apple),
                       ),
-                      const SizedBox(height: 15),
-                      // --- NEW EMAIL BUTTON ---
-                      OutlinedButton.icon(
-                        onPressed: () {
-                          // Handle Email login navigation or action
-                        },
-                        icon: Icon(
-                          Icons.email_outlined,
-                          color: Theme.of(context).colorScheme.onSurface,
-                        ),
-                        label: const Text('Continue with Email'),
-                        style: OutlinedButton.styleFrom(
-                          minimumSize: const Size(double.infinity, 50),
-                          foregroundColor:
-                              Theme.of(context).colorScheme.onSurface,
-                          side: BorderSide(
-                            color: Theme.of(
-                              context,
-                            ).colorScheme.onSurface.withValues(alpha: 0.3),
-                          ),
-                        ),
-                      ),
-                      SizedBox(height: 40),
+                      AppSpacing.h48,
                     ],
                   ),
                 ),
