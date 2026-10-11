@@ -22,7 +22,6 @@ import 'package:stacked_services/stacked_services.dart';
     MaterialRoute(page: SubscriptionView),
     MaterialRoute(page: ProjectView),
     MaterialRoute(page: AllChatView),
-
   ],
   dependencies: [
     Singleton(classType: NavigationService),
@@ -31,6 +30,7 @@ import 'package:stacked_services/stacked_services.dart';
     LazySingleton(classType: ThemeService), 
     LazySingleton(classType: ModelSelectionService),
     LazySingleton(classType: AuthService),
+    LazySingleton(classType: SnackbarService),
   ],
 )
 class App {}
