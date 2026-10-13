@@ -83,6 +83,12 @@ class SignupViewModel extends BaseViewModel {
     }
 
     if (user != null) {
+      debugPrint('Google Sign-In successful');
+      debugPrint('UID: ${user.uid}');
+      debugPrint('Email: ${user.email}');
+      debugPrint('Name: ${user.displayName}');
+      final String? idToken = await user.getIdToken(true);
+      debugPrint('Firebase ID Token: $idToken');
       await navigationService.clearStackAndShow(Routes.homeView);
     }
   }
