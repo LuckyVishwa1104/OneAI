@@ -35,6 +35,7 @@ dependencies:
 
   # preferences
   shared_preferences:
+  flutter_secure_storage: ^11.2.0
 
 dev_dependencies:
   flutter_test:
