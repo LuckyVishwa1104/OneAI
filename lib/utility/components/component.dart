@@ -34,13 +34,13 @@ export 'subscription_plan/billing_toggle.dart';
 export 'subscription_plan/subscription_plan_card.dart';
 
 // Common Components
-export 'action_tile.dart';
-export 'add_project_sheet.dart';
-export 'animated_ai_icon.dart';
-export 'animated_prompt_border.dart';
-export 'app_button.dart';
-export 'app_icon.dart';
-export 'app_text_field.dart';
-export 'logo_tile.dart';
-export 'model_dropdown_overlay.dart';
-export 'quick_action_menu.dart';
+export 'common/action_tile.dart';
+export 'common/add_project_sheet.dart';
+export 'common/animated_ai_icon.dart';
+export 'common/animated_prompt_border.dart';
+export 'common/app_button.dart';
+export 'common/app_icon.dart';
+export 'common/app_text_field.dart';
+export 'common/logo_tile.dart';
+export 'common/model_dropdown_overlay.dart';
+export 'common/quick_action_menu.dart';

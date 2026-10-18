@@ -6,9 +6,12 @@ import 'package:one_ai/screen/project/project_view.dart';
 import 'package:one_ai/screen/signup/signup_view.dart';
 import 'package:one_ai/screen/subscription/subscription_view.dart';
 import 'package:one_ai/screen/user_profile/user_profile_view.dart';
+import 'package:one_ai/services/api/network/api_client.dart';
+import 'package:one_ai/services/api/user/user_api_service.dart';
 import 'package:one_ai/services/auth/auth_service.dart';
 import 'package:one_ai/services/model_selection_service.dart';
 import 'package:one_ai/services/theme_service.dart';
+import 'package:one_ai/services/token_storage_service.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -16,7 +19,7 @@ import 'package:stacked_services/stacked_services.dart';
   routes: [
     MaterialRoute(page: HomeView),
     MaterialRoute(page: SignupView, initial: true),
-    MaterialRoute(page: ChatView,),
+    MaterialRoute(page: ChatView),
     MaterialRoute(page: UserProfileView),
     MaterialRoute(page: ModelSelectView),
     MaterialRoute(page: SubscriptionView),
@@ -26,11 +29,14 @@ import 'package:stacked_services/stacked_services.dart';
   dependencies: [
     Singleton(classType: NavigationService),
     LazySingleton(classType: DialogService),
-    LazySingleton(classType: BottomSheetService), 
-    LazySingleton(classType: ThemeService), 
+    LazySingleton(classType: BottomSheetService),
+    LazySingleton(classType: ThemeService),
     LazySingleton(classType: ModelSelectionService),
     LazySingleton(classType: AuthService),
     LazySingleton(classType: SnackbarService),
+    LazySingleton(classType: TokenStorageService),
+    LazySingleton(classType: ApiClient),
+    LazySingleton(classType: UserApiService),
   ],
 )
 class App {}

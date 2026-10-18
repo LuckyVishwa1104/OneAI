@@ -1,4 +1,5 @@
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:one_ai/app/app.locator.dart';
 import 'package:one_ai/app/app.router.dart';
@@ -88,6 +89,14 @@ class SignupViewModel extends BaseViewModel {
       debugPrint('Email: ${user.email}');
       debugPrint('Name: ${user.displayName}');
       final String? idToken = await user.getIdToken(true);
+      await Clipboard.setData(ClipboardData(text: idToken!));
+      if (idToken != null) {
+        debugPrint('Firebase ID Token length: ${idToken.length}');
+        debugPrint('JWT segments: ${idToken.split('.').length}');
+        debugPrint('JWT starts with eyJ: ${idToken.startsWith('eyJ')}');
+      } else {
+        debugPrint('Firebase ID Token is null');
+      }
       debugPrint('Firebase ID Token: $idToken');
       await navigationService.clearStackAndShow(Routes.homeView);
     }
