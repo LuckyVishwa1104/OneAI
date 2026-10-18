@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:one_ai/app/app.locator.dart';
 import 'package:one_ai/app/app.router.dart';
 import 'package:one_ai/model/profile_option_model.dart';
-import 'package:one_ai/utility/components/logo_tile.dart';
+import 'package:one_ai/utility/components/common/logo_tile.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 

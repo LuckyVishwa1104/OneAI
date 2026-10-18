@@ -1,6 +1,6 @@
 import 'dart:math' as math;
 import 'package:flutter/material.dart';
-import '../constants/constant.dart';
+import '../../constants/constant.dart';
 
 class GradientCircularProgressIndicator extends StatefulWidget {
   const GradientCircularProgressIndicator({
