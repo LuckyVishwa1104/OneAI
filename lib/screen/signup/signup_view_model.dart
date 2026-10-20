@@ -8,6 +8,7 @@ import 'package:stacked/stacked.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
+import 'package:dio/dio.dart';
 
 enum AuthProvider { google, apple }
 
@@ -61,10 +62,32 @@ class SignupViewModel extends BaseViewModel {
     _activeProvider = AuthProvider.google;
     setBusy(true);
 
-    User? user;
-
     try {
-      user = await authService.signInWithGoogle();
+      final user = await authService.signInWithGoogle();
+
+      if (user == null) {
+        throw Exception('Google authentication did not return a user.');
+      }
+
+      // if (user != null) {
+      //   debugPrint('Google Sign-In successful');
+      //   debugPrint('UID: ${user.uid}');
+      //   debugPrint('Email: ${user.email}');
+      //   debugPrint('Name: ${user.displayName}');
+      //   final String? idToken = await user.getIdToken(true);
+      //   await Clipboard.setData(ClipboardData(text: idToken!));
+      //   if (idToken != null) {
+      //     debugPrint('Firebase ID Token length: ${idToken.length}');
+      //     debugPrint('JWT segments: ${idToken.split('.').length}');
+      //     debugPrint('JWT starts with eyJ: ${idToken.startsWith('eyJ')}');
+      //   } else {
+      //     debugPrint('Firebase ID Token is null');
+      //   }
+      //   debugPrint('Firebase ID Token: $idToken');
+      //   await navigationService.clearStackAndShow(Routes.homeView);
+      // }
+
+      await navigationService.clearStackAndShow(Routes.homeView);
     } on GoogleSignInException catch (e) {
       if (e.code == GoogleSignInExceptionCode.canceled) {
         debugPrint('Google Sign-In cancelled by user');
@@ -73,32 +96,24 @@ class SignupViewModel extends BaseViewModel {
         _showError('Google sign-in failed. Please try again.');
       }
     } on FirebaseAuthException catch (e) {
-      debugPrint('Firebase Auth error: ${e.code} - ${e.message}');
+      debugPrint('Firebase Auth error: ${e.code}');
       _showError('Authentication failed. Please try again.');
+    } on DioException catch (e) {
+      debugPrint(
+        'Backend authentication failed. '
+        'Status: ${e.response?.statusCode}',
+      );
+      _showError(
+        e.response?.statusCode == 401
+            ? 'Google authentication was rejected. Please try again.'
+            : 'Unable to connect to OneAI. Please try again.',
+      );
     } catch (e) {
-      debugPrint('Unexpected authentication error: $e');
+      debugPrint('Google authentication flow failed: $e');
       _showError('Something went wrong. Please try again.');
     } finally {
       _activeProvider = null;
       setBusy(false);
-    }
-
-    if (user != null) {
-      debugPrint('Google Sign-In successful');
-      debugPrint('UID: ${user.uid}');
-      debugPrint('Email: ${user.email}');
-      debugPrint('Name: ${user.displayName}');
-      final String? idToken = await user.getIdToken(true);
-      await Clipboard.setData(ClipboardData(text: idToken!));
-      if (idToken != null) {
-        debugPrint('Firebase ID Token length: ${idToken.length}');
-        debugPrint('JWT segments: ${idToken.split('.').length}');
-        debugPrint('JWT starts with eyJ: ${idToken.startsWith('eyJ')}');
-      } else {
-        debugPrint('Firebase ID Token is null');
-      }
-      debugPrint('Firebase ID Token: $idToken');
-      await navigationService.clearStackAndShow(Routes.homeView);
     }
   }
 
