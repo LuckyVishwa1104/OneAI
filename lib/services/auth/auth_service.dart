@@ -1,12 +1,19 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
+import 'package:one_ai/app/app.locator.dart';
 import 'package:one_ai/services/api/network/api_client.dart';
 import 'package:one_ai/services/api/network/api_endpoint.dart';
 import 'package:one_ai/services/token_storage_service.dart';
 
 class AuthService {
-  AuthService(this._apiClient, this._tokenStorageService);
+  AuthService({
+    ApiClient? apiClient,
+    TokenStorageService? tokenStorageService,
+  })  : _apiClient = apiClient ?? locator<ApiClient>(),
+        _tokenStorageService =
+            tokenStorageService ?? locator<TokenStorageService>();
+
 
   final ApiClient _apiClient;
   final TokenStorageService _tokenStorageService;
