@@ -7,13 +7,10 @@ import 'package:one_ai/services/api/network/api_endpoint.dart';
 import 'package:one_ai/services/token_storage_service.dart';
 
 class AuthService {
-  AuthService({
-    ApiClient? apiClient,
-    TokenStorageService? tokenStorageService,
-  })  : _apiClient = apiClient ?? locator<ApiClient>(),
-        _tokenStorageService =
-            tokenStorageService ?? locator<TokenStorageService>();
-
+  AuthService({ApiClient? apiClient, TokenStorageService? tokenStorageService})
+    : _apiClient = apiClient ?? locator<ApiClient>(),
+      _tokenStorageService =
+          tokenStorageService ?? locator<TokenStorageService>();
 
   final ApiClient _apiClient;
   final TokenStorageService _tokenStorageService;
@@ -23,25 +20,24 @@ class AuthService {
 
   Future<User?> signInWithGoogle() async {
     try {
-      // 1. Sign in with Google through Firebase.
-      final GoogleSignInAccount googleUser =
-          await _googleSignIn.authenticate();
+      // 1. Sign in with Google.
+      final GoogleSignInAccount googleUser = await _googleSignIn.authenticate();
 
-      final GoogleSignInAuthentication googleAuth =
-          googleUser.authentication;
+      final GoogleSignInAuthentication googleAuth = googleUser.authentication;
 
-      final String? firebaseIdToken = googleAuth.idToken;
+      final String? googleIdToken = googleAuth.idToken;
 
-      if (firebaseIdToken == null || firebaseIdToken.isEmpty) {
-        throw Exception('Unable to retrieve Firebase ID token.');
+      if (googleIdToken == null || googleIdToken.isEmpty) {
+        throw Exception('Unable to retrieve Google ID token.');
       }
 
+      // 2. Use the Google ID token to authenticate with Firebase.
       final AuthCredential credential = GoogleAuthProvider.credential(
-        idToken: firebaseIdToken,
+        idToken: googleIdToken,
       );
 
-      final UserCredential userCredential =
-          await _firebaseAuth.signInWithCredential(credential);
+      final UserCredential userCredential = await _firebaseAuth
+          .signInWithCredential(credential);
 
       final User? user = userCredential.user;
 
@@ -49,7 +45,14 @@ class AuthService {
         throw Exception('Firebase sign-in did not return a user.');
       }
 
-      // 2. Exchange the Firebase ID token for a OneAI JWT.
+      // 3. Get the Firebase ID token from the authenticated Firebase user.
+      final String? firebaseIdToken = await user.getIdToken();
+
+      if (firebaseIdToken == null || firebaseIdToken.isEmpty) {
+        throw Exception('Unable to retrieve Firebase ID token.');
+      }
+
+      // 4. Send the Firebase ID token to NestJS.
       final response = await _apiClient.dio.post(
         ApiEndpoint.googleAuth,
         data: {'idToken': firebaseIdToken},
@@ -67,10 +70,9 @@ class AuthService {
         throw Exception('OneAI access token was missing from the response.');
       }
 
-      // 3. Store the OneAI JWT securely.
+      // 5. Store the OneAI JWT securely.
       await _tokenStorageService.saveAccessToken(accessToken);
 
-      // 4. Return only after backend authentication and storage succeed.
       return user;
     } on DioException {
       rethrow;
