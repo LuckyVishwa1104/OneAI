@@ -69,10 +69,20 @@ class SignupViewModel extends BaseViewModel {
         throw Exception('Google authentication did not return a user.');
       }
       await navigationService.clearStackAndShow(Routes.homeView);
-      
     } on GoogleSignInException catch (e) {
       if (e.code == GoogleSignInExceptionCode.canceled) {
-        debugPrint('Google Sign-In cancelled by user');
+        debugPrint('Google Sign-In code: ${e.code}');
+        debugPrint('Google Sign-In description: ${e.description}');
+        debugPrint('Google Sign-In details: ${e.details}');
+
+        if (e.code == GoogleSignInExceptionCode.canceled) {
+          debugPrint(
+            'Credential Manager returned canceled. '
+            'Check whether the flow was dismissed or misconfigured.',
+          );
+        } else {
+          _showError('Google sign-in failed. Please try again.');
+        }
       } else {
         debugPrint('Google Sign-In error: ${e.code}');
         _showError('Google sign-in failed. Please try again.');
