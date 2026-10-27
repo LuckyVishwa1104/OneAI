@@ -32,11 +32,11 @@ import 'package:stacked_services/stacked_services.dart';
     LazySingleton(classType: BottomSheetService),
     LazySingleton(classType: ThemeService),
     LazySingleton(classType: ModelSelectionService),
-    LazySingleton(classType: AuthService),
     LazySingleton(classType: SnackbarService),
     LazySingleton(classType: TokenStorageService),
     LazySingleton(classType: ApiClient),
     LazySingleton(classType: UserApiService),
+    LazySingleton(classType: AuthService),
   ],
 )
 class App {}

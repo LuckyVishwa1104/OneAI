@@ -1,8 +1,10 @@
+import 'package:one_ai/app/app.locator.dart';
 import 'package:one_ai/services/api/network/api_client.dart';
 import 'package:one_ai/services/api/network/api_endpoint.dart';
 
 class UserApiService {
-  UserApiService(this._apiClient);
+  UserApiService({ApiClient? apiClient})
+      : _apiClient = apiClient ?? locator<ApiClient>();
 
   final ApiClient _apiClient;
 
