@@ -25,31 +25,31 @@ dependencies:
   cupertino_icons: ^1.0.8
 
   # architecture packages
-  stacked: 
-  stacked_services: 
+  stacked: ^3.5.0 
+  stacked_services: ^1.6.0 
 
   # firebase dependies
-  firebase_core: 
-  firebase_auth: 
-  google_sign_in: 
+  firebase_core: ^5.0.0 
+  firebase_auth: ^7.0.0 
+  google_sign_in: ^7.2.0 
 
   # local storage
-  shared_preferences:
-  flutter_secure_storage:
+  shared_preferences: ^2.5.5
+  flutter_secure_storage: ^11.2.0
 
   # networking
-  dio:
+  dio: ^5.11.1
 
 dev_dependencies:
   flutter_test:
     sdk: flutter
 
   # auto-generator packages
-  stacked_generator: 
-  build_runner: 
+  stacked_generator: ^2.0.4 
+  build_runner: ^2.15.1 
 
   # for app logo
-  flutter_launcher_icons: 
+  flutter_launcher_icons: ^0.14.4 
 
   # The "flutter_lints" package below contains a set of recommended lints to
   # rules and activating additional ones.
