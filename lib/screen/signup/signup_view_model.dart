@@ -57,7 +57,7 @@ class SignupViewModel extends BaseViewModel {
   }
 
   void navigateToManualAuth() {
-    // navigationService.navigateTo(Routes.manualAuthView);
+    navigationService.navigateToManualAuthView();
   }
 
   Future<void> signInWithGoogle() async {
