@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/screen/manual_auth/manual_auth_view_model.dart';
+import 'package:one_ai/utility/components/common/animated_ai_icon.dart';
+import 'package:one_ai/utility/components/component.dart';
+import 'package:one_ai/utility/constants/constant.dart';
 import 'package:stacked/stacked.dart';
 
 class ManualAuthView extends StatelessWidget {
@@ -21,38 +24,28 @@ class ManualAuthView extends StatelessWidget {
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.stretch,
                   children: [
-                    const SizedBox(height: 24),
+                    AppSpacing.h24,
 
-                    Icon(
-                      model.isSignupMode
-                          ? Icons.person_add_alt_1
-                          : Icons.lock_outline,
-                      size: 52,
-                      color: theme.colorScheme.primary,
-                    ),
-
-                    const SizedBox(height: 20),
+                    AnimatedAiIcon(iconSize: 60),
+                    AppSpacing.h20,
 
                     Text(
-                      model.isSignupMode
-                          ? 'Create your account'
-                          : 'Welcome back',
+                      model.isSignupMode ? 'One app for AI' : 'Welcome back',
                       textAlign: TextAlign.center,
-                      style: theme.textTheme.headlineSmall?.copyWith(
-                        fontWeight: FontWeight.bold,
-                      ),
+                      style: AppTextStyles.heading(
+                        context,
+                      ).copyWith(fontSize: 24),
                     ),
-
-                    const SizedBox(height: 8),
+                    AppSpacing.h8,
 
                     Text(
                       model.isSignupMode
                           ? 'Create an account to get started with OneAI.'
                           : 'Sign in to continue to OneAI.',
                       textAlign: TextAlign.center,
-                      style: theme.textTheme.bodyMedium?.copyWith(
-                        color: theme.colorScheme.onSurfaceVariant,
-                      ),
+                      style: AppTextStyles.subHeading(
+                        context,
+                      ).copyWith(fontSize: 18),
                     ),
 
                     const SizedBox(height: 32),
@@ -161,34 +154,49 @@ class ManualAuthView extends StatelessWidget {
 
                     const SizedBox(height: 28),
 
-                    SizedBox(
+                    // AppButton(onTap: onTap, title: title),
+
+                    // SizedBox(
+                    //   height: 54,
+                    //   child: ElevatedButton(
+                    //     onPressed: model.isBusy ? null : model.submit,
+                    //     style: ElevatedButton.styleFrom(
+                    //       shape: RoundedRectangleBorder(
+                    //         borderRadius: BorderRadius.circular(16),
+                    //       ),
+                    //     ),
+                    //     child:
+                    //         model.isBusy
+                    //             ? const SizedBox(
+                    //               height: 22,
+                    //               width: 22,
+                    //               child: CircularProgressIndicator(
+                    //                 strokeWidth: 2,
+                    //               ),
+                    //             )
+                    //             : Text(
+                    //               model.isSignupMode
+                    //                   ? 'Create Account'
+                    //                   : 'Sign In',
+                    //               style: const TextStyle(
+                    //                 fontWeight: FontWeight.w600,
+                    //                 fontSize: 16,
+                    //               ),
+                    //             ),
+                    //   ),
+                    // ),
+                    AppButton(
+                      onTap: model.isBusy ? null : model.submit,
+                      title: model.isSignupMode ? 'Create Account' : 'Sign In',
+                      expanded: true,
                       height: 54,
-                      child: ElevatedButton(
-                        onPressed: model.isBusy ? null : model.submit,
-                        style: ElevatedButton.styleFrom(
-                          shape: RoundedRectangleBorder(
-                            borderRadius: BorderRadius.circular(16),
-                          ),
-                        ),
-                        child:
-                            model.isBusy
-                                ? const SizedBox(
-                                  height: 22,
-                                  width: 22,
-                                  child: CircularProgressIndicator(
-                                    strokeWidth: 2,
-                                  ),
-                                )
-                                : Text(
-                                  model.isSignupMode
-                                      ? 'Create Account'
-                                      : 'Sign In',
-                                  style: const TextStyle(
-                                    fontWeight: FontWeight.w600,
-                                    fontSize: 16,
-                                  ),
-                                ),
-                      ),
+                      borderRadius: AppConstant.xxxl,
+                      isPrimary: true,
+                      isLoading: model.isBusy,
+                      backgroundColor: Theme.of(context).colorScheme.surface,
+                      foregroundColor:
+                          Theme.of(context).colorScheme.onSurfaceVariant,
+                      borderColor: Theme.of(context).dividerColor,
                     ),
 
                     const SizedBox(height: 20),
