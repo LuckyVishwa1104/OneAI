@@ -23,12 +23,24 @@ class ProjectView extends StatelessWidget {
                   model.projects.isNotEmpty
                       ? AppTextField(
                         controller: model.searchController,
-                        // focusNode: searchFocusNode,
+                        hintText: 'Search',
                         leadingIcon: Icons.search,
-                        hintText: 'Search projects',
-                        height: 56,
-                        borderRadius: BorderRadius.circular(30),
+                        height: 50,
+                        borderRadius: BorderRadius.circular(AppConstant.xxxl),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 12,
+                        ),
+                        textInputAction: TextInputAction.search,
                       )
+                      // AppTextField(
+                      //   controller: model.searchController,
+                      //   // focusNode: searchFocusNode,
+                      //   leadingIcon: Icons.search,
+                      //   hintText: 'Search projects',
+                      //   height: 56,
+                      //   borderRadius: BorderRadius.circular(30),
+                      // )
                       : SizedBox(),
                   AppSpacing.h8,
 

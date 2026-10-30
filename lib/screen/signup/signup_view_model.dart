@@ -56,6 +56,10 @@ class SignupViewModel extends BaseViewModel {
     _startTypingEffect();
   }
 
+  void navigateToManualAuth() {
+    navigationService.navigateToManualAuthView();
+  }
+
   Future<void> signInWithGoogle() async {
     if (isBusy) return;
 

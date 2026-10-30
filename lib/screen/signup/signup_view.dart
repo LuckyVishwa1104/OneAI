@@ -136,14 +136,28 @@ class SignupView extends StatelessWidget {
                             Theme.of(context).colorScheme.onSurfaceVariant,
                         leading: Image.asset(
                           'assets/others/apple.png',
-                          width: 20,
-                          height: 20,
+                          width: 21,
+                          height: 21,
                           color:
                               Theme.of(context).brightness == Brightness.dark
                                   ? Colors.white
                                   : null,
                         ),
                         isLoading: model.isLoadingFor(AuthProvider.apple),
+                      ),
+                      AppSpacing.h16,
+                      AppButton(
+                        onTap: model.isBusy ? null : model.navigateToManualAuth,
+                        title: 'Continue with Email',
+                        expanded: true,
+                        borderRadius: AppConstant.xxxl,
+                        height: AppConstant.massive,
+                        isPrimary: true,
+                        leading: const Icon(Icons.email_outlined),
+                        backgroundColor: Theme.of(context).colorScheme.surface,
+                        foregroundColor:
+                            Theme.of(context).colorScheme.onSurfaceVariant,
+                        borderColor: Theme.of(context).dividerColor,
                       ),
                       AppSpacing.h48,
                     ],
