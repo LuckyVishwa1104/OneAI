@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:one_ai/screen/manual_auth/manual_auth_view_model.dart';
-import 'package:one_ai/utility/components/common/animated_ai_icon.dart';
 import 'package:one_ai/utility/components/component.dart';
 import 'package:one_ai/utility/constants/constant.dart';
 import 'package:stacked/stacked.dart';
@@ -48,111 +47,85 @@ class ManualAuthView extends StatelessWidget {
                       ).copyWith(fontSize: 18),
                     ),
 
-                    const SizedBox(height: 32),
+                    AppSpacing.h32,
 
                     if (model.isSignupMode) ...[
-                      TextFormField(
+                      AppTextField(
                         controller: model.nameController,
-                        textCapitalization: TextCapitalization.words,
+                        hintText: 'Name',
+                        focusedHintText: 'Enter your full name',
+                        leadingIcon: Icons.person_outline,
+                        keyboardType: TextInputType.name,
                         textInputAction: TextInputAction.next,
-                        autofillHints: const [AutofillHints.name],
-                        decoration: const InputDecoration(
-                          labelText: 'Name',
-                          hintText: 'Enter your name',
-                          prefixIcon: Icon(Icons.person_outline),
-                          border: OutlineInputBorder(),
-                        ),
                         validator: model.validateName,
                       ),
                       const SizedBox(height: 18),
                     ],
 
-                    TextFormField(
+                    AppTextField(
                       controller: model.userIdController,
+                      hintText: 'User ID',
+                      focusedHintText: 'Enter your User ID',
+                      leadingIcon: Icons.alternate_email,
+                      keyboardType: TextInputType.text,
                       textInputAction: TextInputAction.next,
-                      autofillHints: const [AutofillHints.username],
-                      autocorrect: false,
-                      decoration: const InputDecoration(
-                        labelText: 'User ID',
-                        hintText: 'Enter your User ID',
-                        prefixIcon: Icon(Icons.alternate_email),
-                        border: OutlineInputBorder(),
-                      ),
                       validator: model.validateUserId,
                     ),
 
-                    const SizedBox(height: 18),
+                    AppSpacing.h16,
 
-                    TextFormField(
+                    AppTextField(
                       controller: model.passwordController,
+                      hintText: 'Password',
+                      focusedHintText: 'Enter your password',
+                      leadingIcon: Icons.lock_outline,
                       obscureText: model.obscurePassword,
+                      keyboardType: TextInputType.visiblePassword,
                       textInputAction:
                           model.isSignupMode
                               ? TextInputAction.next
                               : TextInputAction.done,
-                      autofillHints: [
-                        model.isSignupMode
-                            ? AutofillHints.newPassword
-                            : AutofillHints.password,
-                      ],
+                      validator: model.validatePassword,
+                      trailing: IconButton(
+                        onPressed: model.togglePasswordVisibility,
+                        icon: Icon(
+                          model.obscurePassword
+                              ? Icons.visibility_outlined
+                              : Icons.visibility_off_outlined,
+                        ),
+                      ),
                       onFieldSubmitted: (_) {
                         if (model.isLoginMode) {
                           model.submit();
                         }
                       },
-                      decoration: InputDecoration(
-                        labelText: 'Password',
-                        hintText: 'Enter your password',
-                        prefixIcon: const Icon(Icons.lock_outline),
-                        border: const OutlineInputBorder(),
-                        suffixIcon: IconButton(
-                          tooltip:
-                              model.obscurePassword
-                                  ? 'Show password'
-                                  : 'Hide password',
-                          onPressed: model.togglePasswordVisibility,
-                          icon: Icon(
-                            model.obscurePassword
-                                ? Icons.visibility_outlined
-                                : Icons.visibility_off_outlined,
-                          ),
-                        ),
-                      ),
-                      validator: model.validatePassword,
                     ),
 
                     if (model.isSignupMode) ...[
                       const SizedBox(height: 18),
 
-                      TextFormField(
+                      AppTextField(
                         controller: model.confirmPasswordController,
+                        hintText: 'Confirm Password',
+                        focusedHintText: 'Re-enter your password',
+                        leadingIcon: Icons.lock_outline,
                         obscureText: model.obscureConfirmPassword,
+                        keyboardType: TextInputType.visiblePassword,
                         textInputAction: TextInputAction.done,
-                        autofillHints: const [AutofillHints.newPassword],
-                        onFieldSubmitted: (_) => model.submit(),
-                        decoration: InputDecoration(
-                          labelText: 'Confirm Password',
-                          hintText: 'Re-enter your password',
-                          prefixIcon: const Icon(Icons.lock_outline),
-                          border: const OutlineInputBorder(),
-                          suffixIcon: IconButton(
-                            tooltip:
-                                model.obscureConfirmPassword
-                                    ? 'Show password'
-                                    : 'Hide password',
-                            onPressed: model.toggleConfirmPasswordVisibility,
-                            icon: Icon(
-                              model.obscureConfirmPassword
-                                  ? Icons.visibility_outlined
-                                  : Icons.visibility_off_outlined,
-                            ),
+                        validator: model.validateConfirmPassword,
+                        trailing: IconButton(
+                          onPressed: model.toggleConfirmPasswordVisibility,
+                          icon: Icon(
+                            model.obscureConfirmPassword
+                                ? Icons.visibility_outlined
+                                : Icons.visibility_off_outlined,
                           ),
                         ),
-                        validator: model.validateConfirmPassword,
+                        onFieldSubmitted: (_) => model.submit(),
                       ),
                     ],
 
-                    const SizedBox(height: 28),
+                    AppSpacing.h24,
 
                     // AppButton(onTap: onTap, title: title),
 
@@ -197,9 +170,12 @@ class ManualAuthView extends StatelessWidget {
                       foregroundColor:
                           Theme.of(context).colorScheme.onSurfaceVariant,
                       borderColor: Theme.of(context).dividerColor,
+                      icon:
+                          model.isSignupMode
+                              ? Icons.person_add_alt_1_outlined
+                              : Icons.login,
                     ),
-
-                    const SizedBox(height: 20),
+                    AppSpacing.h20,
 
                     Wrap(
                       alignment: WrapAlignment.center,
