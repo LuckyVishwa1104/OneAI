@@ -25,11 +25,23 @@ class AllChatView extends StatelessWidget {
                   model.chats.isNotEmpty
                       ? AppTextField(
                         controller: model.searchController,
+                        hintText: 'Search',
                         leadingIcon: Icons.search,
-                        hintText: 'Search chats',
-                        height: 56,
-                        borderRadius: BorderRadius.circular(30),
+                        height: 50,
+                        borderRadius: BorderRadius.circular(AppConstant.xxxl),
+                        contentPadding: const EdgeInsets.symmetric(
+                          horizontal: 16,
+                          vertical: 12,
+                        ),
+                        textInputAction: TextInputAction.search,
                       )
+                      // AppTextField(
+                      //   controller: model.searchController,
+                      //   leadingIcon: Icons.search,
+                      //   hintText: 'Search chats',
+                      //   height: 56,
+                      //   borderRadius: BorderRadius.circular(30),
+                      // )
                       : SizedBox(),
                   AppSpacing.h12,
 
