@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:one_ai/utility/components/component.dart';
 import 'package:one_ai/utility/constants/constant.dart';
@@ -115,27 +114,19 @@ class _AppTextFieldState extends State<AppTextField> {
     final colorScheme = theme.colorScheme;
 
     final isFocused = _focusNode.hasFocus;
-
     final radius = widget.borderRadius ?? AppRadius.radiusLg;
 
     final normalBorder = AppBorder.defaultBorder(context);
 
-    final focusedBorder = Border.all(
-      color: colorScheme.primary,
-      width: 1.5,
-    );
+    final focusedBorder = Border.all(color: colorScheme.primary, width: 1.5);
 
-    final errorBorder = Border.all(
-      color: colorScheme.error,
-      width: 1.2,
-    );
+    final errorBorder = Border.all(color: colorScheme.error, width: 1.2);
 
-    final effectiveHint = isFocused
-        ? (widget.focusedHintText ??
-            (widget.hintText != null
-                ? 'Enter ${widget.hintText}'
-                : null))
-        : widget.hintText;
+    final effectiveHint =
+        isFocused
+            ? (widget.focusedHintText ??
+                (widget.hintText != null ? 'Enter ${widget.hintText}' : null))
+            : widget.hintText;
 
     return FormField<String>(
       initialValue: widget.controller.text,
@@ -144,61 +135,75 @@ class _AppTextFieldState extends State<AppTextField> {
       builder: (field) {
         final hasError = field.hasError;
 
-        return Container(
-          height: widget.height,
-          decoration: BoxDecoration(
-            color: colorScheme.surface,
-            border: hasError
-                ? errorBorder
-                : isFocused
-                    ? focusedBorder
-                    : normalBorder,
-            borderRadius: radius,
-            boxShadow: [AppShadow.homeTileShadow],
-          ),
-          child: TextFormField(
-            controller: widget.controller,
-            focusNode: _focusNode,
-            autofocus: widget.autofocus,
-            maxLines: widget.obscureText ? 1 : widget.maxLines,
-            obscureText: widget.obscureText,
-            keyboardType: widget.keyboardType,
-            textInputAction: widget.textInputAction,
-            onChanged: (value) {
-              field.didChange(value);
-              widget.onChanged?.call(value);
-            },
-            onFieldSubmitted: widget.onFieldSubmitted,
-            enabled: widget.enabled,
-            readOnly: widget.readOnly,
-            style: AppTextStyles.subHeading(
-              context,
-            ).copyWith(color: colorScheme.onSurface),
-            decoration: InputDecoration(
-              hintText: effectiveHint,
-              prefixIcon: widget.leadingIcon != null
-                  ? AppIcon(icon: widget.leadingIcon!)
-                  : null,
-              suffixIcon: widget.trailing,
-              errorText: null,
-              border: InputBorder.none,
-              enabledBorder: InputBorder.none,
-              focusedBorder: InputBorder.none,
-              errorBorder: InputBorder.none,
-              focusedErrorBorder: InputBorder.none,
-              disabledBorder: InputBorder.none,
-              isDense: widget.height != null,
-              contentPadding: widget.contentPadding ??
-                  const EdgeInsets.symmetric(
-                    horizontal: 16,
-                    vertical: 14,
-                  ),
-              hintStyle: AppTextStyles.subHeading(context),
+        return Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
+          mainAxisSize: MainAxisSize.min,
+          children: [
+            Container(
+              height: widget.height,
+              decoration: BoxDecoration(
+                color: Theme.of(context).colorScheme.surface,
+                border:
+                    hasError
+                        ? errorBorder
+                        : isFocused
+                        ? focusedBorder
+                        : normalBorder,
+                borderRadius: radius,
+                boxShadow: [AppShadow.homeTileShadow],
+              ),
+              child: TextField(
+                controller: widget.controller,
+                focusNode: _focusNode,
+                autofocus: widget.autofocus,
+                maxLines: widget.obscureText ? 1 : widget.maxLines,
+                obscureText: widget.obscureText,
+                keyboardType: widget.keyboardType,
+                textInputAction: widget.textInputAction,
+                enabled: widget.enabled,
+                readOnly: widget.readOnly,
+                onChanged: (value) {
+                  field.didChange(value);
+                  widget.onChanged?.call(value);
+                },
+                onSubmitted: widget.onFieldSubmitted,
+                style: AppTextStyles.subHeading(
+                  context,
+                ).copyWith(color: colorScheme.onSurface),
+                decoration: InputDecoration(
+                  hintText: effectiveHint,
+                  prefixIcon:
+                      widget.leadingIcon != null
+                          ? AppIcon(icon: widget.leadingIcon!)
+                          : null,
+                  suffixIcon: widget.trailing,
+                  border: InputBorder.none,
+                  enabledBorder: InputBorder.none,
+                  focusedBorder: InputBorder.none,
+                  disabledBorder: InputBorder.none,
+                  isDense: widget.height != null,
+                  contentPadding:
+                      widget.contentPadding ??
+                      const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
+                  hintStyle: AppTextStyles.subHeading(context),
+                ),
+              ),
             ),
-          ),
+
+            // Validation error
+            if (hasError) ...[
+              const SizedBox(height: 6),
+              Padding(
+                padding: const EdgeInsets.only(left: 12),
+                child: Text(
+                  field.errorText!,
+                  style: TextStyle(color: colorScheme.error, fontSize: 12),
+                ),
+              ),
+            ],
+          ],
         );
       },
     );
-    
   }
 }
