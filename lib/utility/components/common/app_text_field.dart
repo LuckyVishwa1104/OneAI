@@ -118,7 +118,7 @@ class _AppTextFieldState extends State<AppTextField> {
 
     final normalBorder = AppBorder.defaultBorder(context);
 
-    final focusedBorder = Border.all(color: colorScheme.primary, width: 1.5);
+    final focusedBorder = Border.all(color: AppColors.primary, width: 1.5);
 
     final errorBorder = Border.all(color: colorScheme.error, width: 1.2);
 
@@ -127,6 +127,46 @@ class _AppTextFieldState extends State<AppTextField> {
             ? (widget.focusedHintText ??
                 (widget.hintText != null ? 'Enter ${widget.hintText}' : null))
             : widget.hintText;
+
+    final hintStyle = AppTextStyles.subHeading(
+      context,
+    ).copyWith(fontWeight: FontWeight.w400);
+
+    final Widget? animatedHint =
+        effectiveHint == null
+            ? null
+            : AnimatedSwitcher(
+              duration: const Duration(milliseconds: 250),
+              switchInCurve: Curves.easeOut,
+              switchOutCurve: Curves.easeIn,
+              // Keep the old and new hints left-aligned so they don't shift sideways
+              layoutBuilder:
+                  (currentChild, previousChildren) => Stack(
+                    alignment: Alignment.centerLeft,
+                    children: [
+                      ...previousChildren,
+                      if (currentChild != null) currentChild,
+                    ],
+                  ),
+              transitionBuilder:
+                  (child, animation) => FadeTransition(
+                    opacity: animation,
+                    child: SlideTransition(
+                      position: Tween<Offset>(
+                        begin: const Offset(0, 0.25),
+                        end: Offset.zero,
+                      ).animate(animation),
+                      child: child,
+                    ),
+                  ),
+              child: Text(
+                effectiveHint,
+                key: ValueKey(effectiveHint),
+                style: hintStyle,
+                maxLines: 1,
+                overflow: TextOverflow.ellipsis,
+              ),
+            );
 
     return FormField<String>(
       initialValue: widget.controller.text,
@@ -167,11 +207,13 @@ class _AppTextFieldState extends State<AppTextField> {
                   widget.onChanged?.call(value);
                 },
                 onSubmitted: widget.onFieldSubmitted,
-                style: AppTextStyles.subHeading(
-                  context,
-                ).copyWith(color: colorScheme.onSurface),
+                style: AppTextStyles.subHeading(context).copyWith(
+                  color: Theme.of(context).colorScheme.onSurface,
+                  fontWeight: FontWeight.w400,
+                ),
                 decoration: InputDecoration(
-                  hintText: effectiveHint,
+                  // hintText: effectiveHint,
+                  hint: animatedHint, 
                   prefixIcon:
                       widget.leadingIcon != null
                           ? AppIcon(icon: widget.leadingIcon!)
@@ -185,19 +227,24 @@ class _AppTextFieldState extends State<AppTextField> {
                   contentPadding:
                       widget.contentPadding ??
                       const EdgeInsets.symmetric(horizontal: 16, vertical: 14),
-                  hintStyle: AppTextStyles.subHeading(context),
+                  hintStyle: AppTextStyles.subHeading(
+                    context,
+                  ).copyWith(fontWeight: FontWeight.w400),
                 ),
               ),
             ),
 
             // Validation error
             if (hasError) ...[
-              const SizedBox(height: 6),
+              AppSpacing.h4,
               Padding(
                 padding: const EdgeInsets.only(left: 12),
                 child: Text(
                   field.errorText!,
-                  style: TextStyle(color: colorScheme.error, fontSize: 12),
+                  style: AppTextStyles.subHeading(context).copyWith(
+                    fontSize: AppConstant.md,
+                    color: colorScheme.error,
+                  ),
                 ),
               ),
             ],

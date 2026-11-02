@@ -9,8 +9,6 @@ class ManualAuthView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return ViewModelBuilder.reactive(
       viewModelBuilder: () => ManualAuthViewModel(),
       builder: (context, model, child) {
@@ -86,12 +84,16 @@ class ManualAuthView extends StatelessWidget {
                               ? TextInputAction.next
                               : TextInputAction.done,
                       validator: model.validatePassword,
-                      trailing: IconButton(
-                        onPressed: model.togglePasswordVisibility,
-                        icon: Icon(
-                          model.obscurePassword
-                              ? Icons.visibility_outlined
-                              : Icons.visibility_off_outlined,
+                      trailing: InkWell(
+                        overlayColor: WidgetStateProperty.all(
+                          Colors.transparent,
+                        ),
+                        onTap: model.togglePasswordVisibility,
+                        child: AppIcon(
+                          icon:
+                              model.obscurePassword
+                                  ? Icons.visibility_outlined
+                                  : Icons.visibility_off_outlined,
                         ),
                       ),
                       onFieldSubmitted: (_) {
@@ -113,12 +115,16 @@ class ManualAuthView extends StatelessWidget {
                         keyboardType: TextInputType.visiblePassword,
                         textInputAction: TextInputAction.done,
                         validator: model.validateConfirmPassword,
-                        trailing: IconButton(
-                          onPressed: model.toggleConfirmPasswordVisibility,
-                          icon: Icon(
-                            model.obscureConfirmPassword
-                                ? Icons.visibility_outlined
-                                : Icons.visibility_off_outlined,
+                        trailing: InkWell(
+                          overlayColor: WidgetStateProperty.all(
+                            Colors.transparent,
+                          ),
+                          onTap: model.toggleConfirmPasswordVisibility,
+                          child: AppIcon(
+                            icon:
+                                model.obscureConfirmPassword
+                                    ? Icons.visibility_outlined
+                                    : Icons.visibility_off_outlined,
                           ),
                         ),
                         onFieldSubmitted: (_) => model.submit(),
@@ -127,49 +133,12 @@ class ManualAuthView extends StatelessWidget {
 
                     AppSpacing.h24,
 
-                    // AppButton(onTap: onTap, title: title),
-
-                    // SizedBox(
-                    //   height: 54,
-                    //   child: ElevatedButton(
-                    //     onPressed: model.isBusy ? null : model.submit,
-                    //     style: ElevatedButton.styleFrom(
-                    //       shape: RoundedRectangleBorder(
-                    //         borderRadius: BorderRadius.circular(16),
-                    //       ),
-                    //     ),
-                    //     child:
-                    //         model.isBusy
-                    //             ? const SizedBox(
-                    //               height: 22,
-                    //               width: 22,
-                    //               child: CircularProgressIndicator(
-                    //                 strokeWidth: 2,
-                    //               ),
-                    //             )
-                    //             : Text(
-                    //               model.isSignupMode
-                    //                   ? 'Create Account'
-                    //                   : 'Sign In',
-                    //               style: const TextStyle(
-                    //                 fontWeight: FontWeight.w600,
-                    //                 fontSize: 16,
-                    //               ),
-                    //             ),
-                    //   ),
-                    // ),
                     AppButton(
                       onTap: model.isBusy ? null : model.submit,
                       title: model.isSignupMode ? 'Create Account' : 'Sign In',
                       expanded: true,
-                      height: 54,
-                      borderRadius: AppConstant.xxxl,
                       isPrimary: true,
                       isLoading: model.isBusy,
-                      backgroundColor: Theme.of(context).colorScheme.surface,
-                      foregroundColor:
-                          Theme.of(context).colorScheme.onSurfaceVariant,
-                      borderColor: Theme.of(context).dividerColor,
                       icon:
                           model.isSignupMode
                               ? Icons.person_add_alt_1_outlined
@@ -185,11 +154,22 @@ class ManualAuthView extends StatelessWidget {
                           model.isSignupMode
                               ? 'Already have an account? '
                               : "Don't have an account? ",
+                          style: AppTextStyles.subHeading(
+                            context,
+                          ).copyWith(fontSize: 15),
                         ),
-                        TextButton(
-                          onPressed: model.isBusy ? null : model.toggleMode,
+                        AppSpacing.w12,
+                        InkWell(
+                          overlayColor: WidgetStateProperty.all(
+                            Colors.transparent,
+                          ),
+                          onTap: model.isBusy ? null : model.toggleMode,
                           child: Text(
                             model.isSignupMode ? 'Sign In' : 'Create Account',
+                            style: AppTextStyles.subHeading(context).copyWith(
+                              fontSize: 15,
+                              color: AppColors.primary,
+                            ),
                           ),
                         ),
                       ],

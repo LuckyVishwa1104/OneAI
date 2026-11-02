@@ -89,5 +89,35 @@ class AuthService {
     await _firebaseAuth.signOut();
   }
 
+  Future<Map<String, dynamic>> signInWithPassword({
+    required String userId,
+    required String password,
+  }) async {
+    try {
+      final response = await _apiClient.dio.post(
+        ApiEndpoint.login,
+        data: {'userId': userId.trim(), 'password': password},
+      );
+
+      if (response.data is! Map) {
+        throw Exception('Invalid authentication response from server.');
+      }
+
+      final data = Map<String, dynamic>.from(response.data);
+
+      final accessToken = data['accessToken'];
+
+      if (accessToken is! String || accessToken.isEmpty) {
+        throw Exception('Access token was missing from the response.');
+      }
+
+      await _tokenStorageService.saveAccessToken(accessToken);
+
+      return data;
+    } on DioException {
+      rethrow;
+    }
+  }
+
   User? get currentUser => _firebaseAuth.currentUser;
 }
