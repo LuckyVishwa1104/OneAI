@@ -86,12 +86,14 @@ class ManualAuthView extends StatelessWidget {
                               ? TextInputAction.next
                               : TextInputAction.done,
                       validator: model.validatePassword,
-                      trailing: IconButton(
-                        onPressed: model.togglePasswordVisibility,
-                        icon: Icon(
-                          model.obscurePassword
-                              ? Icons.visibility_outlined
-                              : Icons.visibility_off_outlined,
+                      trailing: InkWell(
+                        overlayColor: WidgetStateProperty.all(Colors.transparent),
+                        onTap: model.togglePasswordVisibility,
+                        child: AppIcon(
+                          icon:
+                              model.obscurePassword
+                                  ? Icons.visibility_outlined
+                                  : Icons.visibility_off_outlined,
                         ),
                       ),
                       onFieldSubmitted: (_) {
@@ -113,14 +115,16 @@ class ManualAuthView extends StatelessWidget {
                         keyboardType: TextInputType.visiblePassword,
                         textInputAction: TextInputAction.done,
                         validator: model.validateConfirmPassword,
-                        trailing: IconButton(
-                          onPressed: model.toggleConfirmPasswordVisibility,
-                          icon: Icon(
-                            model.obscureConfirmPassword
-                                ? Icons.visibility_outlined
-                                : Icons.visibility_off_outlined,
-                          ),
+                        trailing: InkWell(
+                        overlayColor: WidgetStateProperty.all(Colors.transparent),
+                        onTap: model.toggleConfirmPasswordVisibility,
+                        child: AppIcon(
+                          icon:
+                              model.obscureConfirmPassword
+                                  ? Icons.visibility_outlined
+                                  : Icons.visibility_off_outlined,
                         ),
+                      ),
                         onFieldSubmitted: (_) => model.submit(),
                       ),
                     ],
