@@ -1,5 +1,8 @@
+import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:one_ai/app/app.locator.dart';
+import 'package:one_ai/app/app.router.dart';
+import 'package:one_ai/services/api/user/user_api_service.dart';
 import 'package:one_ai/services/auth/auth_service.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -8,7 +11,9 @@ enum ManualAuthMode { signup, login }
 
 class ManualAuthViewModel extends BaseViewModel {
   final AuthService _authService = locator<AuthService>();
+  final UserApiService _userApiService = locator<UserApiService>();
   final SnackbarService _snackbarService = locator<SnackbarService>();
+  final NavigationService _navigationService = locator<NavigationService>();
 
   final formKey = GlobalKey<FormState>();
 
@@ -18,6 +23,7 @@ class ManualAuthViewModel extends BaseViewModel {
   final confirmPasswordController = TextEditingController();
 
   ManualAuthMode _mode = ManualAuthMode.signup;
+
   ManualAuthMode get mode => _mode;
 
   bool get isSignupMode => _mode == ManualAuthMode.signup;
@@ -80,7 +86,7 @@ class ManualAuthViewModel extends BaseViewModel {
       return 'Please enter your password';
     }
 
-    if (isSignupMode && value.length < 8) {
+    if (value.length < 8) {
       return 'Password must be at least 8 characters';
     }
 
@@ -117,16 +123,99 @@ class ManualAuthViewModel extends BaseViewModel {
     }
   }
 
+  // ---------------- SIGNUP ----------------
+
   Future<void> createAccount() async {
-    // Registration API integration will be added next.
-    _snackbarService.showSnackbar(
-      message: 'Registration API integration is next.',
-    );
+    setBusy(true);
+
+    try {
+      await _userApiService.createUser(
+        name: nameController.text.trim(),
+        userId: userIdController.text.trim(),
+        password: passwordController.text,
+        confirmPassword: confirmPasswordController.text,
+      );
+
+      _snackbarService.showSnackbar(
+        message: 'Account created successfully. Please sign in.',
+      );
+
+      // Preserve User ID for convenient signin.
+      final registeredUserId = userIdController.text.trim();
+
+      _mode = ManualAuthMode.login;
+
+      formKey.currentState?.reset();
+
+      nameController.clear();
+      userIdController.text = registeredUserId;
+      passwordController.clear();
+      confirmPasswordController.clear();
+
+      _obscurePassword = true;
+      _obscureConfirmPassword = true;
+    } catch (error) {
+      _snackbarService.showSnackbar(message: _getErrorMessage(error));
+    } finally {
+      setBusy(false);
+    }
   }
 
+  // ---------------- SIGNIN ----------------
+
   Future<void> signIn() async {
-    // Login API integration will be added next.
-    _snackbarService.showSnackbar(message: 'Login API integration is next.');
+    setBusy(true);
+
+    try {
+      await _authService.signInWithPassword(
+        userId: userIdController.text.trim(),
+        password: passwordController.text,
+      );
+
+      _snackbarService.showSnackbar(message: 'Welcome back!');
+
+      // Navigation will be added using your actual home route.
+      await _navigationService.clearStackAndShow(Routes.homeView);
+    } catch (error) {
+      _snackbarService.showSnackbar(message: _getErrorMessage(error));
+    } finally {
+      setBusy(false);
+    }
+  }
+
+  // ---------------- ERROR HANDLING ----------------
+
+  String _getErrorMessage(Object error) {
+    if (error is DioException) {
+      final responseData = error.response?.data;
+
+      if (responseData is Map) {
+        final message = responseData['message'];
+
+        if (message is String && message.isNotEmpty) {
+          return message;
+        }
+
+        if (message is List && message.isNotEmpty) {
+          return message.join('\n');
+        }
+      }
+
+      switch (error.type) {
+        case DioExceptionType.connectionTimeout:
+        case DioExceptionType.sendTimeout:
+        case DioExceptionType.receiveTimeout:
+          return 'Connection timed out. Please try again.';
+
+        case DioExceptionType.connectionError:
+          return 'Unable to connect to server. Check your internet connection.';
+
+        default:
+          return 'Something went wrong. Please try again.';
+      }
+    }
+
+    return error.toString().replaceFirst('Exception: ', '');
   }
 
   @override
@@ -135,6 +224,7 @@ class ManualAuthViewModel extends BaseViewModel {
     userIdController.dispose();
     passwordController.dispose();
     confirmPasswordController.dispose();
+
     super.dispose();
   }
 }

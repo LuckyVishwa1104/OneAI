@@ -4,34 +4,31 @@ import 'package:one_ai/services/api/network/api_endpoint.dart';
 
 class UserApiService {
   UserApiService({ApiClient? apiClient})
-      : _apiClient = apiClient ?? locator<ApiClient>();
+    : _apiClient = apiClient ?? locator<ApiClient>();
 
   final ApiClient _apiClient;
 
-  // GET /users
-  Future<List<dynamic>> getUsers() async {
-    final response = await _apiClient.dio.get(
-      ApiEndpoint.users,
-    );
-
-    return response.data as List<dynamic>;
-  }
-
   // POST /users
-  Future<dynamic> createUser({
+  Future<Map<String, dynamic>> createUser({
     required String name,
-    required String email,
+    required String userId,
     required String password,
+    required String confirmPassword,
   }) async {
     final response = await _apiClient.dio.post(
-      ApiEndpoint.users,
+      ApiEndpoint.register,
       data: {
-        'name': name,
-        'email': email,
+        'name': name.trim(),
+        'userId': userId.trim(),
         'password': password,
+        'confirmPassword': confirmPassword,
       },
     );
 
-    return response.data;
+    if (response.data is! Map) {
+      throw Exception('Invalid registration response from server.');
+    }
+
+    return Map<String, dynamic>.from(response.data);
   }
 }
