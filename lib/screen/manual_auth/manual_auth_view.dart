@@ -9,8 +9,6 @@ class ManualAuthView extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    final theme = Theme.of(context);
-
     return ViewModelBuilder.reactive(
       viewModelBuilder: () => ManualAuthViewModel(),
       builder: (context, model, child) {
@@ -87,7 +85,9 @@ class ManualAuthView extends StatelessWidget {
                               : TextInputAction.done,
                       validator: model.validatePassword,
                       trailing: InkWell(
-                        overlayColor: WidgetStateProperty.all(Colors.transparent),
+                        overlayColor: WidgetStateProperty.all(
+                          Colors.transparent,
+                        ),
                         onTap: model.togglePasswordVisibility,
                         child: AppIcon(
                           icon:
@@ -116,15 +116,17 @@ class ManualAuthView extends StatelessWidget {
                         textInputAction: TextInputAction.done,
                         validator: model.validateConfirmPassword,
                         trailing: InkWell(
-                        overlayColor: WidgetStateProperty.all(Colors.transparent),
-                        onTap: model.toggleConfirmPasswordVisibility,
-                        child: AppIcon(
-                          icon:
-                              model.obscureConfirmPassword
-                                  ? Icons.visibility_outlined
-                                  : Icons.visibility_off_outlined,
+                          overlayColor: WidgetStateProperty.all(
+                            Colors.transparent,
+                          ),
+                          onTap: model.toggleConfirmPasswordVisibility,
+                          child: AppIcon(
+                            icon:
+                                model.obscureConfirmPassword
+                                    ? Icons.visibility_outlined
+                                    : Icons.visibility_off_outlined,
+                          ),
                         ),
-                      ),
                         onFieldSubmitted: (_) => model.submit(),
                       ),
                     ],
@@ -152,11 +154,22 @@ class ManualAuthView extends StatelessWidget {
                           model.isSignupMode
                               ? 'Already have an account? '
                               : "Don't have an account? ",
+                          style: AppTextStyles.subHeading(
+                            context,
+                          ).copyWith(fontSize: 15),
                         ),
-                        TextButton(
-                          onPressed: model.isBusy ? null : model.toggleMode,
+                        AppSpacing.w12,
+                        InkWell(
+                          overlayColor: WidgetStateProperty.all(
+                            Colors.transparent,
+                          ),
+                          onTap: model.isBusy ? null : model.toggleMode,
                           child: Text(
                             model.isSignupMode ? 'Sign In' : 'Create Account',
+                            style: AppTextStyles.subHeading(context).copyWith(
+                              fontSize: 15,
+                              color: AppColors.primary,
+                            ),
                           ),
                         ),
                       ],
