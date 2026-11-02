@@ -60,6 +60,35 @@ class SignupViewModel extends BaseViewModel {
     navigationService.navigateToManualAuthView();
   }
 
+  String _getApiErrorMessage(DioException error) {
+    final responseData = error.response?.data;
+
+    if (responseData is Map) {
+      final message = responseData['message'];
+
+      if (message is String && message.isNotEmpty) {
+        return message;
+      }
+
+      if (message is List && message.isNotEmpty) {
+        return message.join('\n');
+      }
+    }
+
+    switch (error.type) {
+      case DioExceptionType.connectionTimeout:
+      case DioExceptionType.sendTimeout:
+      case DioExceptionType.receiveTimeout:
+        return 'Connection timed out. Please try again.';
+
+      case DioExceptionType.connectionError:
+        return 'Unable to connect to OneAI. Check your internet connection.';
+
+      default:
+        return 'Unable to authenticate with OneAI. Please try again.';
+    }
+  }
+
   Future<void> signInWithGoogle() async {
     if (isBusy) return;
 
@@ -72,23 +101,14 @@ class SignupViewModel extends BaseViewModel {
       if (user == null) {
         throw Exception('Google authentication did not return a user.');
       }
+
+      snackbarService.showSnackbar(message: 'Welcome to OneAI!');
+
       await navigationService.clearStackAndShow(Routes.homeView);
     } on GoogleSignInException catch (e) {
-      if (e.code == GoogleSignInExceptionCode.canceled) {
-        debugPrint('Google Sign-In code: ${e.code}');
-        debugPrint('Google Sign-In description: ${e.description}');
-        debugPrint('Google Sign-In details: ${e.details}');
+      debugPrint('Google Sign-In error: ${e.code}');
 
-        if (e.code == GoogleSignInExceptionCode.canceled) {
-          debugPrint(
-            'Credential Manager returned canceled. '
-            'Check whether the flow was dismissed or misconfigured.',
-          );
-        } else {
-          _showError('Google sign-in failed. Please try again.');
-        }
-      } else {
-        debugPrint('Google Sign-In error: ${e.code}');
+      if (e.code != GoogleSignInExceptionCode.canceled) {
         _showError('Google sign-in failed. Please try again.');
       }
     } on FirebaseAuthException catch (e) {
@@ -96,14 +116,10 @@ class SignupViewModel extends BaseViewModel {
       _showError('Authentication failed. Please try again.');
     } on DioException catch (e) {
       debugPrint(
-        'Backend authentication failed. '
-        'Status: ${e.response?.statusCode}',
+        'Backend authentication failed. Status: ${e.response?.statusCode}',
       );
-      _showError(
-        e.response?.statusCode == 401
-            ? 'Google authentication was rejected. Please try again.'
-            : 'Unable to connect to OneAI. Please try again.',
-      );
+
+      _showError(_getApiErrorMessage(e));
     } catch (e) {
       debugPrint('Google authentication flow failed: $e');
       _showError('Something went wrong. Please try again.');
