@@ -49,7 +49,10 @@ class QuickActionMenu {
                 children: [
                   AppIcon(
                     icon: action.icon,
-                    color: action.isDestructive ? AppColors.innerBolt : null,
+                    color:
+                        action.isDestructive
+                            ? Theme.of(context).colorScheme.error
+                            : null,
                   ),
 
                   AppSpacing.w8,
@@ -59,9 +62,12 @@ class QuickActionMenu {
                     maxLines: 1,
                     overflow: TextOverflow.ellipsis,
                     style: TextStyle(
-                      color: action.isDestructive ? AppColors.innerBolt : Theme.of(context).colorScheme.onSurface,
-                      fontSize: 15
-                    )
+                      color:
+                          action.isDestructive
+                              ? Theme.of(context).colorScheme.error
+                              : Theme.of(context).colorScheme.onSurface,
+                      fontSize: 15,
+                    ),
                   ),
                 ],
               ),
