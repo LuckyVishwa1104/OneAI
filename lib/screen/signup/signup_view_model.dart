@@ -1,5 +1,4 @@
 import 'package:firebase_auth/firebase_auth.dart';
-import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:one_ai/app/app.locator.dart';
 import 'package:one_ai/app/app.router.dart';
@@ -9,6 +8,7 @@ import 'dart:async';
 import 'package:flutter/material.dart';
 import 'package:stacked_services/stacked_services.dart';
 import 'package:dio/dio.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 enum AuthProvider { google, apple }
 
@@ -136,15 +136,27 @@ class SignupViewModel extends BaseViewModel {
     setBusy(true);
 
     try {
-      // TODO: replace with authService.signInWithApple()
-      await Future.delayed(const Duration(seconds: 3));
-      debugPrint('Apple Sign-In (placeholder) completed');
+      await authService.signInWithApple();
 
-      // TODO: navigate on success
-      // await navigationService.clearStackAndShow(Routes.homeView);
+      snackbarService.showSnackbar(message: 'Welcome to OneAI!');
+
+      await navigationService.clearStackAndShow(Routes.homeView);
+    } on SignInWithAppleAuthorizationException catch (e) {
+      debugPrint('Apple Sign-In error: ${e.code}');
+
+      if (e.code != AuthorizationErrorCode.canceled) {
+        _showError('Apple sign-in failed. Please try again.');
+      }
+    } on DioException catch (e) {
+      debugPrint(
+        'Apple backend authentication failed. '
+        'Status: ${e.response?.statusCode}',
+      );
+
+      _showError(_getApiErrorMessage(e));
     } catch (e) {
-      debugPrint('Apple authentication error: $e');
-      _showError('Apple sign-in failed. Please try again.');
+      debugPrint('Apple authentication flow failed: $e');
+      _showError('Something went wrong. Please try again.');
     } finally {
       _activeProvider = null;
       setBusy(false);
