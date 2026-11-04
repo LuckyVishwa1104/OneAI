@@ -5,6 +5,11 @@ import 'package:one_ai/app/app.locator.dart';
 import 'package:one_ai/services/api/network/api_client.dart';
 import 'package:one_ai/services/api/network/api_endpoint.dart';
 import 'package:one_ai/services/token_storage_service.dart';
+import 'dart:convert';
+import 'dart:math';
+
+import 'package:crypto/crypto.dart';
+import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
 class AuthService {
   AuthService({ApiClient? apiClient, TokenStorageService? tokenStorageService})
@@ -79,6 +84,82 @@ class AuthService {
     } on FirebaseAuthException {
       rethrow;
     } on GoogleSignInException {
+      rethrow;
+    }
+  }
+
+  String _generateNonce([int length = 32]) {
+    const charset =
+        '0123456789ABCDEFGHIJKLMNOPQRSTUVXYZabcdefghijklmnopqrstuvwxyz-._';
+
+    final random = Random.secure();
+
+    return List.generate(
+      length,
+      (_) => charset[random.nextInt(charset.length)],
+    ).join();
+  }
+
+  String _sha256ofString(String input) {
+    final bytes = utf8.encode(input);
+    return sha256.convert(bytes).toString();
+  }
+
+  Future<Map<String, dynamic>> signInWithApple() async {
+    try {
+      // 1. Generate a secure raw nonce.
+      final rawNonce = _generateNonce();
+
+      // 2. Hash the nonce before sending it to Apple.
+      final hashedNonce = _sha256ofString(rawNonce);
+
+      // 3. Request Apple credentials.
+      final credential = await SignInWithApple.getAppleIDCredential(
+        scopes: [
+          AppleIDAuthorizationScopes.email,
+          AppleIDAuthorizationScopes.fullName,
+        ],
+        nonce: hashedNonce,
+      );
+
+      // 4. Retrieve Apple's identity token.
+      final identityToken = credential.identityToken;
+
+      if (identityToken == null || identityToken.isEmpty) {
+        throw Exception('Unable to retrieve Apple identity token.');
+      }
+
+      // 5. Send Apple credentials to NestJS.
+      final response = await _apiClient.dio.post(
+        ApiEndpoint.appleAuth,
+        data: {
+          'identityToken': identityToken,
+          'nonce': rawNonce,
+          'givenName': credential.givenName,
+          'familyName': credential.familyName,
+        },
+      );
+
+      // 6. Validate backend response.
+      if (response.data is! Map) {
+        throw Exception('Invalid authentication response from server.');
+      }
+
+      final responseData = Map<String, dynamic>.from(response.data);
+
+      final accessToken = responseData['accessToken'];
+
+      if (accessToken is! String || accessToken.isEmpty) {
+        throw Exception('OneAI access token was missing from the response.');
+      }
+
+      // 7. Store OneAI JWT securely.
+      await _tokenStorageService.saveAccessToken(accessToken);
+
+      return responseData;
+    } on DioException {
+      rethrow;
+    } on SignInWithAppleAuthorizationException {
       rethrow;
     }
   }
