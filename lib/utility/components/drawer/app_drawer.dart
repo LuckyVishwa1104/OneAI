@@ -204,25 +204,6 @@ class AppDrawer extends StatelessWidget {
                       ),
                     ),
 
-                    AppSpacing.h2,
-                    InkWell(
-                      onTap: () {
-                        Navigator.of(context).pop();
-                        navigationService.navigateToAllChatView();
-                      },
-                      child: Row(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(
-                            "Load More Chats",
-                            style: AppTextStyles.subHeading(context).copyWith(
-                              color: Theme.of(context).colorScheme.onSurface,
-                            ),
-                          ),
-                          AppIcon(icon: Icons.navigate_next),
-                        ],
-                      ),
-                    ),
                   ],
                 ),
               ),
