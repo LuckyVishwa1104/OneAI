@@ -2,15 +2,38 @@ import 'package:flutter/material.dart';
 import 'package:one_ai/app/app.locator.dart';
 import 'package:one_ai/app/app.router.dart';
 import 'package:one_ai/model/profile_option_model.dart';
+import 'package:one_ai/services/auth/auth_service.dart';
 import 'package:one_ai/utility/components/common/logo_tile.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class UserProfileViewModel extends BaseViewModel {
   final navigationService = locator<NavigationService>();
+  final _authService = locator<AuthService>();
+  final _snackbarService = locator<SnackbarService>();
 
   void userProfile() {
     navigationService.navigateToSubscriptionView();
+  }
+
+  Future<void> logout() async {
+    if (isBusy) return;
+
+    setBusy(true);
+
+    try {
+      await _authService.signOut();
+
+      await navigationService.clearStackAndShow(Routes.signupView);
+
+      _snackbarService.showSnackbar(message: 'Logged out successfully.');
+    } catch (e) {
+      _snackbarService.showSnackbar(
+        message: 'Unable to logout. Please try again.',
+      );
+    } finally {
+      setBusy(false);
+    }
   }
 
   List<ProfileOptionModel> get accountOption => [
@@ -23,9 +46,9 @@ class UserProfileViewModel extends BaseViewModel {
       ),
       title: "Manage Subscription",
       subtitle: "OneAI Pro",
-      onTap:() {
-    navigationService.navigateToSubscriptionView();
-  },
+      onTap: () {
+        navigationService.navigateToSubscriptionView();
+      },
     ),
 
     ProfileOptionModel(
@@ -209,7 +232,4 @@ class UserProfileViewModel extends BaseViewModel {
       onTap: () {},
     ),
   ];
-
-  
-  
 }

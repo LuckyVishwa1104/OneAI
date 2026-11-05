@@ -47,7 +47,15 @@ class UserProfileView extends StatelessWidget {
                   AppSpacing.h16,
                   ProfileSection(title: "About", options: model.aboutOptions),
 
-                  // AppSpacing.h16,
+                  AppSpacing.h16,
+                  AppButton(
+                    onTap: model.isBusy ? null : model.logout,
+                    title: 'Logout',
+                    expanded: true,
+                    isPrimary: true,
+                    isLoading: model.isBusy,
+                    icon: Icons.logout_outlined,
+                  ),
                 ],
               ),
             ),
