@@ -5,4 +5,5 @@ class ApiEndpoint {
   static const googleAuth = '/auth/google';
   static const login = '/auth/login';
   static const currentUser = '/auth/me';
+  static const appleAuth = '/auth/apple';
 }
