@@ -17,10 +17,20 @@ class UserProfileViewModel extends BaseViewModel {
     navigationService.navigateToSubscriptionView();
   }
 
-  bool isToggle = false;
+  // Separate state for each toggle
+  bool _isMemoryOn = false;
+  bool _isChatHistoryOn = true;
 
-  void toggleChange(bool value) {
-    isToggle = value;
+  bool get isMemoryOn => _isMemoryOn;
+  bool get isChatHistoryOn => _isChatHistoryOn;
+
+  void toggleMemory(bool value) {
+    _isMemoryOn = value;
+    notifyListeners(); // rebuilds the view -> getter re-runs -> toggle updates
+  }
+
+  void toggleChatHistory(bool value) {
+    _isChatHistoryOn = value;
     notifyListeners();
   }
 
@@ -145,7 +155,7 @@ class UserProfileViewModel extends BaseViewModel {
     ),
   ];
 
-  late List<ProfileOptionModel> chatSettingOptions = [
+  List<ProfileOptionModel> get chatSettingOptions => [
     ProfileOptionModel(
       optionIcon: LogoTile(
         isLogo: false,
@@ -154,10 +164,8 @@ class UserProfileViewModel extends BaseViewModel {
         iconSize: 24,
       ),
       title: "Memory",
-      trailing: AppToggle(
-        value: isToggle,
-        onChanged: toggleChange,
-      ),
+      trailing: AppToggle(value: _isMemoryOn, onChanged: toggleMemory),
+
       onTap: () {},
     ),
 
@@ -170,8 +178,8 @@ class UserProfileViewModel extends BaseViewModel {
       ),
       title: "Chat History",
       trailing: AppToggle(
-        value: isToggle,
-        onChanged: toggleChange,
+        value: _isChatHistoryOn,
+        onChanged: toggleChatHistory,
       ),
       // Switch(value: true, onChanged: (value) {}),
       onTap: () {},
