@@ -3,6 +3,7 @@ import 'package:one_ai/app/app.locator.dart';
 import 'package:one_ai/app/app.router.dart';
 import 'package:one_ai/model/profile_option_model.dart';
 import 'package:one_ai/services/auth/auth_service.dart';
+import 'package:one_ai/utility/components/common/app_toggle.dart';
 import 'package:one_ai/utility/components/common/logo_tile.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
@@ -14,6 +15,13 @@ class UserProfileViewModel extends BaseViewModel {
 
   void userProfile() {
     navigationService.navigateToSubscriptionView();
+  }
+
+  bool isToggle = false;
+
+  void toggleChange(bool value) {
+    isToggle = value;
+    notifyListeners();
   }
 
   Future<void> logout() async {
@@ -137,7 +145,7 @@ class UserProfileViewModel extends BaseViewModel {
     ),
   ];
 
-  List<ProfileOptionModel> chatSettingOptions = [
+  late List<ProfileOptionModel> chatSettingOptions = [
     ProfileOptionModel(
       optionIcon: LogoTile(
         isLogo: false,
@@ -146,7 +154,10 @@ class UserProfileViewModel extends BaseViewModel {
         iconSize: 24,
       ),
       title: "Memory",
-      trailing: Switch(value: true, onChanged: (value) {}),
+      trailing: AppToggle(
+        value: isToggle,
+        onChanged: toggleChange,
+      ),
       onTap: () {},
     ),
 
@@ -158,7 +169,11 @@ class UserProfileViewModel extends BaseViewModel {
         iconSize: 24,
       ),
       title: "Chat History",
-      trailing: Switch(value: true, onChanged: (value) {}),
+      trailing: AppToggle(
+        value: isToggle,
+        onChanged: toggleChange,
+      ),
+      // Switch(value: true, onChanged: (value) {}),
       onTap: () {},
     ),
 
