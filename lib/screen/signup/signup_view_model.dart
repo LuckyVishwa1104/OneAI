@@ -3,6 +3,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:one_ai/app/app.locator.dart';
 import 'package:one_ai/app/app.router.dart';
 import 'package:one_ai/services/auth/auth_service.dart';
+import 'package:one_ai/utility/components/common/app_snackbar.dart';
 import 'package:stacked/stacked.dart';
 import 'dart:async';
 import 'package:flutter/material.dart';
@@ -15,7 +16,8 @@ enum AuthProvider { google, apple }
 class SignupViewModel extends BaseViewModel {
   final navigationService = locator<NavigationService>();
   final authService = locator<AuthService>();
-  final snackbarService = locator<SnackbarService>();
+  // final snackbarService = locator<SnackbarService>();
+  final AppSnackbar _snackbarService = locator<AppSnackbar>();
 
   final List<Color> rainbowColors = [
     Color(0xFFFFC9C9), // Pastel Red
@@ -102,7 +104,7 @@ class SignupViewModel extends BaseViewModel {
         throw Exception('Google authentication did not return a user.');
       }
 
-      snackbarService.showSnackbar(message: 'Welcome to OneAI!');
+      _snackbarService.show(message: 'Welcome to OneAI!');
 
       await navigationService.clearStackAndShow(Routes.homeView);
     } on GoogleSignInException catch (e) {
@@ -138,7 +140,7 @@ class SignupViewModel extends BaseViewModel {
     try {
       await authService.signInWithApple();
 
-      snackbarService.showSnackbar(message: 'Welcome to OneAI!');
+      _snackbarService.show(message: 'Welcome to OneAI!');
 
       await navigationService.clearStackAndShow(Routes.homeView);
     } on SignInWithAppleAuthorizationException catch (e) {
@@ -164,7 +166,7 @@ class SignupViewModel extends BaseViewModel {
   }
 
   void _showError(String message) {
-    snackbarService.showSnackbar(message: message);
+    _snackbarService.show(message: message);
   }
 
   void _startTypingEffect() {

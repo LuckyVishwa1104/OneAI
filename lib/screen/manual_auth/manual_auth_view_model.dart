@@ -4,6 +4,7 @@ import 'package:one_ai/app/app.locator.dart';
 import 'package:one_ai/app/app.router.dart';
 import 'package:one_ai/services/api/user/user_api_service.dart';
 import 'package:one_ai/services/auth/auth_service.dart';
+import 'package:one_ai/utility/components/common/app_snackbar.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -12,7 +13,7 @@ enum ManualAuthMode { signup, login }
 class ManualAuthViewModel extends BaseViewModel {
   final AuthService _authService = locator<AuthService>();
   final UserApiService _userApiService = locator<UserApiService>();
-  final SnackbarService _snackbarService = locator<SnackbarService>();
+  final AppSnackbar _snackbarService = locator<AppSnackbar>();
   final NavigationService _navigationService = locator<NavigationService>();
 
   final formKey = GlobalKey<FormState>();
@@ -22,7 +23,7 @@ class ManualAuthViewModel extends BaseViewModel {
   final passwordController = TextEditingController();
   final confirmPasswordController = TextEditingController();
 
-  ManualAuthMode _mode = ManualAuthMode.signup;
+  ManualAuthMode _mode = ManualAuthMode.login;
 
   ManualAuthMode get mode => _mode;
 
@@ -136,9 +137,7 @@ class ManualAuthViewModel extends BaseViewModel {
         confirmPassword: confirmPasswordController.text,
       );
 
-      _snackbarService.showSnackbar(
-        message: 'Account created successfully. Please sign in.',
-      );
+      _snackbarService.show(message: 'Account created successfully. Please sign in.');
 
       // Preserve User ID for convenient signin.
       final registeredUserId = userIdController.text.trim();
@@ -155,7 +154,7 @@ class ManualAuthViewModel extends BaseViewModel {
       _obscurePassword = true;
       _obscureConfirmPassword = true;
     } catch (error) {
-      _snackbarService.showSnackbar(message: _getErrorMessage(error));
+      _snackbarService.show(message: _getErrorMessage(error));
     } finally {
       setBusy(false);
     }
@@ -172,12 +171,12 @@ class ManualAuthViewModel extends BaseViewModel {
         password: passwordController.text,
       );
 
-      _snackbarService.showSnackbar(message: 'Welcome back!');
+      _snackbarService.show(message: 'Welcome back!');
 
       // Navigation will be added using your actual home route.
       await _navigationService.clearStackAndShow(Routes.homeView);
     } catch (error) {
-      _snackbarService.showSnackbar(message: _getErrorMessage(error));
+      _snackbarService.show(message: _getErrorMessage(error));
     } finally {
       setBusy(false);
     }

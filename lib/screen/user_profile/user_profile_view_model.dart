@@ -3,6 +3,7 @@ import 'package:one_ai/app/app.locator.dart';
 import 'package:one_ai/app/app.router.dart';
 import 'package:one_ai/model/profile_option_model.dart';
 import 'package:one_ai/services/auth/auth_service.dart';
+import 'package:one_ai/utility/components/common/app_snackbar.dart';
 import 'package:one_ai/utility/components/common/app_toggle.dart';
 import 'package:one_ai/utility/components/common/logo_tile.dart';
 import 'package:stacked/stacked.dart';
@@ -11,7 +12,7 @@ import 'package:stacked_services/stacked_services.dart';
 class UserProfileViewModel extends BaseViewModel {
   final navigationService = locator<NavigationService>();
   final _authService = locator<AuthService>();
-  final _snackbarService = locator<SnackbarService>();
+  final AppSnackbar _snackbarService = locator<AppSnackbar>();
 
   void userProfile() {
     navigationService.navigateToSubscriptionView();
@@ -44,11 +45,10 @@ class UserProfileViewModel extends BaseViewModel {
 
       await navigationService.clearStackAndShow(Routes.signupView);
 
-      _snackbarService.showSnackbar(message: 'Logged out successfully.');
+      _snackbarService.show(message: 'Logged out successfully.');
+      // show(message: 'Logged out successfully.');
     } catch (e) {
-      _snackbarService.showSnackbar(
-        message: 'Unable to logout. Please try again.',
-      );
+      _snackbarService.show(message: 'Unable to logout. Please try again.');
     } finally {
       setBusy(false);
     }
