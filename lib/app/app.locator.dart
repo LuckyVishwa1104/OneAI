@@ -19,6 +19,7 @@ import '../services/auth/auth_service.dart';
 import '../services/model_selection_service.dart';
 import '../services/theme_service.dart';
 import '../services/token_storage_service.dart';
+import '../utility/components/common/app_snackbar.dart';
 
 final locator = StackedLocator.instance;
 
@@ -43,4 +44,5 @@ Future<void> setupLocator({
   locator.registerLazySingleton(() => ApiClient());
   locator.registerLazySingleton(() => UserApiService());
   locator.registerLazySingleton(() => AuthService());
+  locator.registerLazySingleton(() => AppSnackbar());
 }
