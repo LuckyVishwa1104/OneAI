@@ -33,14 +33,6 @@ class ProjectView extends StatelessWidget {
                         ),
                         textInputAction: TextInputAction.search,
                       )
-                      // AppTextField(
-                      //   controller: model.searchController,
-                      //   // focusNode: searchFocusNode,
-                      //   leadingIcon: Icons.search,
-                      //   hintText: 'Search projects',
-                      //   height: 56,
-                      //   borderRadius: BorderRadius.circular(30),
-                      // )
                       : SizedBox(),
                   AppSpacing.h8,
 
