@@ -2,6 +2,7 @@ import 'package:firebase_auth/firebase_auth.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:one_ai/app/app.locator.dart';
 import 'package:one_ai/app/app.router.dart';
+import 'package:one_ai/model/enums/snackbar_type.dart';
 import 'package:one_ai/services/auth/auth_service.dart';
 import 'package:one_ai/utility/components/common/app_snackbar.dart';
 import 'package:stacked/stacked.dart';
@@ -104,7 +105,7 @@ class SignupViewModel extends BaseViewModel {
         throw Exception('Google authentication did not return a user.');
       }
 
-      _snackbarService.show(message: 'Welcome to OneAI!');
+      _snackbarService.show(message: 'Welcome to OneAI!', type: SnackbarType.success);
 
       await navigationService.clearStackAndShow(Routes.homeView);
     } on GoogleSignInException catch (e) {
@@ -140,7 +141,7 @@ class SignupViewModel extends BaseViewModel {
     try {
       await authService.signInWithApple();
 
-      _snackbarService.show(message: 'Welcome to OneAI!');
+      _snackbarService.show(message: 'Welcome to OneAI!', type: SnackbarType.success);
 
       await navigationService.clearStackAndShow(Routes.homeView);
     } on SignInWithAppleAuthorizationException catch (e) {
@@ -166,7 +167,7 @@ class SignupViewModel extends BaseViewModel {
   }
 
   void _showError(String message) {
-    _snackbarService.show(message: message);
+    _snackbarService.show(message: message, type: SnackbarType.error);
   }
 
   void _startTypingEffect() {
