@@ -2,15 +2,56 @@ import 'package:flutter/material.dart';
 import 'package:one_ai/app/app.locator.dart';
 import 'package:one_ai/app/app.router.dart';
 import 'package:one_ai/model/profile_option_model.dart';
+import 'package:one_ai/services/auth/auth_service.dart';
+import 'package:one_ai/utility/components/common/app_snackbar.dart';
+import 'package:one_ai/utility/components/common/app_toggle.dart';
 import 'package:one_ai/utility/components/common/logo_tile.dart';
 import 'package:stacked/stacked.dart';
 import 'package:stacked_services/stacked_services.dart';
 
 class UserProfileViewModel extends BaseViewModel {
   final navigationService = locator<NavigationService>();
+  final _authService = locator<AuthService>();
+  final AppSnackbar _snackbarService = locator<AppSnackbar>();
 
   void userProfile() {
     navigationService.navigateToSubscriptionView();
+  }
+
+  // Separate state for each toggle
+  bool _isMemoryOn = false;
+  bool _isChatHistoryOn = true;
+
+  bool get isMemoryOn => _isMemoryOn;
+  bool get isChatHistoryOn => _isChatHistoryOn;
+
+  void toggleMemory(bool value) {
+    _isMemoryOn = value;
+    notifyListeners(); // rebuilds the view -> getter re-runs -> toggle updates
+  }
+
+  void toggleChatHistory(bool value) {
+    _isChatHistoryOn = value;
+    notifyListeners();
+  }
+
+  Future<void> logout() async {
+    if (isBusy) return;
+
+    setBusy(true);
+
+    try {
+      await _authService.signOut();
+
+      await navigationService.clearStackAndShow(Routes.signupView);
+
+      _snackbarService.show(message: 'Logged out successfully.');
+      // show(message: 'Logged out successfully.');
+    } catch (e) {
+      _snackbarService.show(message: 'Unable to logout. Please try again.');
+    } finally {
+      setBusy(false);
+    }
   }
 
   List<ProfileOptionModel> get accountOption => [
@@ -23,9 +64,9 @@ class UserProfileViewModel extends BaseViewModel {
       ),
       title: "Manage Subscription",
       subtitle: "OneAI Pro",
-      onTap:() {
-    navigationService.navigateToSubscriptionView();
-  },
+      onTap: () {
+        navigationService.navigateToSubscriptionView();
+      },
     ),
 
     ProfileOptionModel(
@@ -114,7 +155,7 @@ class UserProfileViewModel extends BaseViewModel {
     ),
   ];
 
-  List<ProfileOptionModel> chatSettingOptions = [
+  List<ProfileOptionModel> get chatSettingOptions => [
     ProfileOptionModel(
       optionIcon: LogoTile(
         isLogo: false,
@@ -123,7 +164,8 @@ class UserProfileViewModel extends BaseViewModel {
         iconSize: 24,
       ),
       title: "Memory",
-      trailing: Switch(value: true, onChanged: (value) {}),
+      trailing: AppToggle(value: _isMemoryOn, onChanged: toggleMemory),
+
       onTap: () {},
     ),
 
@@ -135,7 +177,11 @@ class UserProfileViewModel extends BaseViewModel {
         iconSize: 24,
       ),
       title: "Chat History",
-      trailing: Switch(value: true, onChanged: (value) {}),
+      trailing: AppToggle(
+        value: _isChatHistoryOn,
+        onChanged: toggleChatHistory,
+      ),
+      // Switch(value: true, onChanged: (value) {}),
       onTap: () {},
     ),
 
@@ -209,7 +255,4 @@ class UserProfileViewModel extends BaseViewModel {
       onTap: () {},
     ),
   ];
-
-  
-  
 }
