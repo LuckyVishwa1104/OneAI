@@ -2,6 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:one_ai/app/app.locator.dart';
 import 'package:one_ai/app/app.router.dart';
+import 'package:one_ai/app/app_keys.dart';
 import 'package:one_ai/app/dialog_manager.dart';
 import 'package:one_ai/app/app_theme.dart';
 import 'package:one_ai/firebase_options.dart';
@@ -37,6 +38,7 @@ class MyApp extends StatelessWidget {
             themeMode: model.themeMode, // ← reactive
             navigatorKey: StackedService.navigatorKey,
             onGenerateRoute: StackedRouter().onGenerateRoute,
+            scaffoldMessengerKey: AppKeys.scaffoldMessengerKey,
           ),
     );
   }

@@ -13,6 +13,7 @@ import 'package:one_ai/services/auth/auth_service.dart';
 import 'package:one_ai/services/model_selection_service.dart';
 import 'package:one_ai/services/theme_service.dart';
 import 'package:one_ai/services/token_storage_service.dart';
+import 'package:one_ai/utility/components/common/app_snackbar.dart';
 import 'package:stacked/stacked_annotations.dart';
 import 'package:stacked_services/stacked_services.dart';
 
@@ -39,6 +40,7 @@ import 'package:stacked_services/stacked_services.dart';
     LazySingleton(classType: ApiClient),
     LazySingleton(classType: UserApiService),
     LazySingleton(classType: AuthService),
+    LazySingleton(classType: AppSnackbar),
   ],
 )
 class App {}

@@ -11,6 +11,8 @@ import 'dart:math';
 import 'package:crypto/crypto.dart';
 import 'package:sign_in_with_apple/sign_in_with_apple.dart';
 
+enum AuthMethod { google, apple, manual }
+
 class AuthService {
   AuthService({ApiClient? apiClient, TokenStorageService? tokenStorageService})
     : _apiClient = apiClient ?? locator<ApiClient>(),
@@ -77,6 +79,7 @@ class AuthService {
 
       // 5. Store the OneAI JWT securely.
       await _tokenStorageService.saveAccessToken(accessToken);
+      await _tokenStorageService.saveAuthMethod(AuthMethod.google.name);
 
       return user;
     } on DioException {
@@ -155,6 +158,7 @@ class AuthService {
 
       // 7. Store OneAI JWT securely.
       await _tokenStorageService.saveAccessToken(accessToken);
+      await _tokenStorageService.saveAuthMethod(AuthMethod.apple.name);
 
       return responseData;
     } on DioException {
@@ -162,12 +166,6 @@ class AuthService {
     } on SignInWithAppleAuthorizationException {
       rethrow;
     }
-  }
-
-  Future<void> signOut() async {
-    await _tokenStorageService.deleteAccessToken();
-    await _googleSignIn.signOut();
-    await _firebaseAuth.signOut();
   }
 
   Future<Map<String, dynamic>> signInWithPassword({
@@ -193,10 +191,47 @@ class AuthService {
       }
 
       await _tokenStorageService.saveAccessToken(accessToken);
+      await _tokenStorageService.saveAuthMethod(AuthMethod.manual.name);
 
       return data;
     } on DioException {
       rethrow;
+    }
+  }
+
+  Future<void> signOut() async {
+    final authMethod = await _tokenStorageService.getAuthMethod();
+
+    try {
+      switch (authMethod) {
+        case 'google':
+          try {
+            await _googleSignIn.signOut();
+          } finally {
+            await _firebaseAuth.signOut();
+          }
+          break;
+
+        case 'apple':
+          // Apple authentication is handled directly
+          // through NestJS in the current implementation.
+          // No Firebase or Apple SDK sign-out is required.
+          break;
+
+        case 'manual':
+          // Manual authentication uses only the OneAI JWT.
+          break;
+
+        default:
+          // Fallback for older sessions without saved provider.
+          await _firebaseAuth.signOut();
+          break;
+      }
+    } finally {
+      // Always clear the local authentication session,
+      // even if provider sign-out encounters an error.
+      await _tokenStorageService.deleteAccessToken();
+      await _tokenStorageService.deleteAuthMethod();
     }
   }
 

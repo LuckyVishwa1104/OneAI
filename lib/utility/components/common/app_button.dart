@@ -1,5 +1,6 @@
 
 import 'package:flutter/material.dart';
+import 'package:one_ai/utility/components/common/app_icon.dart';
 import 'package:one_ai/utility/constants/constant.dart';
 
 class AppButton extends StatelessWidget {
@@ -83,11 +84,13 @@ class AppButton extends StatelessWidget {
       if (leading != null) {
         buttonLeading = leading!;
       } else if (icon != null) {
-        buttonLeading = Icon(
-          icon,
-          size: 20,
-          color: effectiveForeground,
-        );
+        buttonLeading = 
+        AppIcon(icon: icon!, size: 20, color: effectiveDotColor,);
+        // Icon(
+        //   icon,
+        //   size: 20,
+        //   color: effectiveForeground,
+        // );
       }
     }
 
