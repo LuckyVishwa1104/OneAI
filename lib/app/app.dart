@@ -5,6 +5,7 @@ import 'package:one_ai/screen/manual_auth/manual_auth_view.dart';
 import 'package:one_ai/screen/model_selection/model_select_view.dart';
 import 'package:one_ai/screen/project/project_view.dart';
 import 'package:one_ai/screen/signup/signup_view.dart';
+import 'package:one_ai/screen/splash_screen/splash_screen_view.dart';
 import 'package:one_ai/screen/subscription/subscription_view.dart';
 import 'package:one_ai/screen/user_profile/user_profile_view.dart';
 import 'package:one_ai/services/api/network/api_client.dart';
@@ -28,6 +29,7 @@ import 'package:stacked_services/stacked_services.dart';
     MaterialRoute(page: ProjectView),
     MaterialRoute(page: AllChatView),
     MaterialRoute(page: ManualAuthView),
+    MaterialRoute(page: SplashScreenView),
   ],
   dependencies: [
     Singleton(classType: NavigationService),
