@@ -21,7 +21,7 @@ import 'package:stacked_services/stacked_services.dart';
 @StackedApp(
   routes: [
     MaterialRoute(page: HomeView),
-    MaterialRoute(page: SignupView, initial: true),
+    MaterialRoute(page: SignupView),
     MaterialRoute(page: ChatView),
     MaterialRoute(page: UserProfileView),
     MaterialRoute(page: ModelSelectView),
@@ -29,7 +29,7 @@ import 'package:stacked_services/stacked_services.dart';
     MaterialRoute(page: ProjectView),
     MaterialRoute(page: AllChatView),
     MaterialRoute(page: ManualAuthView),
-    MaterialRoute(page: SplashScreenView),
+    MaterialRoute(page: SplashScreenView, initial: true),
   ],
   dependencies: [
     Singleton(classType: NavigationService),
