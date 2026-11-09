@@ -129,7 +129,7 @@ class _RipplePainter extends CustomPainter {
   final double innerRadiusFactor;
 
   // ---- Fixed dot sizes: index 0 = INNER (largest) -> 2 = OUTER (smallest) --
-  static const _dotRadii = [6.0, 4.6, 3.3];
+  static const _dotRadii = [6.3, 4.9, 3.6];
 
   // Opacity at rest per layer.
   static const _restAlpha = [0.55, 0.45, 0.35];
