@@ -38,6 +38,7 @@ class MyApp extends StatelessWidget {
             themeMode: model.themeMode, // ← reactive
             navigatorKey: StackedService.navigatorKey,
             onGenerateRoute: StackedRouter().onGenerateRoute,
+            initialRoute: Routes.splashScreenView,
             scaffoldMessengerKey: AppKeys.scaffoldMessengerKey,
           ),
     );
