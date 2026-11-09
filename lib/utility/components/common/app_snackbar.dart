@@ -35,7 +35,7 @@ class AppSnackbar {
 
     switch (type) {
       case SnackbarType.success:
-        resolvedBackground = _successColor.withValues(alpha: 0.80);
+        resolvedBackground = _successColor.withValues(alpha: 0.85);
         resolvedBorderColor = _successColor;
         resolvedTextColor = Colors.white;
         leadingIcon = Icons.check_rounded;

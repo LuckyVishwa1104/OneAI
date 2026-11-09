@@ -1,4 +1,3 @@
-
 import 'package:flutter/material.dart';
 import 'package:one_ai/utility/components/common/app_icon.dart';
 import 'package:one_ai/utility/constants/constant.dart';
@@ -56,17 +55,18 @@ class AppButton extends StatelessWidget {
         isPrimary ? AppColors.appWhite : theme.colorScheme.primary;
 
     final gradient = LinearGradient(
-      colors: isPrimary
-          ? [AppColors.primary, AppColors.secondary]
-          : theme.brightness == Brightness.dark
+      colors:
+          isPrimary
+              ? [AppColors.primary, AppColors.secondary]
+              : theme.brightness == Brightness.dark
               ? [
-                  AppColors.gradientSubtleDarkStart,
-                  AppColors.gradientSubtleDarkEnd,
-                ]
+                AppColors.gradientSubtleDarkStart,
+                AppColors.gradientSubtleDarkEnd,
+              ]
               : [
-                  AppColors.gradientSubtleLightStart,
-                  AppColors.gradientSubtleLightEnd,
-                ],
+                AppColors.gradientSubtleLightStart,
+                AppColors.gradientSubtleLightEnd,
+              ],
     );
 
     final effectiveForeground = foregroundColor ?? defaultForeground;
@@ -74,7 +74,8 @@ class AppButton extends StatelessWidget {
     // On a primary (gradient) button, primary-colored dots would blend into
     // the background, so we use the foreground color there. On secondary
     // buttons the subtle background lets the primary color stand out.
-    final effectiveDotColor = loadingDotColor ??
+    final effectiveDotColor =
+        loadingDotColor ??
         (isPrimary ? effectiveForeground : AppColors.primary);
 
     final isDisabled = onTap == null || isLoading;
@@ -84,8 +85,11 @@ class AppButton extends StatelessWidget {
       if (leading != null) {
         buttonLeading = leading!;
       } else if (icon != null) {
-        buttonLeading = 
-        AppIcon(icon: icon!, size: 20, color: effectiveDotColor,);
+        buttonLeading = AppIcon(
+          icon: icon!,
+          size: 20,
+          color: effectiveDotColor,
+        );
         // Icon(
         //   icon,
         //   size: 20,
@@ -117,37 +121,39 @@ class AppButton extends StatelessWidget {
             duration: const Duration(milliseconds: 200),
             switchInCurve: Curves.easeOut,
             switchOutCurve: Curves.easeIn,
-            child: isLoading
-                ? KeyedSubtree(
-                    key: const ValueKey('loading'),
-                    child: loadingWidget ??
-                        _BouncingDots(color: effectiveDotColor),
-                  )
-                : Row(
-                    key: const ValueKey('content'),
-                    mainAxisSize:
-                        expanded ? MainAxisSize.max : MainAxisSize.min,
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    children: [
-                      if (buttonLeading != null) ...[
-                        buttonLeading,
-                        AppSpacing.w8,
-                      ],
-                      Flexible(
-                        child: Text(
-                          title,
-                          maxLines: 1,
-                          overflow: TextOverflow.ellipsis,
-                          style: TextStyle(
-                            fontSize: 16,
-                            fontWeight: FontWeight.w500,
-                            height: 1.45,
-                            color: effectiveForeground,
+            child:
+                isLoading
+                    ? KeyedSubtree(
+                      key: const ValueKey('loading'),
+                      child:
+                          loadingWidget ??
+                          _BouncingDots(color: effectiveDotColor),
+                    )
+                    : Row(
+                      key: const ValueKey('content'),
+                      mainAxisSize:
+                          expanded ? MainAxisSize.max : MainAxisSize.min,
+                      mainAxisAlignment: MainAxisAlignment.center,
+                      children: [
+                        if (buttonLeading != null) ...[
+                          buttonLeading,
+                          AppSpacing.w8,
+                        ],
+                        Flexible(
+                          child: Text(
+                            title,
+                            maxLines: 1,
+                            overflow: TextOverflow.ellipsis,
+                            style: TextStyle(
+                              fontSize: 16,
+                              fontWeight: FontWeight.w500,
+                              height: 1.45,
+                              color: effectiveForeground,
+                            ),
                           ),
                         ),
-                      ),
-                    ],
-                  ),
+                      ],
+                    ),
           ),
         ),
       ),
@@ -158,14 +164,8 @@ class AppButton extends StatelessWidget {
 /// Three dots that bounce one after another.
 class _BouncingDots extends StatefulWidget {
   final Color color;
-  final double dotSize;
-  final double bounceHeight;
 
-  const _BouncingDots({
-    required this.color,
-    this.dotSize = 10,
-    this.bounceHeight = 6,
-  });
+  const _BouncingDots({required this.color});
 
   @override
   State<_BouncingDots> createState() => _BouncingDotsState();
@@ -173,6 +173,8 @@ class _BouncingDots extends StatefulWidget {
 
 class _BouncingDotsState extends State<_BouncingDots>
     with SingleTickerProviderStateMixin {
+  static const double _dotSize = 10;
+  static const double _bounceHeight = 6;
   late final AnimationController _controller;
 
   @override
@@ -197,43 +199,45 @@ class _BouncingDotsState extends State<_BouncingDots>
     final end = start + 0.5;
     return TweenSequence<double>([
       TweenSequenceItem(
-        tween: Tween(begin: 0.0, end: -1.0)
-            .chain(CurveTween(curve: Curves.easeOut)),
+        tween: Tween(
+          begin: 0.0,
+          end: -1.0,
+        ).chain(CurveTween(curve: Curves.easeOut)),
         weight: 50,
       ),
       TweenSequenceItem(
-        tween: Tween(begin: -1.0, end: 0.0)
-            .chain(CurveTween(curve: Curves.easeIn)),
+        tween: Tween(
+          begin: -1.0,
+          end: 0.0,
+        ).chain(CurveTween(curve: Curves.easeIn)),
         weight: 50,
       ),
     ]).animate(
-      CurvedAnimation(
-        parent: _controller,
-        curve: Interval(start, end),
-      ),
+      CurvedAnimation(parent: _controller, curve: Interval(start, end)),
     );
   }
 
   @override
   Widget build(BuildContext context) {
     return SizedBox(
-      height: widget.dotSize + widget.bounceHeight,
+      height: _dotSize + _bounceHeight,
       child: Row(
         mainAxisSize: MainAxisSize.min,
         crossAxisAlignment: CrossAxisAlignment.end,
         children: List.generate(3, (index) {
           final animation = _dotAnimation(index);
           return Padding(
-            padding: EdgeInsets.symmetric(horizontal: widget.dotSize * 0.35),
+            padding: EdgeInsets.symmetric(horizontal: _dotSize * 0.35),
             child: AnimatedBuilder(
               animation: animation,
-              builder: (_, child) => Transform.translate(
-                offset: Offset(0, animation.value * widget.bounceHeight),
-                child: child,
-              ),
+              builder:
+                  (_, child) => Transform.translate(
+                    offset: Offset(0, animation.value * _bounceHeight),
+                    child: child,
+                  ),
               child: Container(
-                width: widget.dotSize,
-                height: widget.dotSize,
+                width: _dotSize,
+                height: _dotSize,
                 decoration: BoxDecoration(
                   color: widget.color,
                   shape: BoxShape.circle,
@@ -246,4 +250,3 @@ class _BouncingDotsState extends State<_BouncingDots>
     );
   }
 }
-
