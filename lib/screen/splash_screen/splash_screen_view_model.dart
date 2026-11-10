@@ -10,7 +10,7 @@ class SplashScreenViewModel extends BaseViewModel {
   final _tokenStorage = locator<TokenStorageService>();
 
   // Keep the splash visible long enough for the animation to be seen.
-  static const _minSplashDuration = Duration(milliseconds: 3000);
+  static const _minSplashDuration = Duration(milliseconds: 2300);
   // Hard ceiling so a slow secure-storage read never traps the user.
   static const _sessionCheckTimeout = Duration(seconds: 3);
 
