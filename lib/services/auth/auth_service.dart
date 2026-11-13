@@ -1,5 +1,7 @@
 import 'package:dio/dio.dart';
 import 'package:firebase_auth/firebase_auth.dart';
+import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:google_sign_in/google_sign_in.dart';
 import 'package:one_ai/app/app.locator.dart';
 import 'package:one_ai/services/api/network/api_client.dart';
@@ -54,6 +56,12 @@ class AuthService {
 
       // 3. Get the Firebase ID token from the authenticated Firebase user.
       final String? firebaseIdToken = await user.getIdToken();
+
+      // final String? idToken = await user.getIdToken(true);
+      // if (idToken != null) {
+      //   await Clipboard.setData(ClipboardData(text: idToken));
+      //   debugPrint('Token copied. length=${idToken.length}');
+      // }
 
       if (firebaseIdToken == null || firebaseIdToken.isEmpty) {
         throw Exception('Unable to retrieve Firebase ID token.');

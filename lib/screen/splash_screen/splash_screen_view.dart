@@ -23,7 +23,7 @@ class SplashScreenView extends StatelessWidget {
               size: 240,
               child: ClipOval(
                 child: Image.asset(
-                  'assets/icons/one_ai_ios.png',
+                  'assets/icons/one_ai_splash.png',
                   height: 72,
                   width: 72,
                   fit: BoxFit.cover,

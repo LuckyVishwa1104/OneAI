@@ -1,12 +1,23 @@
+import 'dart:async';
+
 import 'package:flutter/material.dart';
-import 'package:one_ai/app/app_keys.dart';
 import 'package:one_ai/model/enums/snackbar_type.dart';
 import 'package:one_ai/utility/constants/constant.dart';
+import 'package:stacked_services/stacked_services.dart';
 
 class AppSnackbar {
-  // Base accent colors (used for border + tinted background)
-  static const Color _successColor = Color(0xFF22C55E); // green-500
-  static const Color _errorColor = Color(0xFFEF4444); // red-500
+  static const Color _successColor = Color(0xFF22C55E);
+  static const Color _errorColor = Color(0xFFEF4444);
+
+  static OverlayEntry? _entry;
+  static Timer? _timer;
+
+  static void _dismiss() {
+    _timer?.cancel();
+    _timer = null;
+    _entry?.remove();
+    _entry = null;
+  }
 
   void show({
     required String message,
@@ -19,19 +30,18 @@ class AppSnackbar {
     Duration duration = const Duration(seconds: 3),
     SnackbarType type = SnackbarType.normal,
   }) {
-    final messenger = AppKeys.scaffoldMessengerKey.currentState;
-    if (messenger == null) return;
+    final overlay = StackedService.navigatorKey?.currentState?.overlay;
+    if (overlay == null) return;
 
-    final context = messenger.context;
+    final context = overlay.context;
     final theme = Theme.of(context);
 
-    messenger.hideCurrentSnackBar();
+    _dismiss(); // replaces hideCurrentSnackBar()
 
-    // Resolve colors per type
     Color resolvedBackground;
     Color resolvedBorderColor;
-    Color? resolvedTextColor; // null => fall back to theme text styles
-    IconData? leadingIcon; // null => no icon (normal type)
+    Color? resolvedTextColor;
+    IconData? leadingIcon;
 
     switch (type) {
       case SnackbarType.success:
@@ -54,84 +64,105 @@ class AppSnackbar {
         break;
     }
 
-    // Allow caller overrides
     resolvedBackground = backgroundColor ?? resolvedBackground;
 
-    // Text styles (white for success/error, theme default for normal)
-    final effectiveTitleStyle =
-        titleStyle ??
-        AppTextStyles.heading(
-          context,
-        ).copyWith(fontSize: 16, color: resolvedTextColor);
-
-    final effectiveMessageStyle =
-        textStyle ??
+    final effectiveTitleStyle = titleStyle ??
+        AppTextStyles.heading(context)
+            .copyWith(fontSize: 16, color: resolvedTextColor);
+    final effectiveMessageStyle = textStyle ??
         AppTextStyles.subHeading(context).copyWith(color: resolvedTextColor);
 
-    // Position at the top: push the snackbar up with a large bottom margin
-    final mediaQuery = MediaQuery.of(context);
-    final topInset = mediaQuery.padding.top; // status bar / notch
-    final estimatedHeight = title != null ? 96.0 : 68.0;
-    final bottomMargin =
-        mediaQuery.size.height - topInset - estimatedHeight - 12;
-
-    messenger.showSnackBar(
-      SnackBar(
-        content: Row(
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            if (leadingIcon != null) ...[
-              Container(
-                width: 36,
-                height: 36,
-                decoration: BoxDecoration(
-                  shape: BoxShape.circle,
-                  color: Colors.white.withValues(alpha: 0.2),
-                  border: Border.all(
-                    color: Colors.white.withValues(alpha: 0.25),
-                    width: 1,
-                  ),
-                ),
-                child: Icon(leadingIcon, color: Colors.white, size: 20),
-              ),
-              const SizedBox(width: 12),
-            ],
-            Expanded(
-              child: Column(
-                mainAxisSize: MainAxisSize.min,
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-                  if (title != null) ...[
-                    Text(
-                      title,
-                      style: effectiveTitleStyle,
-                      maxLines: 1,
-                      overflow: TextOverflow.ellipsis,
-                    ),
-                    AppSpacing.h4,
-                  ],
-                  Text(
-                    message,
-                    style: effectiveMessageStyle,
-                    maxLines: 2,
-                    overflow: TextOverflow.ellipsis,
-                  ),
-                ],
+    final content = Row(
+      crossAxisAlignment: CrossAxisAlignment.center,
+      children: [
+        if (leadingIcon != null) ...[
+          Container(
+            width: 36,
+            height: 36,
+            decoration: BoxDecoration(
+              shape: BoxShape.circle,
+              color: Colors.white.withValues(alpha: 0.2),
+              border: Border.all(
+                color: Colors.white.withValues(alpha: 0.25),
+                width: 1,
               ),
             ),
-          ],
+            child: Icon(leadingIcon, color: Colors.white, size: 20),
+          ),
+          const SizedBox(width: 12),
+        ],
+        Expanded(
+          child: Column(
+            mainAxisSize: MainAxisSize.min,
+            crossAxisAlignment: CrossAxisAlignment.start,
+            children: [
+              if (title != null) ...[
+                Text(
+                  title,
+                  style: effectiveTitleStyle,
+                  maxLines: 1,
+                  overflow: TextOverflow.ellipsis,
+                ),
+                AppSpacing.h4,
+              ],
+              Text(
+                message,
+                style: effectiveMessageStyle,
+                maxLines: 2,
+                overflow: TextOverflow.ellipsis,
+              ),
+            ],
+          ),
         ),
-        backgroundColor: resolvedBackground,
-        behavior: SnackBarBehavior.floating,
-        elevation: 0,
-        duration: duration,
-        dismissDirection: DismissDirection.up,
-        margin: EdgeInsets.only(left: 16, right: 16, bottom: bottomMargin),
-        shape: RoundedRectangleBorder(
-          borderRadius: BorderRadius.circular(borderRadius ?? AppConstant.lg),
-          side: border ?? BorderSide(color: resolvedBorderColor, width: 1.2),
+      ],
+    );
+
+    _entry = OverlayEntry(
+      builder: (_) => SafeArea(
+        child: Align(
+          alignment: Alignment.topCenter,
+          child: Padding(
+            padding: const EdgeInsets.fromLTRB(16, 12, 16, 0),
+            child: TweenAnimationBuilder<double>(
+              tween: Tween(begin: 0, end: 1),
+              duration: const Duration(milliseconds: 250),
+              curve: Curves.easeOut,
+              builder: (_, value, child) => Opacity(
+                opacity: value,
+                child: Transform.translate(
+                  offset: Offset(0, -24 * (1 - value)),
+                  child: child,
+                ),
+              ),
+              child: Dismissible(
+                key: UniqueKey(),
+                direction: DismissDirection.up,
+                onDismissed: (_) => _dismiss(),
+                child: Material(
+                  color: resolvedBackground,
+                  elevation: 0,
+                  shape: RoundedRectangleBorder(
+                    borderRadius:
+                        BorderRadius.circular(borderRadius ?? AppConstant.lg),
+                    side: border ??
+                        BorderSide(color: resolvedBorderColor, width: 1.2),
+                  ),
+                  child: Padding(
+                    padding: const EdgeInsets.symmetric(
+                      horizontal: 16,
+                      vertical: 14,
+                    ),
+                    child: content,
+                  ),
+                ),
+              ),
+            ),
+          ),
         ),
       ),
     );
+
+    overlay.insert(_entry!);
+    _timer = Timer(duration, _dismiss);
   }
 }
