@@ -17,7 +17,6 @@ enum AuthProvider { google, apple }
 class SignupViewModel extends BaseViewModel {
   final navigationService = locator<NavigationService>();
   final authService = locator<AuthService>();
-  // final snackbarService = locator<SnackbarService>();
   final AppSnackbar _snackbarService = locator<AppSnackbar>();
 
   final List<Color> rainbowColors = [
