@@ -1,4 +1,3 @@
-
 import 'package:dio/dio.dart';
 
 class ApiErrorHandler {
@@ -33,6 +32,9 @@ class ApiErrorHandler {
 
       case DioExceptionType.receiveTimeout:
         return 'The server is taking too long to respond. Please try again.';
+
+      case DioExceptionType.transformTimeout:
+        return 'Response processing timed out. Please try again.';
 
       case DioExceptionType.connectionError:
         return 'Unable to connect to the server. Check your internet connection.';
@@ -103,11 +105,12 @@ class ApiErrorHandler {
     }
 
     if (message is List && message.isNotEmpty) {
-      final messages = message
-          .whereType<String>()
-          .map((item) => item.trim())
-          .where((item) => item.isNotEmpty)
-          .toList();
+      final messages =
+          message
+              .whereType<String>()
+              .map((item) => item.trim())
+              .where((item) => item.isNotEmpty)
+              .toList();
 
       if (messages.isNotEmpty) {
         return messages.join('\n');
