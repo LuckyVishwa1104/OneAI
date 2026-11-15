@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:one_ai/app/app.locator.dart';
 import 'package:one_ai/app/app.router.dart';
 import 'package:one_ai/model/enums/snackbar_type.dart';
-import 'package:one_ai/services/api/user/user_api_service.dart';
+import 'package:one_ai/services/api/user_api_service.dart';
 import 'package:one_ai/services/auth/auth_service.dart';
 import 'package:one_ai/utility/components/common/app_snackbar.dart';
 import 'package:stacked/stacked.dart';
