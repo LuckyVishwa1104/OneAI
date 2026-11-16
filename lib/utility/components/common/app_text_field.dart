@@ -216,7 +216,7 @@ class _AppTextFieldState extends State<AppTextField> {
                   hint: animatedHint, 
                   prefixIcon:
                       widget.leadingIcon != null
-                          ? AppIcon(icon: widget.leadingIcon!)
+                          ? AppIcon(icon: widget.leadingIcon!, size: 22,)
                           : null,
                   suffixIcon: widget.trailing,
                   border: InputBorder.none,

@@ -110,7 +110,7 @@ class ManualAuthView extends StatelessWidget {
                         controller: model.confirmPasswordController,
                         hintText: 'Confirm Password',
                         focusedHintText: 'Re-enter your password',
-                        leadingIcon: Icons.lock_outline,
+                        leadingIcon: Icons.lock_person_outlined,
                         obscureText: model.obscureConfirmPassword,
                         keyboardType: TextInputType.visiblePassword,
                         textInputAction: TextInputAction.done,
