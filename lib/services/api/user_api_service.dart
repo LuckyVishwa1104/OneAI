@@ -26,7 +26,7 @@ class UserApiService {
     );
 
     if (response.data is! Map) {
-      throw Exception('Invalid registration response from server.');
+      throw const FormatException('Invalid registration response from server.');
     }
 
     return Map<String, dynamic>.from(response.data);
