@@ -3,6 +3,7 @@ import 'package:google_sign_in/google_sign_in.dart';
 import 'package:one_ai/app/app.locator.dart';
 import 'package:one_ai/app/app.router.dart';
 import 'package:one_ai/model/enums/snackbar_type.dart';
+import 'package:one_ai/services/api/network/api_error_handler.dart';
 import 'package:one_ai/services/auth/auth_service.dart';
 import 'package:one_ai/utility/components/common/app_snackbar.dart';
 import 'package:stacked/stacked.dart';
@@ -17,7 +18,6 @@ enum AuthProvider { google, apple }
 class SignupViewModel extends BaseViewModel {
   final navigationService = locator<NavigationService>();
   final authService = locator<AuthService>();
-  // final snackbarService = locator<SnackbarService>();
   final AppSnackbar _snackbarService = locator<AppSnackbar>();
 
   final List<Color> rainbowColors = [
@@ -63,35 +63,6 @@ class SignupViewModel extends BaseViewModel {
     navigationService.navigateToManualAuthView();
   }
 
-  String _getApiErrorMessage(DioException error) {
-    final responseData = error.response?.data;
-
-    if (responseData is Map) {
-      final message = responseData['message'];
-
-      if (message is String && message.isNotEmpty) {
-        return message;
-      }
-
-      if (message is List && message.isNotEmpty) {
-        return message.join('\n');
-      }
-    }
-
-    switch (error.type) {
-      case DioExceptionType.connectionTimeout:
-      case DioExceptionType.sendTimeout:
-      case DioExceptionType.receiveTimeout:
-        return 'Connection timed out. Please try again.';
-
-      case DioExceptionType.connectionError:
-        return 'Unable to connect to OneAI. Check your internet connection.';
-
-      default:
-        return 'Unable to authenticate with OneAI. Please try again.';
-    }
-  }
-
   Future<void> signInWithGoogle() async {
     if (isBusy) return;
 
@@ -105,7 +76,10 @@ class SignupViewModel extends BaseViewModel {
         throw Exception('Google authentication did not return a user.');
       }
 
-      _snackbarService.show(message: 'Welcome to OneAI!', type: SnackbarType.success);
+      _snackbarService.show(
+        message: 'Welcome to OneAI!',
+        type: SnackbarType.success,
+      );
 
       await navigationService.clearStackAndShow(Routes.homeView);
     } on GoogleSignInException catch (e) {
@@ -118,11 +92,9 @@ class SignupViewModel extends BaseViewModel {
       debugPrint('Firebase Auth error: ${e.code}');
       _showError('Authentication failed. Please try again.');
     } on DioException catch (e) {
-      debugPrint(
-        'Backend authentication failed. Status: ${e.response?.statusCode}',
-      );
+      debugPrint('Google backend authentication failed: $e');
 
-      _showError(_getApiErrorMessage(e));
+      _showError(ApiErrorHandler.getMessage(e));
     } catch (e) {
       debugPrint('Google authentication flow failed: $e');
       _showError('Something went wrong. Please try again.');
@@ -141,7 +113,10 @@ class SignupViewModel extends BaseViewModel {
     try {
       await authService.signInWithApple();
 
-      _snackbarService.show(message: 'Welcome to OneAI!', type: SnackbarType.success);
+      _snackbarService.show(
+        message: 'Welcome to OneAI!',
+        type: SnackbarType.success,
+      );
 
       await navigationService.clearStackAndShow(Routes.homeView);
     } on SignInWithAppleAuthorizationException catch (e) {
@@ -151,12 +126,9 @@ class SignupViewModel extends BaseViewModel {
         _showError('Apple sign-in failed. Please try again.');
       }
     } on DioException catch (e) {
-      debugPrint(
-        'Apple backend authentication failed. '
-        'Status: ${e.response?.statusCode}',
-      );
+      debugPrint('Apple backend authentication failed: $e');
 
-      _showError(_getApiErrorMessage(e));
+      _showError(ApiErrorHandler.getMessage(e));
     } catch (e) {
       debugPrint('Apple authentication flow failed: $e');
       _showError('Something went wrong. Please try again.');

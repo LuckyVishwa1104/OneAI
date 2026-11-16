@@ -9,7 +9,7 @@ import 'package:one_ai/screen/splash_screen/splash_screen_view.dart';
 import 'package:one_ai/screen/subscription/subscription_view.dart';
 import 'package:one_ai/screen/user_profile/user_profile_view.dart';
 import 'package:one_ai/services/api/network/api_client.dart';
-import 'package:one_ai/services/api/user/user_api_service.dart';
+import 'package:one_ai/services/api/user_api_service.dart';
 import 'package:one_ai/services/auth/auth_service.dart';
 import 'package:one_ai/services/model_selection_service.dart';
 import 'package:one_ai/services/theme_service.dart';
